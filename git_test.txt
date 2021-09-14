@@ -1,42 +1,41 @@
 깃 사용법
-
+------------------------------------------------------------------------
 git 사용자 등록 (코드 식별하기 위한것)
     git config user.name "abc" 아이디 
     git config user.email "abc@abc.com" 본인 깃허브 메일
-
-
-1) 상단메뉴 - 터미널(Terminal) - 새터미널(New Terminal)
-
-2) git init 입력
+1) git init 입력
 
 ※fatal: remote origin already exists 오류 발생시
     git remote rm origin 입력
 
-3) 터미널에 github의 Repository(저장소) 주소 입력
+2) 터미널에 github의 Repository(저장소) 주소 입력
     git remote add origin https://github.com/JAJU-Project/test.git 입력
 
-4) git remote -v        github의 Repository 주소를 확인으로 확인
+3) git remote -v        github의 Repository 주소를 확인으로 확인
         origin  https://github.com/JAJU-Project/store.git (fetch)
         origin  https://github.com/JAJU-Project/store.git (push)
     나오면 정상
+-------------------------------------------------------------------------
 
-2) 왼쪽 메뉴 돋보기 아래에 아이콘 눌러서 코드 변경사항 확인
+1) 상단메뉴 - 터미널(Terminal) - 새터미널(New Terminal)
 
-5) 변경된 파일 중 commit 할거 선택하기 + 버튼
+2) branch 생성
+    git branch abc
+    abc <- 본인이 사용할 branch 명
+
+3) 왼쪽 메뉴 돋보기 아래에 아이콘 눌러서 코드 변경사항 확인
+
+4) 변경된 파일 중 commit 할거 선택하기 + 버튼
     그럼 "스테이징된 변경사항"에 해당 파일 추가됨
     - 버튼 누르면 commit 대상에서 제외됨
 
-6) "스테이징된 변경사항" 위에 체크(V) 버튼 누르면 
+5) "스테이징된 변경사항" 위에 체크(V) 버튼 누르면 
     간단한 변경사항 메모 할 수 있는게 뜸 > 변경사항 작성 후 엔터
 
-7) git push origin main
-    main <- 이 부분은 브랜치 명 
-    
-8) git graph 확장 설치
-
-9) 하단에 Git Graph 누르면 변경사항 확인 가능
-
------------ Git 버전 관리 ---------
+6) git push origin main
+    main <- 이 부분에 브랜치 명  
+ 
+----------- Git 버전 관리(타임머신 기능이랄까) ---------
 (이해가 안가면 https://www.youtube.com/watch?v=P-UNibp1FHg&list=PLuHgQVnccGMAQvSVKdXFiOo51HUD8iQQm&index=6 한번 보는게 나을듯)
 
 1) 가고 싶은 commit id 를 입력하면 해당 버전(시점)으로 돌아갈 수 있음
@@ -46,9 +45,9 @@ git 사용자 등록 (코드 식별하기 위한것)
 
 
 
-
 확장에서 
 github 설치
 
 test1 입니다.
 test2 입니다.
+test3 입니다.
