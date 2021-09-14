@@ -1,7 +1,5 @@
 package last.project.store.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -19,17 +17,6 @@ public class RedirectController { // 페이지 이동 담당.
     @GetMapping("sign_up.do") // 회원가입
     public String sign_up() {
         return "sign_up"; // 회원가입 페이지 이동.
-    }
-
-    @GetMapping("login.do") // 로그인
-    public String login() {
-        return "login"; // 로그인 페이지 이동
-    }
-
-    @GetMapping("logout.do") // 로그아웃
-    public String logout(HttpSession session) {
-        session.invalidate(); // 모든 세션 정보 삭제
-        return "redirect:/"; // index 페이지로 이동
     }
 
     @GetMapping("store_create.do") // 매장생성

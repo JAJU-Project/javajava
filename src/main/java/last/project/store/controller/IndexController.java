@@ -34,19 +34,8 @@ public class IndexController {
     private MenuService menuService;
     private BasketService basketService;
 
-    @GetMapping("basket.do")
-    public ModelAndView basket(HttpSession session) {
-        String kid = (String) session.getAttribute("email");
-        List<BasketVo> blist = basketService.selectByKid(kid);
-        log.info("#basket.do blist: " + blist);
-        ModelAndView mv = new ModelAndView("basket");
-        mv.addObject("blist", blist);
-        return mv;
-    }
-
     @GetMapping("kakao.do")
     public String kakaoString(HttpSession session, String scode, String kakao_account) {
-
         String test1 = (String) session.getAttribute("test1");
         log.info("#kakao.do test:" + test1);
         session.setAttribute("scode", scode);
@@ -56,108 +45,25 @@ public class IndexController {
         return "kakao_login";
         // return "redirect:storeMain.do";
     }
-
-    @GetMapping("storeMain.do")
-    public ModelAndView storeMain(HttpSession session) {
-
-        String email = (String) session.getAttribute("email");
-        String nickname = (String) session.getAttribute("nickname");
-
-        log.info("#storeMain.do email:" + email + ", nickname:" + nickname);
-
-        String scode = (String) session.getAttribute("scode");
-        log.info("#storeMain.do scode: " + scode);
-        ModelAndView mv = new ModelAndView("memberStore");
-        List<CategoryVo> clist = categoryService.selectAllByScode(scode);
-        List<MenuVo> mlist = menuService.selectBySucode(scode);
-        String sname = storeService.selectByScode(scode);
-        log.info("#storeMain.do clist: " + clist);
-        log.info("#storeMain.do mlist: " + mlist);
-        log.info("#storeMain.do sname: " + sname);
-        mv.addObject("scode", scode);
-        mv.addObject("clist", clist);
-        mv.addObject("mlist", mlist);
-        mv.addObject("sname", sname);
-        return mv;
-    }
-
-    @PostMapping("login.do")
-    public String login(String maid, String mapwd, HttpSession session) {
-        log.info("#login.do maid: " + maid + ", mapwd: " + mapwd);
-        String maname = managerService.selectByLogin(maid, mapwd);
-        if (maname != null) {
-            session.setAttribute("maid", maid);
-            log.info("#login.do 아이디및 비밀번호 일치");
-            return "redirect:store.do";
-        } else {
-            log.info("#login.do 아이디및 비밀번호 하지않음");
-        }
-        return null;
-    }
-
-    @GetMapping("store.do")
-    public ModelAndView store(HttpSession session) {
-        String maid = (String) session.getAttribute("maid");
-        List<StoreVo> list = storeService.selectByMaid(maid);
-        log.info("#store.do list:" + list);
-        ModelAndView mv = new ModelAndView("store");
-        mv.addObject("list", list);
-        return mv;
-    }
-
-    @PostMapping("store_create.do")
-    public String store_create(StoreVo storeVo, HttpSession session) {
-        String maid = (String) session.getAttribute("maid");
-        RandomCode random = new RandomCode();
-        char[] num = random.ran();
-        String scode = "";
-        if (num == null) {
-            log.info("num = null");
-        } else {
-            for (int i = 0; i < num.length; i++) {
-                scode += Character.toString(num[i]);
-            }
-            scode = scode.trim();
-            String sname = storeVo.getSname();
-            String sintro = storeVo.getSintro();
-            String sphone = storeVo.getSphone();
-            log.info("#store_create.do" + sname + ", " + sintro + ", " + sphone);
-            // log.info("#store_create.do num: " + num + ", length:" + num.length);
-            log.info("#store_create.do sucode: " + scode + ", length:" + scode.length() + "maid: " + maid);
-            storeVo.setMaid(maid);
-            storeVo.setScode(scode);
-            storeService.insertAll(storeVo);
-            return "redirect:store.do";
-        }
-        return null;
-    }
-
-    @GetMapping("management.do")
-    public ModelAndView storeMain(String scode, HttpSession session) {
-        session.setAttribute("scode", scode);
-        log.info("#management.do scode: " + scode);
-        String scodes = (String) session.getAttribute("scode");
-        log.info("#management.do session.scodes: " + scodes);
-        List<CategoryVo> list = categoryService.selectAllByScode(scode);
-        List<MenuVo> mList = menuService.selectBySucode(scode);
-        // List<String> cateforyname = categoryService.selectByScode(scode);
-        ModelAndView mv = new ModelAndView("managementMain");
-        /*
-         * for (int i = 0; i < cateforyname.size(); i++) {
-         * log.info("#management.do cateforyname:" + cateforyname.get(i)); List<String>
-         * menuList = menuService.selectBySucode(scode, cateforyname.get(i)); for (int j
-         * = 0; j < menuList.size(); j++) { log.info("#management.do menuList:" +
-         * menuList.get(j)); }
-         * 
-         * }
-         */
-        log.info("#management.do mlist: " + mList);
-        log.info("#management.do list: " + list);
-        // List<String> menulist = menuService.selectBySucode(scode, cname);
-        mv.addObject("mList", mList);
-        mv.addObject("category_list", list);
-        return mv;
-    }
+    /*
+     * @GetMapping("storeMain.do") public ModelAndView storeMain(HttpSession
+     * session) {
+     * 
+     * String email = (String) session.getAttribute("email"); String nickname =
+     * (String) session.getAttribute("nickname");
+     * 
+     * log.info("#storeMain.do email:" + email + ", nickname:" + nickname);
+     * 
+     * String scode = (String) session.getAttribute("scode");
+     * log.info("#storeMain.do scode: " + scode); ModelAndView mv = new
+     * ModelAndView("memberStore"); List<CategoryVo> clist =
+     * categoryService.selectAllByScode(scode); List<MenuVo> mlist =
+     * menuService.selectBySucode(scode); String sname =
+     * storeService.selectByScode(scode); log.info("#storeMain.do clist: " + clist);
+     * log.info("#storeMain.do mlist: " + mlist); log.info("#storeMain.do sname: " +
+     * sname); mv.addObject("scode", scode); mv.addObject("clist", clist);
+     * mv.addObject("mlist", mlist); mv.addObject("sname", sname); return mv; }
+     */
 
     @GetMapping("menu_in.do")
     public ModelAndView menu_in(HttpSession session) {
