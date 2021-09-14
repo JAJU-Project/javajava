@@ -64,7 +64,7 @@ public class ListController {
         return mv;
     }
 
-    @GetMapping("management.do")
+    @GetMapping("management.do") // 매장관리 페이지
     public ModelAndView storeMain(String scode, HttpSession session) { // 매장 들어갈때 파라미터 매장코드 가져옴
         session.setAttribute("scode", scode); // session에 매장코드 저장.
         log.info("#management.do scode: " + scode);
