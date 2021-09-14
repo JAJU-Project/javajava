@@ -22,6 +22,12 @@
                     <input type="hidden" name="mprice" id="mprice" value="${BasketVo.mprice}">
                     <input type="hidden" name="kid" id="kid" value="${BasketVo.kid}">
                 </c:forEach>
+                    <th>
+                        <select id="ospot" name="ospot">
+                            <option value="S">매장</option>
+                            <option value="P">포장</option>
+                        </select>
+                    </th>
                 
                 <input type="hidden" name="basketVo" id="blist" value="${blist}">
                 <td><button type="submit">구매</button></td>

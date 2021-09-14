@@ -9,14 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import last.project.store.domain.AddressVo;
 import last.project.store.domain.BasketVo;
 import last.project.store.domain.CategoryVo;
-import last.project.store.domain.ManagerVo;
 import last.project.store.domain.MenuVo;
 import last.project.store.domain.RandomCode;
 import last.project.store.domain.StoreVo;
-import last.project.store.service.AddressService;
+
 import last.project.store.service.BasketService;
 import last.project.store.service.CategoryService;
 import last.project.store.service.ManagerService;
@@ -30,17 +28,11 @@ import lombok.extern.java.Log;
 @AllArgsConstructor
 public class IndexController {
 
-    private AddressService addressService;
     private ManagerService managerService;
     private StoreService storeService;
     private CategoryService categoryService;
     private MenuService menuService;
     private BasketService basketService;
-
-    @GetMapping("/")
-    public String index() {
-        return "index";
-    }
 
     @GetMapping("category.do")
     public ModelAndView category(HttpSession session, String cname, String senior) {
@@ -60,25 +52,6 @@ public class IndexController {
         return mv;
     }
 
-    @PostMapping("category.do")
-    public String categoryP(HttpSession session, int bcount, String cname, String mname, int mprice) {
-        BasketVo basketVo = new BasketVo();
-        String kid = (String) session.getAttribute("email");
-        String scode = (String) session.getAttribute("scode");
-
-        log.info("#category.do Post kid:" + kid + ", scode:" + scode + ", senior:" + bcount + ", cname:" + cname);
-        log.info("#category.do Post mname: " + mname);
-        log.info("#category.do Post mprice: " + mprice);
-        basketVo.setMname(mname);
-        basketVo.setBcount(bcount);
-        mprice = mprice * bcount;
-        basketVo.setMprice(mprice);
-        basketVo.setKid(kid);
-        basketService.insertAll(basketVo);
-        // return null;
-        return "redirect:category.do";
-    }
-
     @GetMapping("basket.do")
     public ModelAndView basket(HttpSession session) {
         String kid = (String) session.getAttribute("email");
@@ -86,22 +59,6 @@ public class IndexController {
         log.info("#basket.do blist: " + blist);
         ModelAndView mv = new ModelAndView("basket");
         mv.addObject("blist", blist);
-        return mv;
-    }
-
-    @GetMapping("logout.do")
-    public String logout(HttpSession session) {
-        // 로그아웃 클릭시
-        session.invalidate(); // 모든 세션 정보 삭제
-        return "redirect:/"; // index 페이지로 이동
-    }
-
-    @GetMapping("rest.do")
-    public ModelAndView rest() {
-        List<AddressVo> list = addressService.selectAll();
-        ModelAndView mv = new ModelAndView("rest");
-        mv.addObject("list", list);
-        log.info("#list: " + list);
         return mv;
     }
 
@@ -145,22 +102,6 @@ public class IndexController {
         return mv;
     }
 
-    @GetMapping("sign_up.do")
-    public String sign_up() {
-        return "sign_up";
-    }
-
-    @PostMapping("sign_up.do")
-    public String sign_up(ManagerVo managerVo) {
-        managerService.insertAll(managerVo);
-        return "redirect:/";
-    }
-
-    @GetMapping("login.do")
-    public String login() {
-        return "login";
-    }
-
     @PostMapping("login.do")
     public String login(String maid, String mapwd, HttpSession session) {
         log.info("#login.do maid: " + maid + ", mapwd: " + mapwd);
@@ -183,11 +124,6 @@ public class IndexController {
         ModelAndView mv = new ModelAndView("store");
         mv.addObject("list", list);
         return mv;
-    }
-
-    @GetMapping("store_create.do")
-    public String store_create() {
-        return "store_create";
     }
 
     @PostMapping("store_create.do")
@@ -244,20 +180,6 @@ public class IndexController {
         return mv;
     }
 
-    @GetMapping("category_in.do")
-    public String category_in() {
-        return "category_in";
-    }
-
-    @PostMapping("category_in.do")
-    public String category_in(CategoryVo categoryVo, HttpSession session) {
-        String scode = (String) session.getAttribute("scode");
-        log.info("#category_in.do cname: " + categoryVo.getCname() + ", scode: " + scode);
-        categoryVo.setScode(scode);
-        categoryService.insertAll(categoryVo);
-        return "redirect:management.do?scode=" + scode + "";
-    }
-
     @GetMapping("menu_in.do")
     public ModelAndView menu_in(HttpSession session) {
         String scode = (String) session.getAttribute("scode");
@@ -269,20 +191,4 @@ public class IndexController {
         return mv;
     }
 
-    @PostMapping("menu_in.do")
-    public String menu_in(HttpSession session, MenuVo menuVo) {
-        String scode = (String) session.getAttribute("scode");
-        log.info("#menu_in.do scode: " + scode);
-        menuVo.setScode(scode);
-        String cname = menuVo.getCname();
-        String mname = menuVo.getMname();
-        long mprice = menuVo.getMprice();
-        String mintro = menuVo.getMintro();
-        String mimage = menuVo.getMimage();
-        String msoldout = menuVo.getMsoldout();
-        log.info("#menu_in.do cname:" + cname + ", mname: " + mname + ", mprice: " + mprice + ", mintro: " + mintro
-                + ", mimage: " + mimage + ", msoldout" + msoldout);
-        menuService.insertAll(menuVo);
-        return "redirect:management.do?scode=" + scode + "";
-    }
 }

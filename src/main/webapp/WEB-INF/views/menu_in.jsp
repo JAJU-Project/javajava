@@ -36,10 +36,6 @@
 				<th width="30%">메뉴이미지</th>
 				<td><input name = "mimage" align="center" onkeydown="enterCheck(this)"></td>
 			</tr>
-            <tr>
-				<th width="30%">품절여부</th>
-				<td><input name = "msoldout" align="center" onkeydown="enterCheck(this)"></td>
-			</tr>
 			<tr>
 				<th width="30%"><label for="category">카테고리</label>
 				<select id="cname" name="cname" size="1">

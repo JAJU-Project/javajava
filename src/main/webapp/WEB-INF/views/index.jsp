@@ -15,7 +15,6 @@
 <a href="sign_up.do">관리자 회원가입</a>
 <a href="login.do">관리자 로그인</a>
 <a href="test.do?scode=jDcr5vhg">test</a>
-<a href="category.do?scode=jDcr5vhg">category</a>
 
 
 

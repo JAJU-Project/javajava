@@ -72,7 +72,6 @@ body {
         <th>가격</th>
         <th>개수 선택</th>
         <th> 장바구니 담기</th>
-        <th> 장소 선택 </th>
         </tr>
             <c:forEach items="${mlist}" var="menuVo">
             <tr>
@@ -81,7 +80,7 @@ body {
                 
                 <c:forEach items="${clist}" var="categoryVo" >
                     <c:if test="${categoryVo.cname == menuVo.cname}">
-                    <form action="category.do" method="post">
+                    <form action="basket_in.do" method="post">
                         <th>
                             <select id="bcount" name="bcount" >
                                     <c:forEach var="i" begin="1" end="8">
@@ -89,13 +88,7 @@ body {
                                     </c:forEach>
                             </select>
                         </th>
-                        <th>
-                            <select id="ospot" name="ospot">
-                                <option value="S">매장</option>
-                                <option value="P">포장</option>
-                            </select>
-                        </th>
-                        <!--<td><a href="category.do?cname=${categoryVo.cname}">장바구니 담기</a></td>-->
+                        
                         <input type="hidden" name="cname" id="cname" value="${categoryVo.cname}">
                         <input type="hidden" name="mname" id="mname" value="${menuVo.mname}">
                         <input type="hidden" name="mprice" id="mprice" value="${menuVo.mprice}">
