@@ -77,4 +77,15 @@ public class ListController {
         mv.addObject("category_list", list); // 카테고리 리스트 전송
         return mv;
     }
+
+    @GetMapping("menu_in.do") // 메뉴추가 버튼을 누르면 카테고리를 보내주기 위한 용도
+    public ModelAndView menu_in(HttpSession session) {
+        String scode = (String) session.getAttribute("scode"); // session에서 매장코드 가쟈옴
+        log.info("#menu_in.do scode:" + scode);
+        List<CategoryVo> list = categoryService.selectAllByScode(scode); // 매장코드를 이용해 카테고리 리스트 불러옴.
+        log.info("#menu_in.do list:" + list);
+        ModelAndView mv = new ModelAndView("menu_in"); // menu_in.jsp로 이동
+        mv.addObject("list", list); // 카테고리 리스트 보내줌.
+        return mv;
+    }
 }

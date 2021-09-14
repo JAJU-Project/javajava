@@ -10,11 +10,11 @@
 <h1>SpringBoot Index.jsp</h1>
 <p>jsp의 위치는 wabapp/WEB-INF/views 에요</p>
 
-<a href="rest.do">주소록</a>
-<a href="kakao.do?scode=jDcr5vhg">카카오 로그인</a>
-<a href="sign_up.do">관리자 회원가입</a>
-<a href="login.do">관리자 로그인</a>
-<a href="test.do?scode=jDcr5vhg">test</a>
+
+<!--<a href="kakao.do?scode=jDcr5vhg">카카오 로그인</a>-->
+<a href="sign_up.do">관리자 회원가입</a><P>
+<a href="login.do">관리자 로그인</a><p>
+<a href="test.do?scode=jDcr5vhg">test</a><p>
 
 
 
