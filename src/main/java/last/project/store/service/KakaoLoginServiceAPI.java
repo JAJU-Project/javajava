@@ -22,6 +22,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import last.project.store.domain.KakaoPayReadyVO;
+import last.project.store.domain.OrderlistVo;
 import lombok.extern.java.Log;
 
 @Service
@@ -162,7 +163,7 @@ public class KakaoLoginServiceAPI {
         // return userInfo;
     }
 
-    public String pay() {
+    public String pay(String mname, int bcount, int mprice) {
         String payURL = "https://kapi.kakao.com/v1/payment/ready";
 
         RestTemplate restTemplate = new RestTemplate();
@@ -176,21 +177,20 @@ public class KakaoLoginServiceAPI {
         params.add("cid", "TC0ONETIME");
         params.add("partner_order_id", "1001");
         params.add("partner_user_id", "gorany");
-        params.add("item_name", "갤럭시S9");
-        params.add("item_name", "테스트");
+        params.add("item_name", mname + "외 " + bcount + "개");
         params.add("quantity", "1");
-        params.add("total_amount", "2100");
+        params.add("total_amount", mprice + "");
         params.add("tax_free_amount", "100");
         params.add("approval_url", "http://localhost:8000/kakaoPaySuccess");
         params.add("cancel_url", "http://localhost:8000/kakaoPayCancel");
         params.add("fail_url", "http://localhost:8000/kakaoPaySuccessFail");
-
+        OrderlistVo orderlistVo = new OrderlistVo();
+        orderlistVo.setMname(mname);
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         try {
             kakaoPayReadyVO = restTemplate.postForObject(new URI(payURL), body, KakaoPayReadyVO.class);
 
             log.info("" + kakaoPayReadyVO);
-
             return kakaoPayReadyVO.getNext_redirect_pc_url();
 
         } catch (Exception e) {

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="last.project.store.mapper.KakaoMapper">
+    <insert id="insertAll" parameterType="KakaoVo">
+        insert into kakao values(#{kid}, #{kage})
+    </insert>
+
+    <select id="selectByKid" resultType="String" parameterType="String">
+        select kid from kakao where kid = #{kid}
+    </select>
+</mapper>

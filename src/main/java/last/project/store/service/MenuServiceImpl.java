@@ -25,4 +25,10 @@ public class MenuServiceImpl implements MenuService {
         return menuMapper.selectBySucode(scode);
     }
 
+    @Override
+    public List<MenuVo> selectByCname(String scode, String cname) {
+        // TODO Auto-generated method stub
+        return menuMapper.selectByCname(scode, cname);
+    }
+
 }

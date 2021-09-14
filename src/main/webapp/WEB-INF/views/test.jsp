@@ -4,5 +4,4 @@
             <img src="https://www.gb.go.kr/Main/Images/ko/member/certi_kakao_login.png" style="height:50px;width:auto;">
         </a>
         <a href="test2.do">test</a>
-        <a button="#" onclick="window.print()">print</a>
 </body>

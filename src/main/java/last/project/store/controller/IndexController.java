@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import last.project.store.domain.AddressVo;
+import last.project.store.domain.BasketVo;
 import last.project.store.domain.CategoryVo;
 import last.project.store.domain.ManagerVo;
 import last.project.store.domain.MenuVo;
 import last.project.store.domain.RandomCode;
 import last.project.store.domain.StoreVo;
 import last.project.store.service.AddressService;
+import last.project.store.service.BasketService;
 import last.project.store.service.CategoryService;
 import last.project.store.service.ManagerService;
 import last.project.store.service.MenuService;
@@ -33,11 +35,58 @@ public class IndexController {
     private StoreService storeService;
     private CategoryService categoryService;
     private MenuService menuService;
+    private BasketService basketService;
 
     @GetMapping("/")
     public String index() {
-        log.info("이것만 하면 끝이다 ㄹㅇ");
         return "index";
+    }
+
+    @GetMapping("category.do")
+    public ModelAndView category(HttpSession session, String cname, String senior) {
+
+        log.info("#category.do senior" + senior);
+
+        String scode = (String) session.getAttribute("scode");
+        log.info("#category.do 입장 scode: " + scode);
+        ModelAndView mv = new ModelAndView("category");
+        List<CategoryVo> clist = categoryService.selectAllByScode(scode);
+        mv.addObject("clist", clist);
+        if (cname != null) {
+            List<MenuVo> mlist = menuService.selectByCname(scode, cname);
+            log.info("#catrgory.do cname: " + cname);
+            mv.addObject("mlist", mlist);
+        }
+        return mv;
+    }
+
+    @PostMapping("category.do")
+    public String categoryP(HttpSession session, int bcount, String cname, String mname, int mprice) {
+        BasketVo basketVo = new BasketVo();
+        String kid = (String) session.getAttribute("email");
+        String scode = (String) session.getAttribute("scode");
+
+        log.info("#category.do Post kid:" + kid + ", scode:" + scode + ", senior:" + bcount + ", cname:" + cname);
+        log.info("#category.do Post mname: " + mname);
+        log.info("#category.do Post mprice: " + mprice);
+        basketVo.setMname(mname);
+        basketVo.setBcount(bcount);
+        mprice = mprice * bcount;
+        basketVo.setMprice(mprice);
+        basketVo.setKid(kid);
+        basketService.insertAll(basketVo);
+        // return null;
+        return "redirect:category.do";
+    }
+
+    @GetMapping("basket.do")
+    public ModelAndView basket(HttpSession session) {
+        String kid = (String) session.getAttribute("email");
+        List<BasketVo> blist = basketService.selectByKid(kid);
+        log.info("#basket.do blist: " + blist);
+        ModelAndView mv = new ModelAndView("basket");
+        mv.addObject("blist", blist);
+        return mv;
     }
 
     @GetMapping("logout.do")

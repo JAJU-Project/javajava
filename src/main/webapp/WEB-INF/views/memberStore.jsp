@@ -25,6 +25,7 @@
                             <c:forEach items="${mlist}" var="menuVo">
                                 <c:if test="${categoryVo.cname == menuVo.cname}">
                                     <tr><th>${menuVo.mname }</th></tr>
+                                    <tr><th>${menuVo.mprice}</th></tr>
                                 </c:if>
                             </c:forEach>
                         </table>

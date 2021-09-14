@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="last.project.store.mapper.BasketMapper">
+    <insert id="insertAll" parameterType="BasketVo">
+        insert into basket values(#{mname}, #{bcount}, #{mprice}, #{kid})
+    </insert>
+
+    <select id="selectByKid" resultType="BasketVo" parameterType="String">
+        select * from basket where kid=#{kid}
+    </select>
+
+    <delete id="deleteBykid" parameterType="String">
+        delete from basket where kid=#{kid}
+    </delete>
+</mapper>

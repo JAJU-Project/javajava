@@ -12,4 +12,6 @@ public interface MenuMapper {
 
     List<MenuVo> selectBySucode(String scode);
 
+    List<MenuVo> selectByCname(String scode, String cname);
+
 }
