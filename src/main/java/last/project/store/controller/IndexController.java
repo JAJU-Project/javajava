@@ -36,6 +36,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String index() {
+        log.info("이것만 하면 끝이다 ㄹㅇ");
         return "index";
     }
 
