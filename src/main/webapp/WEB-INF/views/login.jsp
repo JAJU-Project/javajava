@@ -18,7 +18,7 @@
                     <td><input type="text" name="maid" maxlength="50"></td>
                 </tr>
                 <tr>
-                    <td bgcolor="skyblue">비밀번호</td>
+                    <td bgcolor="skyblue">비밀번호 123123</td>
                     <td><input type="password" name="mapwd" maxlength="50"></td>
                 </tr>
             </table>
