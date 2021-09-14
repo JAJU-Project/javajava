@@ -1,0 +1,2 @@
+깃 사용법
+Repository : https://github.com/JAJU-Project/store.git
