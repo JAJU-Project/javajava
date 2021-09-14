@@ -60,7 +60,7 @@ body {
     	<div class="outer" id="menu">
             <ul class="list-inline">
             <c:forEach items="${clist }" var="categoryVo">
-                <li><a href="category.do?cname=${categoryVo.cname}">${categoryVo.cname}</a></li>
+                <li><a href="client_category.do?cname=${categoryVo.cname}">${categoryVo.cname}</a></li>
             </c:forEach>
             </ul>   
     	</div>

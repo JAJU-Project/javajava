@@ -65,7 +65,7 @@ public class InsertController { // 각각의 정보를 추가할때 쓰이는 �
         basketVo.setMprice(mprice);
         basketVo.setKid(kid);
         basketService.insertAll(basketVo); // 장바구니에 추가
-        return "redirect:category.do"; // 카테고리로 다시 이동
+        return "redirect:client_category.do"; // 카테고리로 다시 이동
     }
 
 }

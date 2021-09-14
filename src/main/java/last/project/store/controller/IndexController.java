@@ -34,24 +34,6 @@ public class IndexController {
     private MenuService menuService;
     private BasketService basketService;
 
-    @GetMapping("category.do")
-    public ModelAndView category(HttpSession session, String cname, String senior) {
-
-        log.info("#category.do senior" + senior);
-
-        String scode = (String) session.getAttribute("scode");
-        log.info("#category.do 입장 scode: " + scode);
-        ModelAndView mv = new ModelAndView("category");
-        List<CategoryVo> clist = categoryService.selectAllByScode(scode);
-        mv.addObject("clist", clist);
-        if (cname != null) {
-            List<MenuVo> mlist = menuService.selectByCname(scode, cname);
-            log.info("#catrgory.do cname: " + cname);
-            mv.addObject("mlist", mlist);
-        }
-        return mv;
-    }
-
     @GetMapping("basket.do")
     public ModelAndView basket(HttpSession session) {
         String kid = (String) session.getAttribute("email");
@@ -82,10 +64,7 @@ public class IndexController {
         String nickname = (String) session.getAttribute("nickname");
 
         log.info("#storeMain.do email:" + email + ", nickname:" + nickname);
-        String partner_order_id = "test주문번호";
-        String partner_user_id = "test가맹점회원id";
-        String test = "partner_order_id=" + partner_order_id + "&partner_user_id=" + partner_user_id;
-        log.info("#storeMain.do test:" + test);
+
         String scode = (String) session.getAttribute("scode");
         log.info("#storeMain.do scode: " + scode);
         ModelAndView mv = new ModelAndView("memberStore");

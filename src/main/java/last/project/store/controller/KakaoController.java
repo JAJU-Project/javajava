@@ -74,7 +74,7 @@ public class KakaoController {
             session.setAttribute("nickname", userInfo.get("nickname"));
             session.setAttribute("access_Token", access_Token);
         }
-        return "redirect:category.do";
+        return "redirect:client_category.do";
     }
 
     @GetMapping("test2.do")
@@ -97,9 +97,11 @@ public class KakaoController {
         // + mprice);
         String scode = (String) session.getAttribute("scode");
         log.info("#kakaoPay.do kid: " + kid);
-        kid = kid.substring(0, kid.lastIndexOf(","));
+        kid = kid.substring(0, kid.indexOf(","));
+        log.info("#kakaoPay.do kid2: " + kid);
         List<BasketVo> blist = basketService.selectByKid(kid);
         log.info("#kakaoPay.do blist: " + blist);
+        log.info("#kakaoPay.do blist.size: " + blist.size());
         String mname = blist.get(0).getMname();
         int[] bcount_list = new int[blist.size()];
         int[] mprice_list = new int[blist.size()];
