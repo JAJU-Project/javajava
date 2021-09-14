@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="last.project.store.mapper.CategoryMapper">
+    <select id="selectAllByScode" resultType="CategoryVo" parameterType="String">
+        select * from category where scode = #{scode}
+    </select>
+
+    <select id="selectByScode" resultType="String" parameterType="String">
+        select cname from category where scode =#{scode}
+    </select>
+
+    <insert id="insertAll" parameterType="CategoryVo">
+        insert into category values(#{scode}, #{cname}, sysdate)
+    </insert>
+
+    
+        
+</mapper>

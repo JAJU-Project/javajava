@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="last.project.store.mapper.ManagerMapper">
+
+    <select id="selectAll" resultType="ManagerVo">
+        select * from Manager
+    </select>
+
+    <select id="selectByLogin" resultType="String" parameterType="String">
+        select maname from manager where maid=#{maid} and mapwd=#{mapwd}
+    </select>
+
+    <insert id="insertAll" parameterType="ManagerVo">
+        insert into manager values(#{maid}, #{maname}, #{mapwd}, #{maphone})
+    </insert>
+</mapper>

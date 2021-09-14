@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="last.project.store.mapper.MenuMapper">
+    
+    <insert id="insertAll" parameterType="MenuVo">
+        insert into menu values(#{scode}, #{cname}, #{mname}, #{mprice}, #{mintro}, #{mimage}, #{msoldout})
+    </insert>
+
+    <select id="selectBySucode" resultType="MenuVo" parameterType="String">
+        select * from menu where scode=#{scode}
+    </select>
+</mapper>
