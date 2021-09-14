@@ -5,7 +5,7 @@
 2) 왼쪽 메뉴 돋보기 아래에 아이콘 눌러서 코드 변경사항 확인
 
 3) github의 Repository(저장소) 주소 입력
-    git remote origin add https://github.com/JAJU-Project/store.git 입력
+    git remote add origin https://github.com/JAJU-Project/store.git 입력
 
 4) git remote -v github의 Repository 주소를 확인으로 확인
     origin  https://github.com/JAJU-Project/store.git (fetch)
