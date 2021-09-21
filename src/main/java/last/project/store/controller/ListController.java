@@ -67,14 +67,15 @@ public class ListController {
     @GetMapping("management.do") // 매장관리 페이지
     public ModelAndView storeMain(String scode, HttpSession session) { // 매장 들어갈때 파라미터 매장코드 가져옴
         session.setAttribute("scode", scode); // session에 매장코드 저장.
+
         log.info("#management.do scode: " + scode);
         List<CategoryVo> list = categoryService.selectAllByScode(scode); // 매장코드에 해당하는 카테고리 리스트를 가져옴.
         List<MenuVo> mList = menuService.selectBySucode(scode); // 매장코드에 해당하는 메뉴 리스트를 가져옴.
-        ModelAndView mv = new ModelAndView("managementMain"); // managementMain.jsp로 이동
-        log.info("#management.do mlist: " + mList);
-        log.info("#management.do list: " + list);
-        mv.addObject("mList", mList); // 메뉴 리스트 전송
-        mv.addObject("category_list", list); // 카테고리 리스트 전송
+        ModelAndView mv = new ModelAndView("admin/index"); // managementMain.jsp로 이동
+        // log.info("#management.do mlist: " + mList);
+        // log.info("#management.do list: " + list);
+        // mv.addObject("mList", mList); // 메뉴 리스트 전송
+        // mv.addObject("category_list", list); // 카테고리 리스트 전송
         return mv;
     }
 

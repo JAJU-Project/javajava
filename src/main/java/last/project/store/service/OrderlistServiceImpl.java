@@ -1,5 +1,8 @@
 package last.project.store.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -29,5 +32,35 @@ public class OrderListServiceImpl implements OrderListService {
     public void insertByTest(OrderListVo orderListVo) {
         // TODO Auto-generated method stub
         orderListMapper.insertByTest(orderListVo);
+    }
+
+    @Override
+    public List<OrderListVo> selectAll(String scode) {
+        // TODO Auto-generated method stub
+        return orderListMapper.selectAll(scode);
+    }
+
+    @Override
+    public List<Map<String, Object>> select1(String scode) {
+        // TODO Auto-generated method stub
+        return orderListMapper.select1(scode);
+    }
+
+    @Override
+    public void insertBy3(OrderListVo orderListVo) {
+        // TODO Auto-generated method stub
+        orderListMapper.insertBy3(orderListVo);
+    }
+
+    @Override
+    public void updateByOseq(long oseq) {
+        // TODO Auto-generated method stub
+        orderListMapper.updateByOseq(oseq);
+    }
+
+    @Override
+    public void updateCancel(long oseq) {
+        // TODO Auto-generated method stub
+        orderListMapper.updateCancel(oseq);
     }
 }

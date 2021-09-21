@@ -3,7 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="last.project.store.mapper.OrderListMapper">
-    
+    <select id="selectAll" resultType="OrderListVo" parameterType="String">
+        select * from orderlist where scode = #{scode}
+    </select>
+
+    <select id="select1" resultType="java.util.HashMap" parameterType="String">
+        select  kid, mname1, mname2, mprice1, mprice2, olcount1, olcount2, oldate,
+        oseq, ospot,ostate, scode, sname from orderlist where scode = #{scode}
+    </select>
     <insert id="insertBy1" parameterType="OrderListVo">
         insert into orderlist (oseq,scode,mname1,olcount1,oldate,ospot,sname,mprice1,ostate,kid)
         values(O_SEQ.NEXTVAL,#{scode},#{OrdetestVo.mname},#{olcount1},sysdate,#{ospot},#{sname},#{OrderListVo.mprice},#{ottate},#{kid})
@@ -27,6 +34,9 @@
         </foreach>
         ,
         <foreach collection="olcount" item="olcount" index="index" separator=",">
+
+    
+        
             #{olcount,jdbcType=VARCHAR}
         </foreach>
         ,sysdate,#{ospot},#{sname},
@@ -36,5 +46,28 @@
         ,default,#{kid})
     </insert>
 
+    <insert id="insertBy3" parameterType="OrderListVo">
+        insert into  orderlist (oseq,scode,mname1,mname2,mname3,olcount1,olcount2,olcount3,oldate,ospot,sname,mprice1,mprice2,mprice3,ostate,kid)
+        values (O_SEQ.NEXTVAL,#{scode},
+        <foreach collection="mname" item="mname" index="index"  separator=",">
+            #{mname,jdbcType=VARCHAR}
+        </foreach>
+        ,
+        <foreach collection="olcount" item="olcount" index="index" separator=",">
+            #{olcount,jdbcType=VARCHAR}
+        </foreach>
+        ,sysdate,#{ospot},#{sname},
+        <foreach collection="mprice" item="mprice" index="index" separator=",">
+            #{mprice,jdbcType=VARCHAR}
+        </foreach>
+        ,default,#{kid})
+    </insert>
         
+    <update id="updateByOseq" parameterType="long" >
+        update orderlist set ostate=2 where oseq=#{oseq}
+    </update>
+
+    <update id="updateCancel" parameterType="long">
+        update orderlist set ostate=4 where oseq=#{oseq}
+    </update>
 </mapper>

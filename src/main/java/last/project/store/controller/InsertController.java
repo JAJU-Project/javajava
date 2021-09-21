@@ -39,21 +39,23 @@ public class InsertController { // 각각의 정보를 추가할때 쓰이는 �
     }
 
     @PostMapping("category_in.do")
-    public String category_in(CategoryVo categoryVo, HttpSession session) { // 페이지에서 카테고리명을 받아온다.
+    public void category_in(CategoryVo categoryVo, HttpSession session) { // 페이지에서 카테고리명을 받아온다.
         String scode = (String) session.getAttribute("scode"); // session에 유지되고 있는 매장코드(scode) 선언.
         log.info("#category_in.do cname: " + categoryVo.getCname() + ", scode: " + scode);
         categoryVo.setScode(scode); // Vo에 scode를 set해준다.
         categoryService.insertAll(categoryVo); // Table에 insert 시켜준다.
-        return "redirect:management.do?scode=" + scode + ""; // 매장관리 페이지로 redirect해준다.
+        // return "redirect:management.do?scode=" + scode + ""; // 매장관리 페이지로
+        // redirect해준다.
     }
 
-    @PostMapping("menu_in.do")
+    @PostMapping("inset_menu")
     public String menu_in(HttpSession session, MenuVo menuVo) { // 페이지에서 메뉴 정보를 받아온다.
+        log.info("#inset_menu:" + menuVo);
         String scode = (String) session.getAttribute("scode"); // session에 유지되고 있는 매장코드(scode) 선언.
         log.info("#menu_in.do scode: " + scode);
         menuVo.setScode(scode); // Vo에 scode를 set해준다.
         menuService.insertAll(menuVo); // 관리자가 입력한 메뉴 insert
-        return "redirect:management.do?scode=" + scode + ""; // 매장관리 페이지로 다시 이동.
+        return "redirect:menu"; // 매장관리 페이지로 다시 이동.
     }
 
     @PostMapping("basket_in.do")

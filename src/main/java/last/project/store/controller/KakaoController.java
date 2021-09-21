@@ -195,8 +195,14 @@ public class KakaoController {
         log.info("#kakaoPaySuccess getMname:" + orderListVo.getMname()[0]);
         log.info("#kakaoPaySuccess getMname:" + orderListVo.getMname()[1]);
         // ordeService.insertBy2(ordetestVo);
-        orderListService.insertByTest(orderListVo);
-        // basketService.deleteBykid(kid);
+        if (blist_size == 3) {
+            orderListService.insertBy3(orderListVo);
+        } else if (blist_size == 2) {
+            orderListService.insertByTest(orderListVo);
+        } else {
+            log.info("ㅗ");
+        }
+        basketService.deleteBykid(kid);
     }
 
     public void test(List<BasketVo> blist, int bcount, int mprice, String kid, String scode) {

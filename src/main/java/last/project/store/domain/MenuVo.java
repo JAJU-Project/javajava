@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MenuVo {
+    private long mseq;
     private String scode;
     private String cname;
     private String mname;

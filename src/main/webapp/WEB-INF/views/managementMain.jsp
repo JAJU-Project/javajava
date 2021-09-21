@@ -27,17 +27,20 @@
                         <th>매장코드</th>
                         <th>카테고리명</th>
                         <th>생성날짜</th>
+                        <th>수정</th>
                     </tr>
 
                         <tr>
                             <td>${categoryVo.scode }</td>
                             <td>${categoryVo.cname }</td>
                             <td>${categoryVo.sdate }</td>
+                            
                         </tr>
                         <table border='1' cellpadding='7' cellspacing='2' width='50%'>
                             <c:forEach items="${mList}" var="menuVo">
                                 <c:if test="${categoryVo.cname == menuVo.cname}">
-                                    <tr><th>${menuVo.mname }</th></tr>
+                                    <tr><th>${menuVo.mname }</th>
+                                    <th><a href = "menuUpdate.do?mseq=${menuVo.mseq}"> 수정 </a></tr>
                                 </c:if>
                             </c:forEach>
                         </table>
