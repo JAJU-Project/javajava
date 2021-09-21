@@ -1,5 +1,8 @@
 package last.project.store.controller;
 
+import java.lang.reflect.Array;
+import java.sql.Blob;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,10 +23,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import last.project.store.domain.BasketVo;
 import last.project.store.domain.KakaoVo;
-import last.project.store.domain.OrderlistVo;
+import last.project.store.domain.OrderListVo;
 import last.project.store.service.BasketService;
 import last.project.store.service.KakaoLoginServiceAPI;
 import last.project.store.service.KakaoService;
+import last.project.store.service.OrderListService;
+import last.project.store.service.StoreService;
 //import last.project.store.service.OrderlistService;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -35,7 +40,8 @@ import lombok.extern.java.Log;
 public class KakaoController {
     private KakaoService kakaoService;
     private BasketService basketService;
-    // private OrderlistService orderlistService;
+    private OrderListService orderListService;
+    private StoreService storeService;
 
     @Setter(onMethod_ = @Autowired)
     private KakaoLoginServiceAPI kakaoLoginServiceAPI;
@@ -131,15 +137,66 @@ public class KakaoController {
 
     @GetMapping("/kakaoPaySuccess") // 결제 완료시.
     public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model, HttpSession session) {
-        String kid = (String) session.getAttribute("email");
-        String scode = (String) session.getAttribute("scode");
-        OrderlistVo orderlistVo = new OrderlistVo();
-        log.info("#kakaoPaySuccess mname:" + orderlistVo.getMname());
+        // 매장코드, 메뉴명, 주문수량, 장소, 매장명, 메뉴 가격, 주문 상태, 주문 일시, 아이디
+        String kid = (String) session.getAttribute("email"); // 아이디 세션에서 받아옴
+        String scode = (String) session.getAttribute("scode"); // 매장 코드 세션에서 받아옴
+        String otspot = "S";
+        String sname = storeService.selectByScode(scode); // 매장명
         log.info("#kakaoPaySuccess kid: " + kid + ", scode: " + scode);
 
         log.info("kakaoPaySuccess get............................................");
         log.info("kakaoPaySuccess pg_token : " + pg_token);
-        basketService.deleteBykid(kid);
+
+        List<BasketVo> blist = basketService.selectByKid(kid);
+        String[] mname = new String[blist.size()];
+        int[] bcount = new int[blist.size()];
+        long[] mprice = new long[blist.size()];
+        int blist_size = blist.size();
+        log.info("#kakaoPaySuccess blist_size: " + blist_size);
+
+        for (int i = 0; i < blist.size(); i++) {
+            log.info("#kakaoPaySuccdess blist(" + i + "): " + blist.get(i));
+            mname[i] = blist.get(i).getMname();
+            bcount[i] = blist.get(i).getBcount();
+            mprice[i] = blist.get(i).getMprice();
+        }
+        for (int i = 0; i < mname.length; i++) {
+            // log.info("#kakaoPaySuccess mname(" + i + "): " + mname[i]);
+            log.info("#kakaoPaySuccess bcount(" + i + "): " + bcount[i]);
+            log.info("#kakaoPaySuccess mprice(" + i + "): " + mprice[i]);
+        }
+
+        OrderListVo orderListVo = new OrderListVo();
+
+        orderListVo.setMname(mname);
+        log.info("#kakaoPaySuccess toString(): " + mname.toString());
+
+        log.info("#kakaoPaySuccess getMname:" + orderListVo.getMname()[0]);
+
+        for (int i = 0; i < blist_size; i++) {
+            log.info("#kakaoPaySuccess getMnames:" + orderListVo.getMname()[i]);
+        }
+
+        // ordetestVo.setMname1(mname[0]);
+        // ordetestVo.setMname2(mname[1]);
+        // ordetestVo.setOtcount1(bcount[0]);
+        // ordetestVo.setOtcount2(bcount[1]);
+        orderListVo.setOlcount(bcount);
+        orderListVo.setScode(scode);
+        orderListVo.setKid(kid);
+        orderListVo.setOspot(otspot);
+        orderListVo.setSname(sname);
+        // log.info("#kakaoPaySuccess setMname:" + ordetestVo.getMname()[0]);
+        long sum = 0;
+        orderListVo.setMprice(mprice);
+        orderListVo.setOstate("1");
+
+        log.info("#kakaoPaySuccess sum : " + sum);
+        log.info("#kakaoPaySuccess getMname:" + orderListVo.getMname()[0]);
+        log.info("#kakaoPaySuccess getMname:" + orderListVo.getMname()[1]);
+        // ordeService.insertBy2(ordetestVo);
+        orderListService.insertByTest(orderListVo);
+        // basketService.deleteBykid(kid);
     }
 
     public void test(List<BasketVo> blist, int bcount, int mprice, String kid, String scode) {

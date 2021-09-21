@@ -11,10 +11,13 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -24,13 +27,17 @@ import org.springframework.web.client.RestTemplate;
 
 import last.project.store.domain.BasketVo;
 import last.project.store.domain.KakaoPayReadyVO;
-import last.project.store.domain.OrderlistVo;
+
+import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 
 @Service
 @Log
+
 public class KakaoLoginServiceAPI {
     private KakaoPayReadyVO kakaoPayReadyVO;
+    @Autowired
+    private BasketService basketService;
 
     public String getAccessToken(String authorize_code) {
         String access_Token = "";
@@ -186,8 +193,6 @@ public class KakaoLoginServiceAPI {
         params.add("approval_url", "http://localhost:8000/kakaoPaySuccess");
         params.add("cancel_url", "http://localhost:8000/kakaoPayCancel");
         params.add("fail_url", "http://localhost:8000/kakaoPaySuccessFail");
-        OrderlistVo orderlistVo = new OrderlistVo();
-        orderlistVo.setMname(mname);
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         try {
             kakaoPayReadyVO = restTemplate.postForObject(new URI(payURL), body, KakaoPayReadyVO.class);

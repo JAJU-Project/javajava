@@ -2,10 +2,39 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="last.project.store.mapper.OrderlistMapper">
-    <insert id="insertAll" parameterType="OrderlistVo">
-        insert into orderlist values(O_SEQ.NEXTVAL,#{scode},#{mname},
-        #{olcount},sysdate,#{ospot},#{sname},
-        #{mprice},default,sysdate,#{kid})
+<mapper namespace="last.project.store.mapper.OrderListMapper">
+    
+    <insert id="insertBy1" parameterType="OrderListVo">
+        insert into orderlist (oseq,scode,mname1,olcount1,oldate,ospot,sname,mprice1,ostate,kid)
+        values(O_SEQ.NEXTVAL,#{scode},#{OrdetestVo.mname},#{olcount1},sysdate,#{ospot},#{sname},#{OrderListVo.mprice},#{ottate},#{kid})
     </insert>
+
+    <insert id="insertBy2" parameterType="OrderListVo">
+        insert into orderlist (oseq,scode,mname1,mname2,olcount1,olcount2,oldate,ospot,sname,mprice1,mprice2,ostate,kid)
+        values(O_SEQ.NEXTVAL,#{scode},#{mname[0].value}
+        ,#{mname[1].value},
+        #{olcount[0].value,jdbcType=VARCHAR},
+        #{olcount[1].value,jdbcType=VARCHAR},sysdate,#{ospot},#{sname},
+        #{mprice[0].value,jdbcType=VARCHAR},#{mprice[1].value,jdbcType=VARCHAR}
+        ,default,#{kid})
+    </insert>
+
+    <insert id="insertByTest" parameterType="OrderListVo">
+        insert into  orderlist (oseq,scode,mname1,mname2,olcount1,olcount2,oldate,ospot,sname,mprice1,mprice2,ostate,kid)
+        values (O_SEQ.NEXTVAL,#{scode},
+        <foreach collection="mname" item="mname" index="index"  separator=",">
+            #{mname,jdbcType=VARCHAR}
+        </foreach>
+        ,
+        <foreach collection="olcount" item="olcount" index="index" separator=",">
+            #{olcount,jdbcType=VARCHAR}
+        </foreach>
+        ,sysdate,#{ospot},#{sname},
+        <foreach collection="mprice" item="mprice" index="index" separator=",">
+            #{mprice,jdbcType=VARCHAR}
+        </foreach>
+        ,default,#{kid})
+    </insert>
+
+        
 </mapper>

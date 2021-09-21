@@ -2,20 +2,32 @@ package last.project.store.service;
 
 import org.springframework.stereotype.Service;
 
-import last.project.store.domain.OrderlistVo;
-import last.project.store.mapper.OrderlistMapper;
 import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
+import last.project.store.domain.OrderListVo;
+import last.project.store.mapper.OrderListMapper;
 
 @Service
 @AllArgsConstructor
-public class OrderlistServiceImpl implements OrderlistService {
-
-    private OrderlistMapper orderlistMapper;
+@Log
+public class OrderListServiceImpl implements OrderListService {
+    private OrderListMapper orderListMapper;
 
     @Override
-    public void insertAll(OrderlistVo orderlistVo) {
+    public void insertBy1(OrderListVo orderListVo) {
         // TODO Auto-generated method stub
-        orderlistMapper.insertAll(orderlistVo);
+        orderListMapper.insertBy1(orderListVo);
     }
 
+    @Override
+    public void insertBy2(OrderListVo orderListVo) {
+        // TODO Auto-generated method stub
+        orderListMapper.insertBy2(orderListVo);
+    }
+
+    @Override
+    public void insertByTest(OrderListVo orderListVo) {
+        // TODO Auto-generated method stub
+        orderListMapper.insertByTest(orderListVo);
+    }
 }

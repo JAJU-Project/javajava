@@ -1,7 +1,11 @@
 package last.project.store.service;
 
-import last.project.store.domain.OrderlistVo;
+import last.project.store.domain.OrderListVo;
 
-public interface OrderlistService {
-    void insertAll(OrderlistVo orderlistVo);
+public interface OrderListService {
+    void insertBy1(OrderListVo orderListVo);
+
+    void insertBy2(OrderListVo orderListVo);
+
+    void insertByTest(OrderListVo orderListVo);
 }
