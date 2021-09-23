@@ -64,7 +64,26 @@ public class RestController {
     @ResponseBody
     public boolean test1(HttpSession session) {
         String scode = (String) session.getAttribute("scode");
-
+        log.info("#test1 scode: " + scode);
+        List<OrderListVo> olist = orderListService.selectAll(scode);
+        log.info(("#test1 olost: " + olist));
+        int olist_size = olist.size();
+        String[] mname1 = new String[olist_size];
+        String[] mname2 = new String[olist_size];
+        String[] mname3 = new String[olist_size];
+        String[] mname4 = new String[olist_size];
+        for (int i = 0; i < olist_size; i++) {
+            mname1[i] = olist.get(i).getMname1();
+            mname2[i] = olist.get(i).getMname2();
+            mname3[i] = olist.get(i).getMname3();
+            mname4[i] = olist.get(i).getMname4();
+        }
+        for (int i = 0; i < olist_size; i++) {
+            log.info("mname1[" + i + "]" + mname1[i]);
+            log.info("mname2[" + i + "]" + mname2[i]);
+            log.info("mname3[" + i + "]" + mname3[i]);
+            log.info("mname4[" + i + "]" + mname4[i]);
+        }
         return true;
     }
 

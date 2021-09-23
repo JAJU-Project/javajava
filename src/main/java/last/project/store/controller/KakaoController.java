@@ -131,7 +131,7 @@ public class KakaoController {
         }
         log.info("#kakaoPay.do bcount: " + bcount);
         log.info("#kakaoPay.do mprice: " + mprice);
-        test(blist, bcount, mprice, kid, scode);
+
         return "redirect:" + kakaoLoginServiceAPI.pay(mname, bcount, mprice); // 결제 정보를 보내준다.
     }
 
@@ -148,6 +148,8 @@ public class KakaoController {
         log.info("kakaoPaySuccess pg_token : " + pg_token);
 
         List<BasketVo> blist = basketService.selectByKid(kid);
+        log.info("#kakaoPaySuccess blist: " + blist);
+
         String[] mname = new String[blist.size()];
         int[] bcount = new int[blist.size()];
         long[] mprice = new long[blist.size()];
@@ -161,7 +163,7 @@ public class KakaoController {
             mprice[i] = blist.get(i).getMprice();
         }
         for (int i = 0; i < mname.length; i++) {
-            // log.info("#kakaoPaySuccess mname(" + i + "): " + mname[i]);
+            log.info("#kakaoPaySuccess mname(" + i + "): " + mname[i]);
             log.info("#kakaoPaySuccess bcount(" + i + "): " + bcount[i]);
             log.info("#kakaoPaySuccess mprice(" + i + "): " + mprice[i]);
         }
@@ -177,16 +179,11 @@ public class KakaoController {
             log.info("#kakaoPaySuccess getMnames:" + orderListVo.getMname()[i]);
         }
 
-        // ordetestVo.setMname1(mname[0]);
-        // ordetestVo.setMname2(mname[1]);
-        // ordetestVo.setOtcount1(bcount[0]);
-        // ordetestVo.setOtcount2(bcount[1]);
         orderListVo.setOlcount(bcount);
         orderListVo.setScode(scode);
         orderListVo.setKid(kid);
         orderListVo.setOspot(otspot);
         orderListVo.setSname(sname);
-        // log.info("#kakaoPaySuccess setMname:" + ordetestVo.getMname()[0]);
         long sum = 0;
         orderListVo.setMprice(mprice);
         orderListVo.setOstate("1");
@@ -194,39 +191,16 @@ public class KakaoController {
         log.info("#kakaoPaySuccess sum : " + sum);
         log.info("#kakaoPaySuccess getMname:" + orderListVo.getMname()[0]);
         log.info("#kakaoPaySuccess getMname:" + orderListVo.getMname()[1]);
-        // ordeService.insertBy2(ordetestVo);
+
         if (blist_size == 3) {
             orderListService.insertBy3(orderListVo);
         } else if (blist_size == 2) {
             orderListService.insertByTest(orderListVo);
         } else {
-            log.info("ㅗ");
+            log.info("");
         }
-        basketService.deleteBykid(kid);
+        // basketService.deleteBykid(kid);
+
     }
 
-    public void test(List<BasketVo> blist, int bcount, int mprice, String kid, String scode) {
-
-        log.info("#testM blist: " + blist + ", kid: " + kid);
-        log.info("#testM scode: " + scode);
-        String[] mname = new String[blist.size()];
-        String mname_sum = "";
-        int[] olcount = new int[blist.size()];
-        int[] mprice_sum = new int[blist.size()];
-
-        for (int i = 0; i < blist.size(); i++) {
-            log.info("#testM blist(" + i + ")" + blist.get(i));
-            mname[i] = blist.get(i).getMname();
-            olcount[i] = blist.get(i).getBcount();
-            mprice_sum[i] = blist.get(i).getMprice();
-        }
-        for (int i = 0; i < mname.length; i++) {
-            log.info("#testM mname[" + i + "]" + mname[i]);
-            log.info("#testM olcount[" + i + "]" + olcount[i]);
-            log.info("#testM mprice_sum[" + i + "]" + mprice_sum[i]);
-            mname_sum += mname[i] + ",";
-        }
-        log.info("#test mname_sum:" + mname_sum);
-
-    }
 }

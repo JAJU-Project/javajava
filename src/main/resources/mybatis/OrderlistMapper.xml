@@ -7,6 +7,16 @@
         select * from orderlist where scode = #{scode}
     </select>
 
+    <select id="selectAll2" resultType="OrderListVo" parameterType="String">
+        select mname1, mname2, mname3, mname4, mname5, mname6, mname7, mname8, mname9, mname10,
+        sum(olcount1), sum(olcount2), sum(olcount3), sum(olcount4), sum(olcount5), 
+        sum(olcount6), sum(olcount7), sum(olcount8), sum(olcount9), sum(olcount10),
+        sum(mprice1), sum(mprice2), sum(mprice3), sum(mprice4), sum(mprice5),
+        sum(mprice6), sum(mprice7), sum(mprice8), sum(mprice9), sum(mprice10)
+        from orderlist 
+        group by mname1,mname2,mname3,mname4,mname5,mname6,mname7,mname8,mname9,mname10
+    </select>
+
     <select id="select1" resultType="java.util.HashMap" parameterType="String">
         select  kid, mname1, mname2, mprice1, mprice2, olcount1, olcount2, oldate,
         oseq, ospot,ostate, scode, sname from orderlist where scode = #{scode}
