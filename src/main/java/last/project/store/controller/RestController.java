@@ -16,8 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import last.project.store.domain.MenuVo;
 import last.project.store.domain.OrderListVo;
+import last.project.store.domain.SalesVo;
 import last.project.store.service.MenuService;
 import last.project.store.service.OrderListService;
+import last.project.store.service.SalesService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 
@@ -28,6 +30,7 @@ public class RestController {
 
     private MenuService menuService;
     private OrderListService orderListService;
+    private SalesService salesService;
 
     @PostMapping("rest")
     @ResponseBody
@@ -46,45 +49,27 @@ public class RestController {
     @ResponseBody
     public List<OrderListVo> order(String order, HttpSession session) {
         String scode = (String) session.getAttribute("scode");
-        List<OrderListVo> orList = orderListService.selectAll(scode);
-        if (orList.get(0).getMname3() == null) {
-            List<Map<String, Object>> olist = orderListService.select1(scode);
-            log.info("#order olist: " + olist);
-            return orList;
-        } else {
-            log.info("#order orList: " + orList);
-
-            ModelAndView mv = new ModelAndView("order");
-            mv.addObject("orList", orList);
-            return null;
-        }
+        log.info("#order scode: " + scode);
+        List<OrderListVo> orList = orderListService.selectAlls(scode);
+        log.info("#order orList: " + orList);
+        return orList;
+        /*
+         * if (orList.get(0).getMname3() == null) { List<Map<String, Object>> olist =
+         * orderListService.select1(scode); log.info("#order olist: " + olist); return
+         * orList; } else { log.info("#order orList: " + orList);
+         * 
+         * ModelAndView mv = new ModelAndView("order"); mv.addObject("orList", orList);
+         * return null; }
+         */
     }
 
     @RequestMapping("test1")
     @ResponseBody
-    public boolean test1(HttpSession session) {
+    public List<SalesVo> test1(HttpSession session) {
         String scode = (String) session.getAttribute("scode");
-        log.info("#test1 scode: " + scode);
-        List<OrderListVo> olist = orderListService.selectAll(scode);
-        log.info(("#test1 olost: " + olist));
-        int olist_size = olist.size();
-        String[] mname1 = new String[olist_size];
-        String[] mname2 = new String[olist_size];
-        String[] mname3 = new String[olist_size];
-        String[] mname4 = new String[olist_size];
-        for (int i = 0; i < olist_size; i++) {
-            mname1[i] = olist.get(i).getMname1();
-            mname2[i] = olist.get(i).getMname2();
-            mname3[i] = olist.get(i).getMname3();
-            mname4[i] = olist.get(i).getMname4();
-        }
-        for (int i = 0; i < olist_size; i++) {
-            log.info("mname1[" + i + "]" + mname1[i]);
-            log.info("mname2[" + i + "]" + mname2[i]);
-            log.info("mname3[" + i + "]" + mname3[i]);
-            log.info("mname4[" + i + "]" + mname4[i]);
-        }
-        return true;
+        List<SalesVo> slist = salesService.selectAll2(scode);
+        log.info("#test1 slist: " + slist);
+        return slist;
     }
 
     @RequestMapping("test2")

@@ -420,6 +420,20 @@
                             html +=                '<td>'+capital.mprice3+'</td>';
                             html +=             '</tr>';
                         }
+                        if(capital.mname4!=null){
+                            html +=             '<tr>';
+                            html +=               '<td>'+capital.mname4+'</td>';
+                            html +=               '<td>'+capital.olcount4+'</td>';
+                            html +=                '<td>'+capital.mprice4+'</td>';
+                            html +=             '</tr>';
+                        }
+                        if(capital.mname5!=null){
+                            html +=             '<tr>';
+                            html +=               '<td>'+capital.mname5+'</td>';
+                            html +=               '<td>'+capital.olcount5+'</td>';
+                            html +=                '<td>'+capital.mprice5+'</td>';
+                            html +=             '</tr>';
+                        }
                         html +=      '</tbody>';
                         html +=    '</table>';
                         html +=     '</div>';

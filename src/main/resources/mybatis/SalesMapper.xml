@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="last.project.store.mapper.SalesMapper">
+    <select id="selectAll" resultType="SalesVo" parameterType="String">
+        select * from sales where scode=#{scode} and mname=#{mname}
+    </select>
+
+    <select id="selectAll2" resultType="SalesVo" parameterType="String">
+        select * from sales where scode=#{scode}
+    </select>
+
+    <select id="selectSacoin" resultType = "long" parameterType="String">
+        select sacoin from sales where scode=#{scode} and mname=#{mname}
+    </select>
+
+    <select id="selectSacount" resultType = "int" parameterType="String">
+        select sacount from sales where scode=#{scode} and mname=#{mname}
+    </select>
+
+    <update id="updateBySales" parameterType="SalesVo">
+        update sales 
+        set sacoin=#{sacoin} , sacount=#{sacount}
+        where scode=#{scode} and mname=#{mname}
+    </update>
+</mapper>

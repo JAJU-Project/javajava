@@ -398,10 +398,11 @@
 		  $('#first').click(function() {
   
 			$.ajax({
-			  type : 'POST',                 
+			  type : 'rest',                 
 			  url : "test1", //todo: 재영쓰바꿔  
 			  data: {catgo: $("#catgo").val()},          
 			  success : function(data) {   
+                console.log(JSON.stringify(data))
 				var html="";
 				
 				html +="<table border='1' width='50%'>";
@@ -413,8 +414,19 @@
 				html +="</div>";
 				html +="<div class='card-image'>";
 				html +="<ul class='collection'>";
+                for(let SalesVo of Object.keys(data)){
+                    var capital = data[SalesVo];
+                    html +="<li class='collection-item avatar'>";
+                    html +="<i class='material-icons circle green'>track_changes</i>";
+                    
+                    html +="<span class='title'>"+capital.mname+"</span>";
+                    html +="<p>"+capital.sacoin+"원<br></p>";
+                    html +="<a href='#!'' class='secondary-content'><i class='material-icons'>grade</i></a>";
+                    html +="</li>";
+                }
 				html +="<li class='collection-item avatar'>";
 				html +="<i class='material-icons circle green'>track_changes</i>";
+                
 				html +="<span class='title'>아이스아메리카노</span>";
 				html +="<p>243,094 원<br></p>";
 				html +="<a href='#!'' class='secondary-content'><i class='material-icons'>grade</i></a>";

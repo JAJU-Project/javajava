@@ -24,10 +24,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import last.project.store.domain.BasketVo;
 import last.project.store.domain.KakaoVo;
 import last.project.store.domain.OrderListVo;
+import last.project.store.domain.SalesVo;
 import last.project.store.service.BasketService;
 import last.project.store.service.KakaoLoginServiceAPI;
 import last.project.store.service.KakaoService;
 import last.project.store.service.OrderListService;
+import last.project.store.service.SalesService;
 import last.project.store.service.StoreService;
 //import last.project.store.service.OrderlistService;
 import lombok.AllArgsConstructor;
@@ -42,6 +44,7 @@ public class KakaoController {
     private BasketService basketService;
     private OrderListService orderListService;
     private StoreService storeService;
+    private SalesService salesService;
 
     @Setter(onMethod_ = @Autowired)
     private KakaoLoginServiceAPI kakaoLoginServiceAPI;
@@ -171,35 +174,76 @@ public class KakaoController {
         OrderListVo orderListVo = new OrderListVo();
 
         orderListVo.setMname(mname);
-        log.info("#kakaoPaySuccess toString(): " + mname.toString());
-
-        log.info("#kakaoPaySuccess getMname:" + orderListVo.getMname()[0]);
-
-        for (int i = 0; i < blist_size; i++) {
-            log.info("#kakaoPaySuccess getMnames:" + orderListVo.getMname()[i]);
-        }
 
         orderListVo.setOlcount(bcount);
         orderListVo.setScode(scode);
         orderListVo.setKid(kid);
         orderListVo.setOspot(otspot);
         orderListVo.setSname(sname);
-        long sum = 0;
         orderListVo.setMprice(mprice);
         orderListVo.setOstate("1");
 
-        log.info("#kakaoPaySuccess sum : " + sum);
-        log.info("#kakaoPaySuccess getMname:" + orderListVo.getMname()[0]);
-        log.info("#kakaoPaySuccess getMname:" + orderListVo.getMname()[1]);
-
-        if (blist_size == 3) {
-            orderListService.insertBy3(orderListVo);
-        } else if (blist_size == 2) {
-            orderListService.insertByTest(orderListVo);
-        } else {
-            log.info("");
+        switch (blist_size) {
+            case 1:
+                orderListService.insertBy1(orderListVo);
+                break;
+            case 2:
+                orderListService.insertBy2(orderListVo);
+                break;
+            case 3:
+                orderListService.insertBy3(orderListVo);
+                break;
+            case 4:
+                orderListService.insertBy4(orderListVo);
+                break;
+            case 5:
+                orderListService.insertBy5(orderListVo);
+                break;
+            case 6:
+                orderListService.insertBy6(orderListVo);
+                break;
+            case 7:
+                orderListService.insertBy7(orderListVo);
+                break;
+            case 8:
+                orderListService.insertBy8(orderListVo);
+                break;
+            case 9:
+                orderListService.insertBy9(orderListVo);
+                break;
+            case 10:
+                orderListService.insertBy10(orderListVo);
+                break;
+            default:
+                break;
         }
-        // basketService.deleteBykid(kid);
+
+        // long sales_sacoin = salesService.selectSacoin(scode, mname[0]);
+        // log.info("#kakaoPaysuccess sales_sacoin: " + sales_sacoin);
+        long[] sales_sacoin = new long[blist_size];
+        int[] sales_sacount = new int[blist_size];
+        long sacoin[] = new long[blist_size];
+        int sacount[] = new int[blist_size];
+        for (int i = 0; i < blist_size; i++) {
+            sales_sacoin[i] = salesService.selectSacoin(scode, mname[i]);
+            sales_sacount[i] = salesService.selectSacount(scode, mname[i]);
+        }
+        for (int i = 0; i < blist_size; i++) {
+            sacoin[i] = sales_sacoin[i] + mprice[i];
+            sacount[i] = sales_sacount[i] + bcount[i];
+            log.info("#kakaoPaysuccess sales_sacoin[" + i + "]: " + sales_sacoin[i]);
+            log.info("#kakaoPaysuccess sales_sacount[" + i + "]: " + sales_sacount[i]);
+        }
+        SalesVo salesVo = new SalesVo();
+        for (int i = 0; i < blist_size; i++) {
+            salesVo.setSacoin(sacoin[i]);
+            salesVo.setSacount(sacount[i]);
+            salesVo.setMname(mname[i]);
+            salesVo.setScode(scode);
+            salesService.updateBySales(salesVo);
+        }
+
+        basketService.deleteBykid(kid);
 
     }
 

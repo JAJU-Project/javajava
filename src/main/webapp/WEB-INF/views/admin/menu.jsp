@@ -403,28 +403,29 @@
                             alert(JSON.stringify(data));
                             var html="";
                            
-                            html +="<table border='1' width='50%'>";
+                            html +="<table class=table table-striped table-bordered table-hover>";
                             html +="<tr>";
-                             
+                            html +="<thead>";
                             html +="<th>이미지</th>";
                             html +="<th>메뉴명</th>";
                             html +="<th>가격</th>";
                             html +="<th>메뉴소개</th>";
                             html +="<th>삭제</th>";            
-
                             html +="</tr>";
+                            html +="</thead>" ;
                             for(let menuVo of Object.keys(data)){
-                                html +="<tr>";
+                               
                                 var capital = data[menuVo];
                                 console.log("test menuVo.mimage: "+capital.mimage)
-                                
+                                html +="<tbody>";
+                                html +="<tr>";
                                 html +="<td align='center'>"+capital.mimage+"</td>";
                                 html +="<td align='center'>"+capital.mname+"</td>";
                                 html +="<td align='center'>"+capital.mprice+"</td>";
                                 html +="<td align='center'>"+capital.mintro+"</td>";
                                 html +="<td align='center'> <a href='content?mseq="+capital.mseq+"'>삭제</td>";
-                            
                                 html +="</tr>";
+                                html +="</tbody>";
                             }
                             html +="";
                             html +="</table>";

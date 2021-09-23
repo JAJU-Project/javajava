@@ -4,49 +4,64 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="last.project.store.mapper.OrderListMapper">
     <select id="selectAll" resultType="OrderListVo" parameterType="String">
+        select mname1, mname2, mname3, mname4, mname5, mname6, mname7, mname8, mname9, mname10,
+        sum(olcount1) as olcount1, sum(olcount2) as olcount2, sum(olcount3) as olcount3,
+        sum(olcount4) as olcount4, sum(olcount5) as olcount5, 
+        sum(olcount6) as olcount6, sum(olcount7) as olcount7,
+        sum(olcount8) as olcount7, sum(olcount9) as olcount10, 
+        sum(olcount10) as olcount10,
+        sum(mprice1) as mprice1, sum(mprice2) as mprice2, 
+        sum(mprice3) as mprice3, sum(mprice4) as mprice4, 
+        sum(mprice5) as mprice5, sum(mprice6) as mprice6, 
+        sum(mprice7) as mprice7, sum(mprice8) as mprice8, 
+        sum(mprice9) as mprice9, sum(mprice10) as mprice10
+        from orderlist 
+        where scode = #{scode}
+        group by mname1,mname2,mname3,mname4,mname5,mname6,mname7,mname8,mname9,mname10
+    </select>
+
+    <select id="selectAlls" resultType="OrderListVo" parameterType="String">
         select * from orderlist where scode = #{scode}
     </select>
 
-    <select id="selectAll2" resultType="OrderListVo" parameterType="String">
-        select mname1, mname2, mname3, mname4, mname5, mname6, mname7, mname8, mname9, mname10,
-        sum(olcount1), sum(olcount2), sum(olcount3), sum(olcount4), sum(olcount5), 
-        sum(olcount6), sum(olcount7), sum(olcount8), sum(olcount9), sum(olcount10),
-        sum(mprice1), sum(mprice2), sum(mprice3), sum(mprice4), sum(mprice5),
-        sum(mprice6), sum(mprice7), sum(mprice8), sum(mprice9), sum(mprice10)
-        from orderlist 
-        group by mname1,mname2,mname3,mname4,mname5,mname6,mname7,mname8,mname9,mname10
-    </select>
+    <update id="updateByOseq" parameterType="long" >
+        update orderlist set ostate=2 where oseq=#{oseq}
+    </update>
+
+    <update id="updateCancel" parameterType="long">
+        update orderlist set ostate=4 where oseq=#{oseq}
+    </update>
 
     <select id="select1" resultType="java.util.HashMap" parameterType="String">
         select  kid, mname1, mname2, mprice1, mprice2, olcount1, olcount2, oldate,
         oseq, ospot,ostate, scode, sname from orderlist where scode = #{scode}
     </select>
     <insert id="insertBy1" parameterType="OrderListVo">
-        insert into orderlist (oseq,scode,mname1,olcount1,oldate,ospot,sname,mprice1,ostate,kid)
-        values(O_SEQ.NEXTVAL,#{scode},#{OrdetestVo.mname},#{olcount1},sysdate,#{ospot},#{sname},#{OrderListVo.mprice},#{ottate},#{kid})
-    </insert>
-
-    <insert id="insertBy2" parameterType="OrderListVo">
-        insert into orderlist (oseq,scode,mname1,mname2,olcount1,olcount2,oldate,ospot,sname,mprice1,mprice2,ostate,kid)
-        values(O_SEQ.NEXTVAL,#{scode},#{mname[0].value}
-        ,#{mname[1].value},
-        #{olcount[0].value,jdbcType=VARCHAR},
-        #{olcount[1].value,jdbcType=VARCHAR},sysdate,#{ospot},#{sname},
-        #{mprice[0].value,jdbcType=VARCHAR},#{mprice[1].value,jdbcType=VARCHAR}
-        ,default,#{kid})
-    </insert>
-
-    <insert id="insertByTest" parameterType="OrderListVo">
-        insert into  orderlist (oseq,scode,mname1,mname2,olcount1,olcount2,oldate,ospot,sname,mprice1,mprice2,ostate,kid)
+        insert into  orderlist (oseq,scode,mname1,olcount1,oldate,ospot,sname,mprice1,ostate,kid)
         values (O_SEQ.NEXTVAL,#{scode},
         <foreach collection="mname" item="mname" index="index"  separator=",">
             #{mname,jdbcType=VARCHAR}
         </foreach>
         ,
         <foreach collection="olcount" item="olcount" index="index" separator=",">
+            #{olcount,jdbcType=VARCHAR}
+        </foreach>
+        ,sysdate,#{ospot},#{sname},
+        <foreach collection="mprice" item="mprice" index="index" separator=",">
+            #{mprice,jdbcType=VARCHAR}
+        </foreach>
+        ,default,#{kid})
+    </insert>
 
-    
-        
+    <insert id="insertBy2" parameterType="OrderListVo">
+        insert into  orderlist (oseq,scode,mname1,mname2,
+        olcount1,olcount2,oldate,ospot,sname,mprice1,mprice2,ostate,kid)
+        values (O_SEQ.NEXTVAL,#{scode},
+        <foreach collection="mname" item="mname" index="index"  separator=",">
+            #{mname,jdbcType=VARCHAR}
+        </foreach>
+        ,
+        <foreach collection="olcount" item="olcount" index="index" separator=",">
             #{olcount,jdbcType=VARCHAR}
         </foreach>
         ,sysdate,#{ospot},#{sname},
@@ -57,7 +72,9 @@
     </insert>
 
     <insert id="insertBy3" parameterType="OrderListVo">
-        insert into  orderlist (oseq,scode,mname1,mname2,mname3,olcount1,olcount2,olcount3,oldate,ospot,sname,mprice1,mprice2,mprice3,ostate,kid)
+        insert into  orderlist (oseq,scode,mname1,mname2,mname3,
+        olcount1,olcount2,olcount3,
+        oldate,ospot,sname,mprice1,mprice2,mprice3,ostate,kid)
         values (O_SEQ.NEXTVAL,#{scode},
         <foreach collection="mname" item="mname" index="index"  separator=",">
             #{mname,jdbcType=VARCHAR}
@@ -72,12 +89,155 @@
         </foreach>
         ,default,#{kid})
     </insert>
-        
-    <update id="updateByOseq" parameterType="long" >
-        update orderlist set ostate=2 where oseq=#{oseq}
-    </update>
 
-    <update id="updateCancel" parameterType="long">
-        update orderlist set ostate=4 where oseq=#{oseq}
-    </update>
+    <insert id="insertBy4" parameterType="OrderListVo">
+        insert into  orderlist (oseq,scode,mname1,mname2,mname3,mname4,
+        olcount1,olcount2,olcount3,olcount4,
+        oldate,ospot,sname,
+        mprice1,mprice2,mprice3,mprice4,
+        ostate,kid)
+        values (O_SEQ.NEXTVAL,#{scode},
+        <foreach collection="mname" item="mname" index="index"  separator=",">
+            #{mname,jdbcType=VARCHAR}
+        </foreach>
+        ,
+        <foreach collection="olcount" item="olcount" index="index" separator=",">
+            #{olcount,jdbcType=VARCHAR}
+        </foreach>
+        ,sysdate,#{ospot},#{sname},
+        <foreach collection="mprice" item="mprice" index="index" separator=",">
+            #{mprice,jdbcType=VARCHAR}
+        </foreach>
+        ,default,#{kid})
+    </insert>
+
+    <insert id="insertBy5" parameterType="OrderListVo">
+        insert into  orderlist (oseq,scode,mname1,mname2,mname3,mname4,mname5,
+        olcount1,olcount2,olcount3,olcount4,olcount5,
+        oldate,ospot,sname,
+        mprice1,mprice2,mprice3,mprice4,mprice5,
+        ostate,kid)
+        values (O_SEQ.NEXTVAL,#{scode},
+        <foreach collection="mname" item="mname" index="index"  separator=",">
+            #{mname,jdbcType=VARCHAR}
+        </foreach>
+        ,
+        <foreach collection="olcount" item="olcount" index="index" separator=",">
+            #{olcount,jdbcType=VARCHAR}
+        </foreach>
+        ,sysdate,#{ospot},#{sname},
+        <foreach collection="mprice" item="mprice" index="index" separator=",">
+            #{mprice,jdbcType=VARCHAR}
+        </foreach>
+        ,default,#{kid})
+    </insert>
+
+    <insert id="insertBy6" parameterType="OrderListVo">
+        insert into  orderlist (oseq,scode,mname1,mname2,mname3,mname4,mname5,mname6,
+        olcount1,olcount2,olcount3,olcount4,olcount5,olcount6,
+        oldate,ospot,sname,
+        mprice1,mprice2,mprice3,mprice4,mprice5,mprice6,
+        ostate,kid)
+        values (O_SEQ.NEXTVAL,#{scode},
+        <foreach collection="mname" item="mname" index="index"  separator=",">
+            #{mname,jdbcType=VARCHAR}
+        </foreach>
+        ,
+        <foreach collection="olcount" item="olcount" index="index" separator=",">
+            #{olcount,jdbcType=VARCHAR}
+        </foreach>
+        ,sysdate,#{ospot},#{sname},
+        <foreach collection="mprice" item="mprice" index="index" separator=",">
+            #{mprice,jdbcType=VARCHAR}
+        </foreach>
+        ,default,#{kid})
+    </insert>
+
+    <insert id="insertBy7" parameterType="OrderListVo">
+        insert into  orderlist (oseq,scode,mname1,mname2,mname3,mname4,mname5,mname6,mname7,
+        olcount1,olcount2,olcount3,olcount4,olcount5,olcount6,olcount7,
+        oldate,ospot,sname,
+        mprice1,mprice2,mprice3,mprice4,mprice5,mprice6,mprice7,
+        ostate,kid)
+        values (O_SEQ.NEXTVAL,#{scode},
+        <foreach collection="mname" item="mname" index="index"  separator=",">
+            #{mname,jdbcType=VARCHAR}
+        </foreach>
+        ,
+        <foreach collection="olcount" item="olcount" index="index" separator=",">
+            #{olcount,jdbcType=VARCHAR}
+        </foreach>
+        ,sysdate,#{ospot},#{sname},
+        <foreach collection="mprice" item="mprice" index="index" separator=",">
+            #{mprice,jdbcType=VARCHAR}
+        </foreach>
+        ,default,#{kid})
+    </insert>
+    
+    <insert id="insertBy8" parameterType="OrderListVo">
+        insert into  orderlist (oseq,scode,mname1,mname2,mname3,mname4,mname5,mname6,
+        mname7,mname8,
+        olcount1,olcount2,olcount3,olcount4,olcount5,olcount6,olcount7,olcount8,
+        oldate,ospot,sname,
+        mprice1,mprice2,mprice3,mprice4,mprice5,mprice6,mprice7,mprice8,
+        ostate,kid)
+        values (O_SEQ.NEXTVAL,#{scode},
+        <foreach collection="mname" item="mname" index="index"  separator=",">
+            #{mname,jdbcType=VARCHAR}
+        </foreach>
+        ,
+        <foreach collection="olcount" item="olcount" index="index" separator=",">
+            #{olcount,jdbcType=VARCHAR}
+        </foreach>
+        ,sysdate,#{ospot},#{sname},
+        <foreach collection="mprice" item="mprice" index="index" separator=",">
+            #{mprice,jdbcType=VARCHAR}
+        </foreach>
+        ,default,#{kid})
+    </insert>
+    
+    <insert id="insertBy9" parameterType="OrderListVo">
+        insert into  orderlist (oseq,scode,mname1,mname2,mname3,mname4,mname5,mname6,
+        mname7,mname8,mname9,
+        olcount1,olcount2,olcount3,olcount4,olcount5,olcount6,olcount7,olcount8,olcount9,
+        oldate,ospot,sname,
+        mprice1,mprice2,mprice3,mprice4,mprice5,mprice6,mprice7,mprice8,mprice9,
+        ostate,kid)
+        values (O_SEQ.NEXTVAL,#{scode},
+        <foreach collection="mname" item="mname" index="index"  separator=",">
+            #{mname,jdbcType=VARCHAR}
+        </foreach>
+        ,
+        <foreach collection="olcount" item="olcount" index="index" separator=",">
+            #{olcount,jdbcType=VARCHAR}
+        </foreach>
+        ,sysdate,#{ospot},#{sname},
+        <foreach collection="mprice" item="mprice" index="index" separator=",">
+            #{mprice,jdbcType=VARCHAR}
+        </foreach>
+        ,default,#{kid})
+    </insert>
+
+    <insert id="insertBy10" parameterType="OrderListVo">
+        insert into  orderlist (oseq,scode,mname1,mname2,mname3,mname4,mname5,mname6,
+        mname7,mname8,mname9,mname10,
+        olcount1,olcount2,olcount3,olcount4,olcount5,olcount6,olcount7,olcount8,olcount9,olcount10,
+        oldate,ospot,sname,
+        mprice1,mprice2,mprice3,mprice4,mprice5,mprice6,mprice7,mprice8,mprice9,mprice10,
+        ostate,kid)
+        values (O_SEQ.NEXTVAL,#{scode},
+        <foreach collection="mname" item="mname" index="index"  separator=",">
+            #{mname,jdbcType=VARCHAR}
+        </foreach>
+        ,
+        <foreach collection="olcount" item="olcount" index="index" separator=",">
+            #{olcount,jdbcType=VARCHAR}
+        </foreach>
+        ,sysdate,#{ospot},#{sname},
+        <foreach collection="mprice" item="mprice" index="index" separator=",">
+            #{mprice,jdbcType=VARCHAR}
+        </foreach>
+        ,default,#{kid})
+    </insert>
+    
 </mapper>
