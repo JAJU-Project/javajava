@@ -1,5 +1,7 @@
 package last.project.store.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import last.project.store.domain.KakaoVo;
@@ -21,6 +23,12 @@ public class KakaoServiceImpl implements KakaoService {
     public String selectByKid(String kid) {
         // TODO Auto-generated method stub
         return kakaoMapper.selectByKid(kid);
+    }
+
+    @Override
+    public List<Integer> selectAge() {
+        // TODO Auto-generated method stub
+        return kakaoMapper.selectAge();
     }
 
 }

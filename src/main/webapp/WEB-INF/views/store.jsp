@@ -1,11 +1,15 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+	<script type="text/javascript">
+		history.replaceState({}, null, location.pathname);
+	</script>	
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
 <head>
     <title>Page Title</title>
 </head>
+
 <body style="text-align: center">
 <h1>SpringBoot Index.jsp</h1>
 <p>매장</p>
@@ -29,7 +33,8 @@
 				<tr>
 				<td>${storeVo.scode }</td>
 				<td>${storeVo.sname }</td>
-                <td><a href="management.do?scode=${storeVo.scode}">매장관리</a></td>
+				
+				<td><a href="management.do?scode=${storeVo.scode}">매장관리</a></td>
 				</tr>
 			</c:forEach>
 </c:if>

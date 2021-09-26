@@ -10,4 +10,8 @@
     <select id="selectByKid" resultType="String" parameterType="String">
         select kid from kakao where kid = #{kid}
     </select>
+
+    <select id="selectAge" resultType="Integer">
+        select kage from kakao
+    </select>
 </mapper>

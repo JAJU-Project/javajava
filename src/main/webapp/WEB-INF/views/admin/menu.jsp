@@ -290,7 +290,7 @@
                                         <tbody>
                                             <c:forEach items="${mlist}" var="menuVo">
                                                 <tr class="odd gradeX">
-                                                    <td>${menuVo.mimage}</td>
+                                                    <td><img src ="${menuVo.mimage}" width=100 height=100></td>
                                                     <td>${menuVo.mname}</td>
                                                     <td>${menuVo.mprice}</td>
                                                     <td class="center">${menuVo.cname}</td>
@@ -419,7 +419,7 @@
                                 console.log("test menuVo.mimage: "+capital.mimage)
                                 html +="<tbody>";
                                 html +="<tr>";
-                                html +="<td align='center'>"+capital.mimage+"</td>";
+                                html +="<td align='center'><img src='"+capital.mimage+"'' width=100 height=100></td>";
                                 html +="<td align='center'>"+capital.mname+"</td>";
                                 html +="<td align='center'>"+capital.mprice+"</td>";
                                 html +="<td align='center'>"+capital.mintro+"</td>";

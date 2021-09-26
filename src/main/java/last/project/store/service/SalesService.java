@@ -14,4 +14,6 @@ public interface SalesService {
     int selectSacount(String scode, String mname);
 
     List<SalesVo> selectAll2(String scode);
+
+    void insertAll(String mname, String scode);
 }

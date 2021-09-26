@@ -1,4 +1,7 @@
 ﻿<!DOCTYPE html>
+<script type="text/javascript">
+		history.replaceState({}, null, location.pathname);
+</script>	
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 <head>
     <meta charset="utf-8" />
@@ -399,7 +402,7 @@
   
 			$.ajax({
 			  type : 'rest',                 
-			  url : "test1", //todo: 재영쓰바꿔  
+			  url : "salesByMenu", //todo: 재영쓰바꿔  
 			  data: {catgo: $("#catgo").val()},          
 			  success : function(data) {   
                 console.log(JSON.stringify(data))

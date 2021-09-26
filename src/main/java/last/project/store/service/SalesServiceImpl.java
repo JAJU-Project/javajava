@@ -44,4 +44,10 @@ public class SalesServiceImpl implements SalesService {
         return salesMapper.selectAll2(scode);
     }
 
+    @Override
+    public void insertAll(String mname, String scode) {
+        // TODO Auto-generated method stub
+        salesMapper.insertAll(mname, scode);
+    }
+
 }

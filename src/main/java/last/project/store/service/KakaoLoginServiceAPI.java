@@ -197,7 +197,7 @@ public class KakaoLoginServiceAPI {
         try {
             kakaoPayReadyVO = restTemplate.postForObject(new URI(payURL), body, KakaoPayReadyVO.class);
 
-            log.info("" + kakaoPayReadyVO);
+            log.info("kakaoPayReadyVO: " + kakaoPayReadyVO);
             return kakaoPayReadyVO.getNext_redirect_pc_url();
 
         } catch (Exception e) {

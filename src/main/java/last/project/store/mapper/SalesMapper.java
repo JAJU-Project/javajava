@@ -19,4 +19,6 @@ public interface SalesMapper {
 
     List<SalesVo> selectAll2(String scode);
 
+    void insertAll(String mname, String scode);
+
 }

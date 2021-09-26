@@ -1,20 +1,11 @@
 package last.project.store.controller;
 
-import java.lang.reflect.Array;
-import java.sql.Blob;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-/*
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-*/
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +22,6 @@ import last.project.store.service.KakaoService;
 import last.project.store.service.OrderListService;
 import last.project.store.service.SalesService;
 import last.project.store.service.StoreService;
-//import last.project.store.service.OrderlistService;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -100,10 +90,11 @@ public class KakaoController {
     }
 
     @PostMapping("kakaoPay.do") // 결제하기
-    public String kakaoPay(String kid, HttpSession session) { // basket.jsp에서 kid값 가져옴.
+    public String kakaoPay(String kid, HttpSession session, String ospot) { // basket.jsp에서 kid값 가져옴.
         log.info("kakaoPay post............................................");
-
+        session.setAttribute("ospot", ospot);
         String scode = (String) session.getAttribute("scode"); // session에서 매장 코드 가져온다.
+        log.info("#kakaoPay.do ospot: " + ospot);
         log.info("#kakaoPay.do kid: " + kid);
         log.info("#kakaoPay.do kid: " + kid.indexOf(","));
 
@@ -139,13 +130,15 @@ public class KakaoController {
     }
 
     @GetMapping("/kakaoPaySuccess") // 결제 완료시.
-    public void kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model, HttpSession session) {
+    public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model, HttpSession session) {
         // 매장코드, 메뉴명, 주문수량, 장소, 매장명, 메뉴 가격, 주문 상태, 주문 일시, 아이디
         String kid = (String) session.getAttribute("email"); // 아이디 세션에서 받아옴
         String scode = (String) session.getAttribute("scode"); // 매장 코드 세션에서 받아옴
-        String otspot = "S";
+        String ospot = (String) session.getAttribute("ospot");
+        session.removeAttribute("ospot");
+        // log.info("test session: " + session.getAttribute("ospot"));
         String sname = storeService.selectByScode(scode); // 매장명
-        log.info("#kakaoPaySuccess kid: " + kid + ", scode: " + scode);
+        log.info("#kakaoPaySuccess kid: " + kid + ", scode: " + scode + ", otspot:" + ospot);
 
         log.info("kakaoPaySuccess get............................................");
         log.info("kakaoPaySuccess pg_token : " + pg_token);
@@ -178,7 +171,7 @@ public class KakaoController {
         orderListVo.setOlcount(bcount);
         orderListVo.setScode(scode);
         orderListVo.setKid(kid);
-        orderListVo.setOspot(otspot);
+        orderListVo.setOspot(ospot);
         orderListVo.setSname(sname);
         orderListVo.setMprice(mprice);
         orderListVo.setOstate("1");
@@ -218,8 +211,6 @@ public class KakaoController {
                 break;
         }
 
-        // long sales_sacoin = salesService.selectSacoin(scode, mname[0]);
-        // log.info("#kakaoPaysuccess sales_sacoin: " + sales_sacoin);
         long[] sales_sacoin = new long[blist_size];
         int[] sales_sacount = new int[blist_size];
         long sacoin[] = new long[blist_size];
@@ -244,6 +235,7 @@ public class KakaoController {
         }
 
         basketService.deleteBykid(kid);
+        return "redirect:client_category.do";
 
     }
 

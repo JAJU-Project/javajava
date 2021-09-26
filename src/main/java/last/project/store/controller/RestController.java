@@ -1,22 +1,18 @@
 package last.project.store.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
-
-import com.fasterxml.jackson.annotation.JacksonInject.Value;
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import last.project.store.domain.MenuVo;
 import last.project.store.domain.OrderListVo;
 import last.project.store.domain.SalesVo;
+import last.project.store.service.KakaoService;
 import last.project.store.service.MenuService;
 import last.project.store.service.OrderListService;
 import last.project.store.service.SalesService;
@@ -31,6 +27,7 @@ public class RestController {
     private MenuService menuService;
     private OrderListService orderListService;
     private SalesService salesService;
+    private KakaoService kakaoService;
 
     @PostMapping("rest")
     @ResponseBody
@@ -63,18 +60,19 @@ public class RestController {
          */
     }
 
-    @RequestMapping("test1")
+    @RequestMapping("salesByMenu")
     @ResponseBody
-    public List<SalesVo> test1(HttpSession session) {
+    public List<SalesVo> salesByMenu(HttpSession session) {
         String scode = (String) session.getAttribute("scode");
         List<SalesVo> slist = salesService.selectAll2(scode);
-        log.info("#test1 slist: " + slist);
+        log.info("#salesByMenu slist: " + slist);
         return slist;
     }
 
     @RequestMapping("test2")
     @ResponseBody
     public boolean test2() {
+
         return true;
     }
 
@@ -87,6 +85,11 @@ public class RestController {
     @RequestMapping("test4")
     @ResponseBody
     public boolean test4() {
+        List<Integer> alist = kakaoService.selectAge();
+        log.info("#test4 alist: " + alist);
+        for (int i = 0; i < alist.size(); i++) {
+            log.info("#test4 alist kage: " + alist.get(i));
+        }
         return true;
     }
 }

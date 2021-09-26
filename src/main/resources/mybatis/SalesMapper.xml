@@ -24,4 +24,8 @@
         set sacoin=#{sacoin} , sacount=#{sacount}
         where scode=#{scode} and mname=#{mname}
     </update>
+
+    <insert id="insertAll" parameterType="String">
+        insert into sales values(#{mname},#{scode},0,0)
+    </insert>
 </mapper>

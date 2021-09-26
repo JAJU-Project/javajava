@@ -15,6 +15,7 @@ import last.project.store.service.BasketService;
 import last.project.store.service.CategoryService;
 import last.project.store.service.ManagerService;
 import last.project.store.service.MenuService;
+import last.project.store.service.SalesService;
 import last.project.store.service.StoreService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
@@ -29,6 +30,7 @@ public class InsertController { // 각각의 정보를 추가할때 쓰이는 �
     private MenuService menuService;
     private BasketService basketService;
     private StoreService storeService;
+    private SalesService salesService;
 
     @PostMapping("sign_up.do") // 관리자 회원 가입을 위한
     public String sign_up(ManagerVo managerVo) { // 아이디 유효성검사 할 예정.
@@ -51,10 +53,13 @@ public class InsertController { // 각각의 정보를 추가할때 쓰이는 �
     @PostMapping("inset_menu")
     public String menu_in(HttpSession session, MenuVo menuVo) { // 페이지에서 메뉴 정보를 받아온다.
         log.info("#inset_menu:" + menuVo);
+        String mname = menuVo.getMname();
+        log.info("#inset_menu mname: " + mname);
         String scode = (String) session.getAttribute("scode"); // session에 유지되고 있는 매장코드(scode) 선언.
         log.info("#menu_in.do scode: " + scode);
         menuVo.setScode(scode); // Vo에 scode를 set해준다.
         menuService.insertAll(menuVo); // 관리자가 입력한 메뉴 insert
+        salesService.insertAll(mname, scode);
         return "redirect:menu"; // 매장관리 페이지로 다시 이동.
     }
 
