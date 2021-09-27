@@ -11,6 +11,16 @@
         select * from basket where kid=#{kid}
     </select>
 
+    <select id ="selectByMname" resultType="BasketVo" parameterType="String">
+        select * from basket where kid=#{kid} and mname=#{mname}
+    </select>
+
+    <update id="updateAll" parameterType="BasketVo">
+        update basket
+        set mprice=#{mprice}, bcount=#{bcount}
+        where kid=#{kid} and mname=#{mname}
+    </update>
+
     <delete id="deleteBykid" parameterType="String">
         delete from basket where kid=#{kid}
     </delete>

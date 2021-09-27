@@ -13,6 +13,7 @@ import last.project.store.service.MenuService;
 import last.project.store.service.OrderListService;
 import last.project.store.domain.CategoryVo;
 import last.project.store.domain.MenuVo;
+import last.project.store.domain.OrderListVo;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 
@@ -58,8 +59,13 @@ public class IndexController {
     }
 
     @RequestMapping("empty")
-    public String empty() {
-        return "admin/empty";
+    public ModelAndView empty(HttpSession session) {
+        String scode = (String) session.getAttribute("scode");
+        List<OrderListVo> olist = orderListService.selectAlls(scode);
+        ModelAndView mv = new ModelAndView("admin/empty");
+        mv.addObject("olist", olist);
+        log.info("#empty olist: " + olist);
+        return mv;
     }
 
     @RequestMapping("insertC")

@@ -66,6 +66,7 @@ public class RestController {
     @RequestMapping("test2")
     @ResponseBody
     public boolean test2() {
+        /* 1. 작년 1월 매출 실적 부터... */
 
         return true;
     }

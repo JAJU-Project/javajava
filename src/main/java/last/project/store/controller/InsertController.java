@@ -1,5 +1,7 @@
 package last.project.store.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -72,13 +74,31 @@ public class InsertController { // 각각의 정보를 추가할때 쓰이는 �
         log.info("#category.do Post kid:" + kid + ", scode:" + scode + ", senior:" + bcount + ", cname:" + cname);
         log.info("#category.do Post mname: " + mname);
         log.info("#category.do Post mprice: " + mprice);
-        basketVo.setMname(mname);
-        basketVo.setBcount(bcount);
+
+        List<BasketVo> blist = basketService.selectByMname(kid, mname);
+        log.info("#basket_in.do bcount1: " + bcount);
+        log.info("#basket_in.do blist.size: " + blist.size());
         mprice = mprice * bcount; // 상품가격 = 상품가격 * 상품의개수
-        basketVo.setMprice(mprice);
-        basketVo.setKid(kid);
-        basketService.insertAll(basketVo); // 장바구니에 추가
-        return "redirect:client_category.do"; // 카테고리로 다시 이동
+        if (blist.size() != 0) {
+            int get_bcount = blist.get(0).getBcount();
+            int get_mprice = blist.get(0).getMprice();
+            bcount = bcount + get_bcount;
+            mprice = mprice + get_mprice;
+            basketVo.setBcount(bcount);
+            basketVo.setKid(kid);
+            basketVo.setMname(mname);
+            basketVo.setMprice(mprice);
+            basketService.updateAll(basketVo);
+            log.info("#basket_in.do bcount2: " + bcount);
+            return "redirect:client_category.do";
+        } else {
+            basketVo.setMname(mname);
+            basketVo.setBcount(bcount);
+            basketVo.setMprice(mprice);
+            basketVo.setKid(kid);
+            basketService.insertAll(basketVo); // 장바구니에 추가
+            return "redirect:client_category.do"; // 카테고리로 다시 이동
+        }
     }
 
     @PostMapping("store_create.do") // 매장생성

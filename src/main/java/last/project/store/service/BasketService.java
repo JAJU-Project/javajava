@@ -10,4 +10,8 @@ public interface BasketService {
     List<BasketVo> selectByKid(String kid);
 
     void deleteBykid(String kid);
+
+    List<BasketVo> selectByMname(String kid, String mname);
+
+    void updateAll(BasketVo basketVo);
 }

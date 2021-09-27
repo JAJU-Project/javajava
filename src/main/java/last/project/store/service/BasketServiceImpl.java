@@ -32,4 +32,16 @@ public class BasketServiceImpl implements BasketService {
         basketMapper.deleteBykid(kid);
     }
 
+    @Override
+    public List<BasketVo> selectByMname(String kid, String mname) {
+        // TODO Auto-generated method stub
+        return basketMapper.selectByMname(kid, mname);
+    }
+
+    @Override
+    public void updateAll(BasketVo basketVo) {
+        // TODO Auto-generated method stub
+        basketMapper.updateAll(basketVo);
+    }
+
 }

@@ -17,4 +17,8 @@ public interface BasketMapper {
 
     void deleteBykid(String kid);
 
+    List<BasketVo> selectByMname(String kid, String mname);
+
+    void updateAll(BasketVo basketVo);
+
 }
