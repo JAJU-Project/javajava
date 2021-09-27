@@ -31,4 +31,10 @@ public class MenuServiceImpl implements MenuService {
         return menuMapper.selectByCname(scode, cname);
     }
 
+    @Override
+    public void deleteByMseq(long mseq) {
+        // TODO Auto-generated method stub
+        menuMapper.deleteByMseq(mseq);
+    }
+
 }

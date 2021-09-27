@@ -105,4 +105,10 @@ public class OrderListServiceImpl implements OrderListService {
         // TODO Auto-generated method stub
         orderListMapper.insertBy10(orderListVo);
     }
+
+    @Override
+    public List<OrderListVo> selectByScode(String scode) {
+        // TODO Auto-generated method stub
+        return orderListMapper.selectByScode(scode);
+    }
 }

@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html;charset=utf-8" %>
+<%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -31,7 +31,9 @@
 	.current { background-color: #FFFFFF; 
 			   border: 1px solid blue; border-bottom:hidden; }
 	.tabPage { width: 900px; height: 470px; float: left; 
-			   border: 1px solid blue; }
+			   border: 1px solid blue; 
+            overflow: scroll;}
+
 </style>
 <body>
     <div id="wrapper">
@@ -267,19 +269,51 @@
                                 <li class="tabMenu current" id="waitorder">
                                     <a href="#tabContent01"></a> >주문 대기중</a>
                                 </li>
-                                <li class="tabMenu">
+                                <li class="tabMenu" id="waitorder2">
                                     <a href="#tabContent02" >조리 중</a>
                                 </li>
-                                <li class="tabMenu">
+                                <li class="tabMenu" id="waitorder3">
                                     <a href="#tabContent03" >조리 완료</a>
                                 </li>
-                                <li class="tabMenu">
+                                <li class="tabMenu" id="waitorder4">
                                     <a href="#tabContent04" >주문 취소</a>
                                 </li>
                             </ul>
                             <div class="tab_Content_Wrap">
                                 <div id="tabContent01" class="tabPage">
-                           <!-- 동기화 -->
+                                    <div class="flex_bbox">
+                                    <div id="orderr">
+                                    <img src="/img/wait.png" id="imgbox"/>
+                                    <div>
+                                    <p>주문번호</p>
+                                    <p>{list.no}</p>
+                                    <p>주문일시</p>
+                                    <p>{list.date}</p>
+                                    </div>
+                                    <div>
+                                    <table>
+                                    <thead>
+                                    <p>상세 주문내역</p>
+                                    <tr>
+                                    <th>메뉴</th>
+                                    <th>수량</th>
+                                    <th>가격</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody border="10">
+                                    <tr>
+                                    <td>{list.menu}</td>
+                                    <td>{list.asd}</td>
+                                    <td>{list.prices}</td>
+                                    </tr>
+                                    </tbody>
+                                    </table>
+                                    </div>
+                                    <input type="button" value="주문 접수" onclick="submit">
+                                    <input type="button" value="주문취소" onclick="confirm(`정말 취소하시겠습니까`)">  
+                                </div>
+                                    </div>
+                           
                                 </div>
                                 <div id="tabContent02" class="tabPage">
                                     Tab2 Content
@@ -330,7 +364,7 @@
             $($('.current').find('a').attr('href')).show();
     
             // Tab 메뉴 클릭 이벤트 생성
-            $('li').click(function (event) {
+            $('.tabMenu').click(function (event) {
                 var tagName = event.target.tagName; // 현재 선택된 태그네임
                 var selectedLiTag = (tagName.toString() == 'A') ? $(event.target).parent('li') : $(event.target); // A태그일 경우 상위 Li태그 선택, Li태그일 경우 그대로 태그 객체
                 var currentLiTag = $('li[class~=current]'); // 현재 current 클래그를 가진 탭
@@ -365,7 +399,7 @@
                     type:"post",
                     data:{order:$("#order").val()},
                     success: function(data){
-                        console.log(data);
+                       console.log(data);
                         var html="";
                         html += '';
                         console.log("위치1");
@@ -455,7 +489,187 @@
                 })
             })
     </script>
-	
+     <script>
+        $("#waitorder2").on("click", function(){
+            console.log("aasdasd");
+            $.ajax({
+                url:"order",
+                type:"post",
+                data:{order:$("#order").val()},
+                success: function(data){
+                    var html="";
+                    html += '<div class="flex_bbox">';
+                    for(let list of Object.keys(data)){
+                        var capital = data[list];
+                        console.log("조리중..."+list.length);
+                    
+                        html += '<div id="orderr">';
+                        if(capital.ostate==2){
+                            html += '<img src="/img/ing.png" id="imgbox"/>';
+                            html += '<div>';
+                            html +=      '<p>주문번호</p>';
+                            html +=      '<p>{list.no}</p>';
+                            html +=      '<p>주문일시</p>';
+                            html +=      '<p>{list.date}</p>';
+                            html +=      '</div>';
+                            html +=       '<div>';
+                            html +=      '<table>';
+                            html +=          '<thead>';
+                            html +=              '<p>상세 주문내역</p>';
+                            html +=              '<tr>';
+                            html +=              '<th>메뉴</th>';
+                            html +=              '<th>수량</th>';
+                            html +=               '<th>가격</th>';
+                            html +=            '</tr>';
+                            html +=         '</thead>';
+                            html +=         '<tbody border="10">';
+                                if(capital.mname1!=null){
+                                    html +=             '<tr>';
+                                    html +=               '<td>'+capital.mname1+'</td>';
+                                    html +=               '<td>'+capital.olcount1+'</td>';
+                                    html +=                '<td>'+capital.mprice1+'</td>';
+                                    html +=             '</tr>';
+                                }
+                                if(capital.mname2!=null){
+                                    html +=             '<tr>';
+                                    html +=               '<td>'+capital.mname2+'</td>';
+                                    html +=               '<td>'+capital.olcount2+'</td>';
+                                    html +=                '<td>'+capital.mprice2+'</td>';
+                                    html +=             '</tr>';
+                                }
+                                if(capital.mname3!=null){
+                                    html +=             '<tr>';
+                                    html +=               '<td>'+capital.mname3+'</td>';
+                                    html +=               '<td>'+capital.olcount3+'</td>';
+                                    html +=                '<td>'+capital.mprice3+'</td>';
+                                    html +=             '</tr>';
+                                }
+                                if(capital.mname4!=null){
+                                    html +=             '<tr>';
+                                    html +=               '<td>'+capital.mname4+'</td>';
+                                    html +=               '<td>'+capital.olcount4+'</td>';
+                                    html +=                '<td>'+capital.mprice4+'</td>';
+                                    html +=             '</tr>';
+                                }
+                                if(capital.mname5!=null){
+                                    html +=             '<tr>';
+                                    html +=               '<td>'+capital.mname5+'</td>';
+                                    html +=               '<td>'+capital.olcount5+'</td>';
+                                    html +=                '<td>'+capital.mprice5+'</td>';
+                                    html +=             '</tr>';
+                                }
+                                if(capital.mname6!=null){
+                                    html +=             '<tr>';
+                                    html +=               '<td>'+capital.mname6+'</td>';
+                                    html +=               '<td>'+capital.olcount6+'</td>';
+                                    html +=                '<td>'+capital.mprice6+'</td>';
+                                    html +=             '</tr>';
+                                }
+                            
+                            html +=      '</tbody>';
+                            html +=    '</table>';
+                            html +=     '</div>';
+                            html += '<input type="button" value="조리 완료" onclick="submit">'    
+                        }
+                        html +=   '</div>';
+                    }
+                    html += '</div>';
+               
+                    $("#tabContent02").html(html);
+                }
+            })
+        })
+</script>
+<script>
+    $("#waitorder3").on("click", function(){
+        console.log("aasdasd");
+        $.ajax({
+            url:"order",
+            type:"post",
+            data:{order:$("#order").val()},
+            success: function(data){
+                var html="";
+                html += '<div class="flex_bbox">';
+                html += '<div id="orderr">';
+                html += '<img src="/img/complet.png" id="imgbox"/>';
+                html += '<div>';
+                html +=      '<p>주문번호</p>';
+                html +=      '<p>{list.no}</p>';
+                html +=      '<p>주문일시</p>';
+                html +=      '<p>{list.date}</p>';
+                html +=      '</div>';
+                html +=       '<div>';
+                html +=      '<table>';
+                html +=          '<thead>';
+                html +=              '<p>상세 주문내역</p>';
+                html +=              '<tr>';
+                html +=              '<th>메뉴</th>';
+                html +=              '<th>수량</th>';
+                html +=               '<th>가격</th>';
+                html +=            '</tr>';
+                html +=         '</thead>';
+                html +=         '<tbody border="10">';
+                html +=             '<tr>';
+                html +=               '<td>{list.menu}</td>';
+                html +=               '<td>{list.asd}</td>';
+                html +=                '<td>{list.prices}</td>';
+                html +=             '</tr>';
+                html +=      '</tbody>';
+                html +=    '</table>';
+                html +=     '</div>'; 
+                html +=   '</div>';
+                html += '</div>';
+           
+                $("#tabContent03").html(html);
+            }
+        })
+    })
+</script>
+<script>
+    $("#waitorder4").on("click", function(){
+        console.log("aasdasd");
+        $.ajax({
+            url:"order",
+            type:"post",
+            data:{order:$("#order").val()},
+            success: function(data){
+                var html="";
+                html += '<div class="flex_bbox">';
+                html += '<div id="orderr">';
+                html += '<img src="/img/cancel.png" id="imgbox"/>';
+                html += '<div>';
+                html +=      '<p>주문번호</p>';
+                html +=      '<p>{list.no}</p>';
+                html +=      '<p>주문일시</p>';
+                html +=      '<p>{list.date}</p>';
+                html +=      '</div>';
+                html +=       '<div>';
+                html +=      '<table>';
+                html +=          '<thead>';
+                html +=              '<p>상세 주문내역</p>';
+                html +=              '<tr>';
+                html +=              '<th>메뉴</th>';
+                html +=              '<th>수량</th>';
+                html +=               '<th>가격</th>';
+                html +=            '</tr>';
+                html +=         '</thead>';
+                html +=         '<tbody border="10">';
+                html +=             '<tr>';
+                html +=               '<td>{list.menu}</td>';
+                html +=               '<td>{list.asd}</td>';
+                html +=                '<td>{list.prices}</td>';
+                html +=             '</tr>';
+                html +=      '</tbody>';
+                html +=    '</table>';
+                html +=     '</div>';  
+                html +=   '</div>';
+                html += '</div>';
+           
+                $("#tabContent04").html(html);
+            }
+        })
+    })
+</script>
 
 
 </body>

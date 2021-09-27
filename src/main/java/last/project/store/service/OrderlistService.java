@@ -37,4 +37,6 @@ public interface OrderListService {
 
     void insertBy10(OrderListVo orderListVo);
 
+    List<OrderListVo> selectByScode(String scode);
+
 }

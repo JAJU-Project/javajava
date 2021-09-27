@@ -15,4 +15,8 @@
     <select id="selectByCname" resultType="MenuVo" parameterType="String">
         select * from menu where scode=#{scode} and cname=#{cname}
     </select>
+
+    <delete id="deleteByMseq" parameterType="long">
+        delete from menu where mseq=#{mseq}
+    </delete>
 </mapper>

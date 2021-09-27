@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+<%@ page contentType="text/html;charset=utf-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -38,7 +40,7 @@
        
     }
     .modal-inner{
-        height: calc(100% - 750px);
+        height: calc(100% - 450px);
         width: calc(100% - 600px);
         background-color: #485861;
         border-radius: 12px;
@@ -81,18 +83,46 @@
     <div class="modal-inner">
         <div class="thumb"></div>
         <div class="bottom-info">
-            <div class="title">새로운 카테고리를 넣어주세요</div>
+            <div class="title">메뉴를 수정 해주세요</div>
             <p lass="description">
-                <form class="col s12" action="inset_catego" method="POST" name="insert_catego">
+                <form class="col s12" action="update_menu" method="POST" name="update_menu">
+                    <div class="row">
+                      <div class="input-field col s6">
+                      <!-- Select Box -->
+                      <select id="cname" name="cname">
+                          <option value="none">=== 카테고리 ===</option>
+                              <c:forEach items="${list}" var="CategoryVo">
+                                  <option value="${CategoryVo.cname }">${CategoryVo.cname }</option>
+                              </c:forEach>
+                      </select>
+                        <!--input placeholder="카테고리" id="cname" name="cname" type="text" class="validate"-->
+                      </div>
+                    </div>
+              <!--반복문써서 넣어야됨 -->
                     <div class="row">
                     <div class="input-field col s12">
-                        <input placeholder="카테고리 명" id="cname" name="cname" type="text" class="validate">
-                      </div>              
+                        <input placeholder="메뉴명" id="mname" name="mname" type="text" class="validate">
+                      </div>
+                   
+                      <div class="input-field col s12">
+                        <input placeholder="가격" id="mprice" name="mprice" type="text" class="validate">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input placeholder="메뉴 소개" id="mintro" name="mintro" type="text" class="validate">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input placeholder="이미지 넣어야돼" id="mimage" name="mimage" type="text" class="validate">
+                      </div>
+                    </div>              
             </p>
             <div style="width : 100%; right:0; display:flex;justify-content: flex-end; justify-content: space-between; flex-direction: row;"> 
-              <input class="mybutton" type="submit" value="넣기" id="close">
+              <input class="mybutton" type="submit" value="수정" id="close">
             </form>
- 
+            
  <!--  ㅅㅂ 이거 왜안돼        <button class="mybutton" data-dismiss="modal">뒤로가기</button>-->
             </div>
         

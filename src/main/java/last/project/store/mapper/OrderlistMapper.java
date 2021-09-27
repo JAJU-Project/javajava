@@ -41,4 +41,6 @@ public interface OrderListMapper {
 
     void insertBy10(OrderListVo orderListVo);
 
+    List<OrderListVo> selectByScode(String scode);
+
 }

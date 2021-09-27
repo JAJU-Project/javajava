@@ -40,13 +40,13 @@ public class InsertController { // 각각의 정보를 추가할때 쓰이는 �
         return "redirect:/";
     }
 
-    @PostMapping("category_in.do")
-    public void category_in(CategoryVo categoryVo, HttpSession session) { // 페이지에서 카테고리명을 받아온다.
+    @PostMapping("inset_catego")
+    public String category_in(CategoryVo categoryVo, HttpSession session) { // 페이지에서 카테고리명을 받아온다.
         String scode = (String) session.getAttribute("scode"); // session에 유지되고 있는 매장코드(scode) 선언.
         log.info("#category_in.do cname: " + categoryVo.getCname() + ", scode: " + scode);
         categoryVo.setScode(scode); // Vo에 scode를 set해준다.
         categoryService.insertAll(categoryVo); // Table에 insert 시켜준다.
-        // return "redirect:management.do?scode=" + scode + ""; // 매장관리 페이지로
+        return "redirect:menu"; // 메뉴 페이지로
         // redirect해준다.
     }
 

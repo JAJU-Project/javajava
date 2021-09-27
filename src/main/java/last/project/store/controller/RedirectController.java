@@ -4,9 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
 
 @Controller
 @AllArgsConstructor
+@Log
 public class RedirectController { // 페이지 이동 담당.
 
     @GetMapping("/")
@@ -29,4 +31,9 @@ public class RedirectController { // 페이지 이동 담당.
         return "category_in"; // 카테고리 생성 페이지 이동
     }
 
+    @GetMapping("updateC")
+    public String updateC(String catgo) {
+        log.info("#updateC catgo : " + catgo);
+        return "admin/updateC";
+    }
 }

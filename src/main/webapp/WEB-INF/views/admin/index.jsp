@@ -1,7 +1,4 @@
 ﻿<!DOCTYPE html>
-<script type="text/javascript">
-		history.replaceState({}, null, location.pathname);
-</script>	
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 <head>
     <meta charset="utf-8" />
@@ -275,8 +272,8 @@
                   </div>
                   </div> 
                     </div>
-				</div>
-				<div class="row">
+            </div>
+            <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-3">
                
                      <div class="card horizontal cardIcon waves-effect waves-dark" id="third">
@@ -326,7 +323,7 @@
                     
                  
                   
-                   <div id="morris-line-chart"></div>
+                <div id="morris-line-chart"></div>
                   
               
                  <div id="morris-bar-chart"></div>
@@ -341,7 +338,7 @@
               
                   
                     
-				</div> <!-- 이거 지우면 인덱스 화면에 그래프 다 나옴 ㅡㅡ -->
+            </div> <!-- 이거 지우면 인덱스 화면에 그래프 다 나옴 ㅡㅡ -->
                 
            
 
@@ -395,29 +392,28 @@
 
  
 
-	
-	<script>
-		$(function() {
-		  $('#first').click(function() {
+   
+   <script>
+      $(function() {
+        $('#first').click(function() {
   
-			$.ajax({
-			  type : 'rest',                 
-			  url : "salesByMenu", //todo: 재영쓰바꿔  
-			  data: {catgo: $("#catgo").val()},          
-			  success : function(data) {   
-                console.log(JSON.stringify(data))
-				var html="";
-				
-				html +="<table border='1' width='50%'>";
-				html +="<tr>";
-				html +="<div class='col-md-8 col-sm-12 col-xs-12'>";
-				html +="<div class='card'>";
-				html +="<div class='card-action'>";
-				html +="<b>Sales by menu</b>";
-				html +="</div>";
-				html +="<div class='card-image'>";
-				html +="<ul class='collection'>";
-                for(let SalesVo of Object.keys(data)){
+         $.ajax({
+           type : 'POST',                 
+           url : "salesByMenu", //todo: 재영쓰바꿔  
+           data: {catgo: $("#catgo").val()},          
+           success : function(data) {   
+            var html="";
+            
+            html +="<table border='1' width='50%'>";
+            html +="<tr>";
+            html +="<div class='col-md-8 col-sm-12 col-xs-12'>";
+            html +="<div class='card'>";
+            html +="<div class='card-action'>";
+            html +="<b>Sales by menu</b>";
+            html +="</div>";
+            html +="<div class='card-image'>";
+            html +="<ul class='collection'>";
+            for(let SalesVo of Object.keys(data)){
                     var capital = data[SalesVo];
                     html +="<li class='collection-item avatar'>";
                     html +="<i class='material-icons circle green'>track_changes</i>";
@@ -427,230 +423,205 @@
                     html +="<a href='#!'' class='secondary-content'><i class='material-icons'>grade</i></a>";
                     html +="</li>";
                 }
-				html +="<li class='collection-item avatar'>";
-				html +="<i class='material-icons circle green'>track_changes</i>";
-                
-				html +="<span class='title'>아이스아메리카노</span>";
-				html +="<p>243,094 원<br></p>";
-				html +="<a href='#!'' class='secondary-content'><i class='material-icons'>grade</i></a>";
-				html +="</li>";
-				html +="<li class='collection-item avatar'>";
-				html +="<i class='material-icons circle'>folder</i>";
-				html +="<span class='title'>딸기레몬블렌디드</span>";
-				html +="<p>823,330 원<br></p>";
-				html +="<a href='#!' class='secondary-content'><i class='material-icons'>grade</i></a>";
-				html +="</li>";
-				html +="<li class='collection-item avatar'>";
-				html +="<i class='material-icons circle green'>track_changes</i>";
-				html +="<span class='title'>아이스바닐라라떼</span>";
-				html +="<p>124,394 원<br></p>";
-				html +="<a href='#!' class='secondary-content'><i class='material-icons'>grade</i></a>";
-				html +="</li>";
-				html +="<li class='collection-item avatar'>";
-				html +="<i class='material-icons circle red'>play_arrow</i>";
-				html +="<span class='title'>녹차프라푸치노</span>"
-				html +="<p>334,321 원<br></p>";
-				html +="<a href='#!'' class='secondary-content'><i class='material-icons'>grade</i></a>";
-				html +="</li>";
-				html +="</ul>";
-				html +="</div>";
-				html +="</div>";
-				html +="</div>";
-				html +="</div>";
-			  
-				$("#board").html(html);
-			  }});
-		  });    
-		});
-	  </script>
+            html +="</ul>";
+            html +="</div>";
+            html +="</div>";
+            html +="</div>";
+            html +="</div>";
+           
+            $("#board").html(html);
+           }});
+        });    
+      });
+     </script>
   
   <script>
-	$(function() {
-	  $('#second').click(function() {
-	   var activeTab = $(this).attr('data-tab');
-	   $.ajax({
-		 type : 'POST',                 
-		 url : "test2", //재영쓰바꿔  
-		 data: {catgo: $("#catgo").val()},          
-		 success : function(data) {   
-		  var html="";
-		  html +="<div class='col-md-7'>";
-		  html +="<div class='card'>";
-		  html +="<div class='card-image'>";
-		  html +="<div id='ms-bar-chart'></div>";
-		  html +="</div>";
-		  html +="<div class='card-action'>";
-		  html +="<b> Monthly sales </b>";
-		  html +="</div>";
-		  html +="</div>";
-		  html +="</div>";
-		  html +="</div>";
-		  $("#board").html(html);
-		  Morris.Bar({
-			element: 'ms-bar-chart',
-			data: [{
-				y: '1월',
-				a: 100,
-				b: 90
-			}, {
-				y: '2월',
-				a: 75,
-				b: 65
-			}, {
-				y: '3월',
-				a: 50,
-				b: 40
-			}, {
-				y: '4월',
-				a: 75,
-				b: 30
-			}, {
-				y: '5월',
-				a: 50,
-				b: 40
-			},
-			{
-				y: '6월',
-				a: 90,
-				b: 90
-			},
-			{
-				y: '7월',
-				a: 10,
-				b: 60
-			},
-			{
-				y: '8월',
-				a: 100,
-				b: 90
-			}, {
-				y: '9월',
-				a: 15,
-				b: 65
-			}, {
-				y: '10월',
-				a: 100,
-				b: 90
-			},{
-				y: '11월',
-				a: 10,
-				b: 90
-			},{
-				y: '12월',
-				a: 100,
-				b: 20
-			}],
-			xkey: 'y',
-			ykeys: ['a', 'b'],
-			labels: ['Series A', 'Series B'],
-	 barColors: [
+   $(function() {
+     $('#second').click(function() {
+      var activeTab = $(this).attr('data-tab');
+      $.ajax({
+       type : 'POST',                 
+       url : "test2", //재영쓰바꿔  
+       data: {catgo: $("#catgo").val()},          
+       success : function(data) {   
+        var html="";
+        html +="<div class='col-md-7'>";
+        html +="<div class='card'>";
+        html +="<div class='card-image'>";
+        html +="<div id='ms-bar-chart'></div>";
+        html +="</div>";
+        html +="<div class='card-action'>";
+        html +="<b> Monthly sales </b>";
+        html +="</div>";
+        html +="</div>";
+        html +="</div>";
+        html +="</div>";
+        $("#board").html(html);
+        Morris.Bar({
+         element: 'ms-bar-chart',
+         data: [{
+            y: '1월',
+            a: 100,
+            b: 90
+         }, {
+            y: '2월',
+            a: 75,
+            b: 65
+         }, {
+            y: '3월',
+            a: 50,
+            b: 40
+         }, {
+            y: '4월',
+            a: 75,
+            b: 30
+         }, {
+            y: '5월',
+            a: 50,
+            b: 40
+         },
+         {
+            y: '6월',
+            a: 90,
+            b: 90
+         },
+         {
+            y: '7월',
+            a: 10,
+            b: 60
+         },
+         {
+            y: '8월',
+            a: 100,
+            b: 90
+         }, {
+            y: '9월',
+            a: 15,
+            b: 65
+         }, {
+            y: '10월',
+            a: 100,
+            b: 90
+         },{
+            y: '11월',
+            a: 10,
+            b: 90
+         },{
+            y: '12월',
+            a: 100,
+            b: 20
+         }],
+         xkey: 'y',
+         ykeys: ['a', 'b'],
+         labels: ['Series A', 'Series B'],
+    barColors: [
 '#e96562','#414e63',
 '#A8E9DC' 
 ],
-			hideHover: 'auto',
-			resize: true
-		});
+         hideHover: 'auto',
+         resize: true
+      });
 
-		 }});
-	  });    
-	});
+       }});
+     });    
+   });
    </script>
 
 
   
-	  <script>
-		$(function() {
-		  $('#third').click(function() {
-			var activeTab = $(this).attr('data-tab');
-			$.ajax({
-			  type : 'POST',                 
-			  url : "test3", //재영쓰바꿔  
-			  data: {catgo: $("#catgo").val()},          
-			  success : function(data) {   
-				var html="";
-				
-				html +="<div class='row'>";
-				html +="<div class='col-xs-12 col-sm-12 col-md-7'>";
-				html +="<div class='cirStats'>";
-				html +="<div class='row'>";
-				html +="<div class='col-xs-12 col-sm-6 col-md-6'>";
-				html +="<div class='card-panel text-center'>";
-				html +="<h4>CUSTOMERS</h4>";
-				html +="<div class='easypiechart' id='easypiechart-blue' data-percent='82' ><span class='percent'>82</span>";
-				html +="</div>";
-				html +="</div>";
-				html +="</div>";
-				html +="</div>";
-				html +="</div>";
-				
-				$("#board").html(html);
-				$("#board").trigger("create")
-				
-				$('#easypiechart-blue').easyPieChart({
+     <script>
+      $(function() {
+        $('#third').click(function() {
+         var activeTab = $(this).attr('data-tab');
+         $.ajax({
+           type : 'POST',                 
+           url : "dayCustomer", //재영쓰바꿔  
+           data: {catgo: $("#catgo").val()},          
+           success : function(data) {   
+            var html="";
+            
+            html +="<div class='row'>";
+            html +="<div class='col-xs-12 col-sm-12 col-md-7'>";
+            html +="<div class='cirStats'>";
+            html +="<div class='row'>";
+            html +="<div class='col-xs-12 col-sm-6 col-md-6'>";
+            html +="<div class='card-panel text-center'>";
+            html +="<h4>CUSTOMERS</h4>";
+            html +="<div class='easypiechart' id='easypiechart-blue' data-percent='"+data+"' ><span class='percent'>"+data+"</span>";
+            html +="</div>";
+            html +="</div>";
+            html +="</div>";
+            html +="</div>";
+            html +="</div>";
+            
+            $("#board").html(html);
+            $("#board").trigger("create")
+            
+            $('#easypiechart-blue').easyPieChart({
        scaleColor: false,
        barColor: '#30a5ff'
    });
-				
-			  }});
-		  });    
-		});
-	  </script>
+            
+           }});
+        });    
+      });
+     </script>
   
-	  <script>
-		$(function() {
-		  $('#fourth').click(function() {
-			var activeTab = $(this).attr('data-tab');
-			$.ajax({
-			  type : 'POST',                 
-			  url : "test4", //재영쓰바꿔  
-			  data: {catgo: $("#catgo").val()},          
-			  success : function(data) {   
-				var html="";
-				html +="<div class='col-xs-12 col-sm-12 col-md-5'>";
-				html +="<div class='row'>";
-				html +="<div class='col-xs-12'>";
-				html +="<div class='card'>";
-				html +="<div class='card-image donutpad'>";
-				html +="<div id='morris-donut-chart'></div>";
-				html +="</div>";
-				html +="<div class='card-action'>";
-				html +="<b>BY AGE</b>"
-				html +="</div>";
-				html +="</div>";
-				html +="</div>";
-				html +="</div>";
-				html +="</div>";
+     <script>
+      $(function() {
+        $('#fourth').click(function() {
+         var activeTab = $(this).attr('data-tab');
+         $.ajax({
+           type : 'POST',                 
+           url : "age", //재영쓰바꿔  
+           data: {catgo: $("#catgo").val()},          
+           success : function(data) { 
+            var html="";
+            html +="<div class='col-xs-12 col-sm-12 col-md-5'>";
+            html +="<div class='row'>";
+            html +="<div class='col-xs-12'>";
+            html +="<div class='card'>";
+            html +="<div class='card-image donutpad'>";
+            html +="<div id='morris-donut-chart'></div>";
+            html +="</div>";
+            html +="<div class='card-action'>";
+            html +="<b>BY AGE</b>"
+            html +="</div>";
+            html +="</div>";
+            html +="</div>";
+            html +="</div>";
+            html +="</div>";
 
 
-				$("#board").html(html);
+            $("#board").html(html);
 
-				Morris.Donut({
-					element: 'morris-donut-chart',
+            Morris.Donut({
+               element: 'morris-donut-chart',
                 data: [{
                     label: "10대",
-                    value: 12
+                    value: data.teenager
                 }, {
                     label: "20대",
-                    value: 30
+                    value: data.twenties
                 },
-				{
+            {
                     label: "30대",
-                    value: 30
+                    value: data.thirties
                 },
-				{
+            {
                     label: "40대",
-                    value: 30
+                    value: data.forties
                 },
-				{
+            {
                     label: "50대",
-                    value: 30
+                    value: data.fifties
                 },
-				{
+            {
                     label: "60대",
-                    value: 30
+                    value: data.sixties
                 }, {
-                    label: "70대",
-                    value: 5
+                    label: "그 외",
+                    value: data.etc
                 }],
                colors: [
     '#A6A6A6','#414e63',
@@ -658,10 +629,10 @@
   ],
                 resize: true
             });
-			  }});
-		  });    
-		});
-	  </script>
+           }});
+        });    
+      });
+     </script>
 </body>
 
 </html>

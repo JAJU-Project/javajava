@@ -3,6 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="last.project.store.mapper.OrderListMapper">
+    <select id="selectByScode" resultType="OrderListVo" parameterType="String">
+        select * from orderlist where TO_CHAR(oldate,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') 
+        and scode = #{scode}
+    </select>
     <select id="selectAll" resultType="OrderListVo" parameterType="String">
         select mname1, mname2, mname3, mname4, mname5, mname6, mname7, mname8, mname9, mname10,
         sum(olcount1) as olcount1, sum(olcount2) as olcount2, sum(olcount3) as olcount3,

@@ -25,6 +25,7 @@
         integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 </head>
 
+
 <body>
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
@@ -263,55 +264,13 @@
 
             <div id="page-inner">
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <!-- Advanced Tables -->
-                        <div class="card">
-                            <div class="card-action" style="margin-left: 3px;">
-                                ALL Menu
-                            </div>
-                            <span id="new_span">
-                                <button onclick="window.open(url='insert')">add menu</button>
-                            </span>
-                            <div class="card-content">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover"
-                                        id="dataTables-example">
-                                        <thead>
-                                            <tr>
-                                                <th>이미지</th>
-                                                <th>메뉴명</th>
-                                                <th>가격</th>
-                                                <th>카테고리</th>
-                                                <th>메뉴소개</th>
-                                                <th>삭제</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach items="${mlist}" var="menuVo">
-                                                <tr class="odd gradeX">
-                                                    <td><img src ="${menuVo.mimage}" width=100 height=100></td>
-                                                    <td>${menuVo.mname}</td>
-                                                    <td>${menuVo.mprice}</td>
-                                                    <td class="center">${menuVo.cname}</td>
-                                                    <td class="center">${menuVo.mintro}</td>
-                                                    <td class="center"><input type="button" value="삭제" </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <!--End Advanced Tables -->
-                    </div>
-                </div>
+                
                 <!-- /. ROW  -->
                 <div class="row">
                     <div class="col-md-12">
                         <!--   Kitchen Sink -->
                         <div class="card">
-                            <div class="card-action">
+                            <div class="card-action" >
                                 카테고리별
                                 <div>
                                 <!-- 
@@ -329,8 +288,11 @@
                                         </c:forEach>
                                 </select>
                                  </div>
-                                 <div id='container1'>
-                                    <button onclick="window.open(url='insertC')">add catrgory</button>
+                                 <div>
+                                    <a href="insertC"><button style="color: black;">add catrgory</button></a>
+                                 </div>
+                                 <div>
+                                    <a href="updateC"><button style="color: black;">카테고리 수정</button></a>
                                  </div>
                             </div>
 
@@ -342,8 +304,57 @@
                         <!-- End  Kitchen Sink -->
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Advanced Tables -->
+                        <div class="card">
+                            <div class="card-action" style="margin-left: 3px;">
+                                ALL Menu
+                            </div>
+                            <span id="new_span">
+                                <a href="menu_in"><button style="color: black;"><b>add menu</b></button></a>
+                              
+                            </span>
+                            
+                            <div class="card-content">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover"
+                                        id="dataTables-example">
+                                        <thead>
+                                            <tr>
+                                                <th class="center">이미지</th>
+                                                <th class="center">메뉴명</th>
+                                                <th class="center">가격</th>
+                                                <th class="center">카테고리</th>
+                                                <th class="center">메뉴소개</th>
+                                                <th class="center">삭제</th>
+                                                <th class="center">수정</th></a>
+                                            </tr>
+                                            
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach items="${mlist}" var="menuVo">
+                                                <tr class="odd gradeX">
+                                                    <td class="center"><img src=${menuVo.mimage} id="new_img" width=100 height=100></td>
+                                                    <td class="center">${menuVo.mname}</td>
+                                                    <td class="center">${menuVo.mprice}</td>
+                                                    <td class="center">${menuVo.cname}</td>
+                                                    <td class="center">${menuVo.mintro}</td>
+                                                    <td class="center"><a href="Menu_del?mseq=${menuVo.mseq}"><input type="button" value="삭제"></a></td>
+                                                    <td class="center"><a href="updateM"><input type="button" value="수정"></a></td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End Advanced Tables -->
+                    </div>
+                </div>
                 <!-- /. ROW  -->
                 <!-- test-->
+               
 
 
                 <!-- /. PAGE INNER  -->
@@ -403,7 +414,7 @@
                             alert(JSON.stringify(data));
                             var html="";
                            
-                            html +="<table class=table table-striped table-bordered table-hover>";
+                            html +="<table border='1' width='50%'>";
                             html +="<tr>";
                             html +="<thead>";
                             html +="<th>이미지</th>";
@@ -414,16 +425,15 @@
                             html +="</tr>";
                             html +="</thead>" ;
                             for(let menuVo of Object.keys(data)){
-                               
                                 var capital = data[menuVo];
                                 console.log("test menuVo.mimage: "+capital.mimage)
                                 html +="<tbody>";
                                 html +="<tr>";
-                                html +="<td align='center'><img src='"+capital.mimage+"'' width=100 height=100></td>";
+                                html +="<td align='center'><img src="+capital.mimage+" id='new_img' width=100 height=100></td>";
                                 html +="<td align='center'>"+capital.mname+"</td>";
                                 html +="<td align='center'>"+capital.mprice+"</td>";
                                 html +="<td align='center'>"+capital.mintro+"</td>";
-                                html +="<td align='center'> <a href='content?mseq="+capital.mseq+"'>삭제</td>";
+                                html +="<td align='center'> <a href='Menu_del?mseq="+capital.mseq+"'>삭제</td>";
                                 html +="</tr>";
                                 html +="</tbody>";
                             }
@@ -439,6 +449,7 @@
 
 
             </script>
+        
 </body>
 
 </html>

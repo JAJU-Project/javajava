@@ -14,4 +14,6 @@ public interface MenuMapper {
 
     List<MenuVo> selectByCname(String scode, String cname);
 
+    void deleteByMseq(long mseq);
+
 }

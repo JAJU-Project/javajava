@@ -1,6 +1,7 @@
 package last.project.store.domain;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

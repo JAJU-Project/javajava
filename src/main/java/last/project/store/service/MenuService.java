@@ -10,4 +10,6 @@ public interface MenuService {
     List<MenuVo> selectBySucode(String scode);
 
     List<MenuVo> selectByCname(String scode, String cname);
+
+    void deleteByMseq(long mseq);
 }
