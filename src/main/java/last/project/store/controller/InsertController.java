@@ -34,6 +34,7 @@ public class InsertController { // 각각의 정보를 추가할때 쓰이는 �
     private StoreService storeService;
     private SalesService salesService;
 
+    // 호엥
     @PostMapping("sign_up.do") // 관리자 회원 가입을 위한
     public String sign_up(ManagerVo managerVo) { // 아이디 유효성검사 할 예정.
         String maid = managerVo.getMaid();
