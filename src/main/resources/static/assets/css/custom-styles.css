@@ -748,18 +748,90 @@ padding: 0 15px 0px 15px;
     margin-left: 20px;
 }
 
-#imgbox{
-    width: 100px;
-    height: 100px;
+/*여기부터 정가연이가 했다ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ*/
 
+* {
+    font-family: 맑은 고딕, "Times New Roman", serif;
 }
-.flex_bbox{
+
+#bigbox {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+#custo {
+    width: 800px;
+    height: 300px;
+    margin: 30px 0px 30px 50px;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: large;
+    position: absolute;
+    top: 0; left: 0;
+}
+
+#boss {
+    width: 800px;
+    height: 300px;
+    font-size: large;
+    position: absolute;
+    top: 0; right: 0;
+    margin: 400px 50px 30px 0px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#fff {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#fffb {
+    display: flex;
+    flex-wrap: wrap;
+}
+#custo-psize {
+    font-family: 배달의민족 주아;
+    font-size: 130%;
+}
+
+#boss-psize {
+    font-family: 배달의민족 주아;
+    font-size: 130%;
+}
+
+#chatbox {
+    width: 500%; /*이거 왜 앙대여 엄마*/
+    height: 730px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: -y; /*이건말이지 글이 길어지면 생길예정*/
     
 }
-#orderr{
-    margin-left: 20px;
-    margin-top: 20px;
+
+#subject {
+    font-family: a옛날목욕탕L;
 }
+
+#subboss {
+    font-size: 110%;
+    margin: 10px 0px 0px 0px;
+    font-family: 배달의민족 주아;
+}
+
+#subcusto {
+    font-size: 110%;
+    margin: 10px 0px 0px 0px;
+    font-family: 배달의민족 주아;
+}
+
+#reviewplz {
+    font-size: 120%;
+    font-family: a옛날목욕탕L;
+}
+
+#indexx {
+    font-size: 130%;
+    font-family: 배달의민족 주아;
+}
+
