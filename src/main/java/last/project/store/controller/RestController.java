@@ -131,8 +131,8 @@ public class RestController {
 
     @RequestMapping("test4")
     @ResponseBody
-    public String test4_mo() {
-        log.info("test");
+    public String test4_mo(String oseq) {
+        log.info("#test4 oseq: " + oseq);
         return null;
     }
 }

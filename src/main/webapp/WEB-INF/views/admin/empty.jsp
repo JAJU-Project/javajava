@@ -61,6 +61,9 @@
         margin-left: 150px;
     }
 
+     .center{
+        align-items: center !important;
+    }
 </style>
 <body>
     <div class="modal-wrapper" id="modal-wrapper" style=" display: none;">
@@ -317,9 +320,45 @@
                             </ul>
                             <div class="tab_Content_Wrap">
                                 <div id="tabContent01" class="tabPage">
-                                <!-- 요 부분 -->
-                                    
-                                <!-- 요 까지 -->
+                                
+                                    <div class="flex_bbox">
+                                    <div id="orderr">
+                                    <div>
+                                    <table>
+                                    <thead style="border: 1cm;">
+                                    <tr>
+                                    <th class="center">주문 상태</th>
+                                    <th class="center">주문 번호</th>
+                                    <th class="center">주문 목록</th>
+                                    <th class="center">가격</th>
+                                    <th class="center">주문 상세</th>
+                                    <th class="center">주문 접수</th>
+                                    <th class="center">주문 취소</th>
+                                    </tr>
+                                    </thead>
+                                    <c:forEach items="${olist1}" var="list">
+                                    <tbody>
+                                        <tr>
+                                        <td class="center"><img src="/img/wait.png" style="width: 60px; height: 60px;"></td>
+                                        <td class="center">${list.oseq}</td>
+                                        <td class="center">${list.mname1} 등</td>
+                                        <td class="center">${list.mprice1} </td>
+                                        <td class="center"><button onclick="detail(`${list.oseq}`)">주문 상세</button></td>
+                                        <td class="center">
+                                            <input type="button" value="접수하기" onclick="">
+                                        </td>
+                                        <td class="center">
+                                            <input type="button" value="주문취소" onclick="confirm(`정말 취소하시겠습니까`)">
+                                        </td>
+                                        </tr>
+                                    </tbody>
+                                    </c:forEach>
+                                    </table>
+                                    </div>
+                                  
+                                </div>
+                                    </div>
+                                
                                 </div>
                                 <div id="tabContent02" class="tabPage">
                                     Tab2 Content
@@ -350,7 +389,54 @@
         </div>
      <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
-   
+    <script>
+        var modal = document.getElementById("modal-wrapper")
+        function detail(oseq){
+            var seqData = {"oseq":oseq};
+            $.ajax({
+                url:"test4",
+                type:"post",
+                data:seqData,
+                success:function(data){
+                    console.log(oseq);
+                    var html="";
+                    html +='<div class="row">';
+                    html +='<div class=titlee></div>';
+                    html +='<input class="input-field" value="주문번호:'+oseq+'  " readonly></input>';
+                    html +='<input class=input-field value="주문시간 : {시간}" readonly></input>';
+                    html +='<input class=input-field value="주문 목록" readonly></input>';
+                    html +='<div class="menu_price">';
+                    html +='<div class="mp_son">메뉴</div>';
+                    html +='<div class="menu_mother">';
+                    html +='<div class="menu_son">메뉴 여기</div>';
+                    html +='<div class="menu_son">메뉴 여기</div>';
+                    html +='<div class="menu_son">메뉴 여기</div>';
+                    html +='<div class="menu_son">메뉴 여기</div>';
+                    html +='<div class="menu_son">메뉴 여기</div>';
+                    html +='</div>'
+                    html +='<div class="mp_son" id="magin">가격</div>';
+                    html +='<div class="menu_mother">';
+                    html +='<div class="menu_son">가격 여기</div>';
+                    html +='<div class="menu_son">가격 여기</div>';
+                    html +='<div class="menu_son">가격 여기</div>';
+                    html +='<div class="menu_son">가격 여기</div>';
+                    html +='<div class="menu_son">가격 여기</div>';
+                    html +='</div>'
+                    html +='</div>';
+                    html +='<input class=input-field value="총가격  : {가격}" readonly></input>';
+                    html +='</div>';
+                    $(".bottom-info").html(html);
+                }
+            })
+            modal.style.display = 'flex';
+        }
+        window.onclick =(event)=>{
+            if(event.target == modal){
+                modal.style.display='none';
+               }
+        }
+
+    </script>
 
     <!-- jQuery Js -->
     <script src="assets/js/jquery-1.10.2.js"></script>
