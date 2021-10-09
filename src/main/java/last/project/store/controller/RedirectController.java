@@ -1,8 +1,15 @@
 package last.project.store.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import last.project.store.domain.MenuVo;
+import last.project.store.service.MenuService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 
@@ -10,6 +17,8 @@ import lombok.extern.java.Log;
 @AllArgsConstructor
 @Log
 public class RedirectController { // 페이지 이동 담당.
+
+    private MenuService menuService;
 
     @GetMapping("/")
     public String index() { // Test용 index 페이지
@@ -35,5 +44,18 @@ public class RedirectController { // 페이지 이동 담당.
     public String updateC(String catgo) {
         log.info("#updateC catgo : " + catgo);
         return "admin/updateC";
+    }
+
+    @GetMapping("updateM")
+    public ModelAndView updateM(long mseq, HttpSession session) {
+        String scode = (String) session.getAttribute("scode");
+
+        // List<MenuVo> mList = (List<MenuVo>) menuVo;
+        log.info("#updateM mseq: " + mseq);
+        List<MenuVo> mlist = menuService.selectByMseq(mseq);
+        ModelAndView mv = new ModelAndView("admin/updateM");
+        mv.addObject("mlist", mlist);
+        log.info("#updateM mlist: " + mlist);
+        return mv;
     }
 }

@@ -34,6 +34,7 @@ public class LoginController {
         if (maname != null) { // 이름이 null이 아니면 아이디 및 비밀번호 일치
             session.setAttribute("maid", maid);
             log.info("#login.do 아이디및 비밀번호 일치");
+
             return "redirect:store.do";
         } else {
             log.info("#login.do 아이디및 비밀번호 하지않음");

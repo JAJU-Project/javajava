@@ -1,8 +1,5 @@
 package last.project.store.controller;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -130,5 +127,12 @@ public class RestController {
         JSONObject json = new JSONObject(ageMap);
         log.info("#test4 json: " + json);
         return json;
+    }
+
+    @RequestMapping("test4")
+    @ResponseBody
+    public String test4_mo() {
+        log.info("test");
+        return null;
     }
 }

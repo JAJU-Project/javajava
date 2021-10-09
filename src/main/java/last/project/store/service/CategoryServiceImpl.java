@@ -31,4 +31,16 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.selectByScode(scode);
     }
 
+    @Override
+    public void deleteByCname(String scode, String cname) {
+        // TODO Auto-generated method stub
+        categoryMapper.deleteByCname(scode, cname);
+    }
+
+    @Override
+    public void updateByCname(CategoryVo categoryVo) {
+        // TODO Auto-generated method stub
+        categoryMapper.updateByCname(categoryVo);
+    }
+
 }

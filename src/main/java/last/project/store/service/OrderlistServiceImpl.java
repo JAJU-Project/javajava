@@ -1,5 +1,6 @@
 package last.project.store.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,9 +18,9 @@ public class OrderListServiceImpl implements OrderListService {
     private OrderListMapper orderListMapper;
 
     @Override
-    public List<OrderListVo> selectAll(String scode) {
+    public List<OrderListVo> selectAll(HashMap<String, Object> map) {
         // TODO Auto-generated method stub
-        return orderListMapper.selectAll(scode);
+        return orderListMapper.selectAll(map);
     }
 
     @Override

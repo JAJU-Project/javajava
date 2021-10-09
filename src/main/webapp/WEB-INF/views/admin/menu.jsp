@@ -1,5 +1,6 @@
 ﻿<%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -24,6 +25,105 @@
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
         integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 </head>
+<style>
+    .modal-wrapper{
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+       
+    }
+    .modal-inner{
+        height: calc(100% - 750px);
+        width: calc(100% - 600px);
+        background-color: #485861;
+        border-radius: 12px;
+        padding: 24px;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    .modal-innerM{
+        height: calc(100% - 380px);
+        width: calc(100% - 600px);
+        background-color: #485861;
+        border-radius: 12px;
+        padding: 24px;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+    .modal-inner .titlee{
+        font-size: 17px;
+        color: aliceblue;
+
+
+    }
+    .mybutton{
+        padding: 10px 20px;
+        font-size: 15px;
+        border: 1px solid rgba(255,230,207, 0.28);
+        border-radius: 4px;
+        color: green;
+       
+
+    }
+    
+
+    .overlay{
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0,0,0, 0.7);
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: none;
+        z-index : 10000;
+
+    }
+    .overlay-updateC{
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0,0,0, 0.7);
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: none;
+        z-index : 10000;
+
+    }
+    .overlay-addmenu{
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0,0,0, 0.7);
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: none;
+        z-index : 10000;
+
+    }
+    .overlay-updateM{
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0,0,0, 0.7);
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: none;
+        z-index : 10000;
+
+    }
+    #categoryhide{
+        display: none;
+    }
+    #menuhide{
+        display: none;
+    }
+    </style>
+
 
 
 <body>
@@ -236,8 +336,7 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                     <li>
-                        <a class="active-menu waves-effect waves-dark" href="index"><i class="fa fa-dashboard"></i>
-                            Sales</a>
+                        <a class="waves-effect waves-dark" href="index"><i class="fa fa-dashboard"></i>Sales</a>
                     </li>
                     <li>
                         <a href="review" class="waves-effect waves-dark"><i class="fa fa-desktop"></i>Review</a>
@@ -246,19 +345,20 @@
                         <a href="menu" class="waves-effect waves-dark"><i class="fa fa-table"></i>Menu</a>
                     </li>
                     <li>
-                        <a href="empty" class="waves-effect waves-dark"><i class="fa fa-fw fa-file"></i> Empty Page</a>
+                        <a href="empty" class="waves-effect waves-dark"><i class="fa fa-fw fa-file"></i>Other</a>
                     </li>
                 </ul>
-
+    
             </div>
-
-        </nav>
+      </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
             <div class="header">
                 <h1 class="page-header">
                     Menu Page
                 </h1>
+                <button id="showcategory">category</button>
+                <button id="showmenu">menu</button>
 
             </div>
 
@@ -266,33 +366,25 @@
 
                 
                 <!-- /. ROW  -->
-                <div class="row">
+                <div class="row" id="categoryhide" >
                     <div class="col-md-12">
                         <!--   Kitchen Sink -->
                         <div class="card">
                             <div class="card-action" >
                                 카테고리별
                                 <div>
-                                <!-- 
-                                <select id="catgo" name="catgo">
-                                    <option value="none">=== 선택 ===</option>
-                                    <option value="korean">한국어</option>
-                                    <option value="english">영어</option>
-                                    <option value="chinese">중국어</option>
-                                    <option value="spanish">스페인어</option>
-                                </select> -->
                                 <select id="catgo" name="catgo">
                                     <option value="none">=== 선택 ===</option>
                                         <c:forEach items="${list }" var="CategoryVo">
-                                            <option value="${CategoryVo.cname }">${CategoryVo.cname }</option>
+                                            <option value="${CategoryVo.cname}">${CategoryVo.cname }</option>
                                         </c:forEach>
                                 </select>
                                  </div>
                                  <div>
-                                    <a href="insertC"><button style="color: black;">add catrgory</button></a>
+                                   <button style="color: black;" id="addcategory">카테고리 추가</button>
                                  </div>
                                  <div>
-                                    <a href="updateC"><button style="color: black;">카테고리 수정</button></a>
+                                    <button style="color: black;" id="updatecategory">카테고리 수정</button>
                                  </div>
                             </div>
 
@@ -304,15 +396,15 @@
                         <!-- End  Kitchen Sink -->
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
+                <div class="row" id="menuhide">
+                    <div class="col-md-12" >
                         <!-- Advanced Tables -->
                         <div class="card">
                             <div class="card-action" style="margin-left: 3px;">
                                 ALL Menu
                             </div>
                             <span id="new_span">
-                                <a href="menu_in"><button style="color: black;"><b>add menu</b></button></a>
+                               <button style="color: black;" id="addmenu">메뉴 추가</button>
                               
                             </span>
                             
@@ -327,6 +419,7 @@
                                                 <th class="center">가격</th>
                                                 <th class="center">카테고리</th>
                                                 <th class="center">메뉴소개</th>
+                                                <th class="center">품절여부</th>
                                                 <th class="center">삭제</th>
                                                 <th class="center">수정</th></a>
                                             </tr>
@@ -335,13 +428,14 @@
                                         <tbody>
                                             <c:forEach items="${mlist}" var="menuVo">
                                                 <tr class="odd gradeX">
-                                                    <td class="center"><img src=${menuVo.mimage} id="new_img" width=100 height=100></td>
+                                                    <td class="center"><img src=${menuVo.mimage} id="new_img"></td>
                                                     <td class="center">${menuVo.mname}</td>
                                                     <td class="center">${menuVo.mprice}</td>
                                                     <td class="center">${menuVo.cname}</td>
                                                     <td class="center">${menuVo.mintro}</td>
-                                                    <td class="center"><a href="Menu_del?mseq=${menuVo.mseq}"><input type="button" value="삭제"></a></td>
-                                                    <td class="center"><a href="updateM"><input type="button" value="수정"></a></td>
+                                                    <td class="center">check</td>
+                                                    <td class="center"><a href="#"><input type="button" value="삭제"></a></td>
+                                                    <td class="center"><input type="button" id="updateM" value="수정"></td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
@@ -352,18 +446,207 @@
                         <!--End Advanced Tables -->
                     </div>
                 </div>
-                <!-- /. ROW  -->
-                <!-- test-->
-               
+                <!-- 여기부터 모델-->
+                <div class="overlay">
+                <div class="modal-wrapper">
+                    <div class="modal-inner">
+                        <div class="thumb"></div>
+                        <div class="bottom-info">
+                            <div class="titlee">새로운 카테고리를 넣어주세요</div>
+                            <p lass="description">
+                                <form class="col s12" action="inset_catego" method="POST" name="insert_catego">
+                                    <div class="row">
+                                    <div class="input-field col s12">
+                                        <input style="color: aliceblue;" placeholder="카테고리 명" id="catego" name="catego" type="text" class="validate" color="red">
+                                      </div>              
+                            </p>
+                            <div style="width : 100%; right:0; display:flex;justify-content: flex-end; justify-content:center"> 
+                              <input class="mybutton" align-right type="submit" value="넣기">
+                            </form>
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>  
+                </div>
 
-
-                <!-- /. PAGE INNER  -->
             </div>
         </div>
-            <!-- /. PAGE WRAPPER  -->
-            <!-- /. WRAPPER  -->
-            <!-- JS Scripts-->
+<!--카테고리  추가-->
+<div class="overlay-updateC">
+<div class="modal-wrapper">
+    <div class="modal-inner">
+        <div class="thumb"></div>
+        <div class="bottom-info">
+            <div class="titlee">현재 카테고리 목록</div>
+            <p lass="description">
+                <form class="col s12" action="update_category" method="POST" name="update_category">
+                    <div class="row">
+                      <div class="input-field col s6">
+                      <!-- Select Box -->
+                      </div>
+                    </div>
+              
+                    <div class="row">
+                    <div class="input-field col s12">
+                        <input placeholder="{list.category}" style="color: aliceblue;" id="category" type="text" class="validate">
+                      </div>      
+                    </div>              
+            </p>
+            <div style="width : 100%; right:0; display:flex;justify-content: flex-end; justify-content: center "> 
+              <input class="mybutton" type="submit" value="수정" id="close">
+            </form>
+ 
+ 
+            </div>
+        
+        </div>
+    </div>
+</div>
+</div>
+<!--카테고리 수정-->>
+<div class="overlay-addmenu">
+<div class="modal-wrapper">
+    <div class="modal-innerM">
+        <div class="thumb"></div>
+        <div class="bottom-info">
+            <div class="titlee" style="color: aliceblue;">새로운 메뉴를 넣어 주세요</div>
+            <p lass="description">
+                <form class="col s12" action="inset_menu" method="POST" name="insert_menu">
+                    <div class="row">
+                      <div class="input-field col s6">
+                      <!-- Select Box -->
+                      <select id="cname" name="cname">
+                          <option value="none">=== 카테고리 ===</option>
+                              <c:forEach items="${list }" var="CategoryVo">
+                                  <option value="${CategoryVo.cname }">${CategoryVo.cname }</option>
+                              </c:forEach>
+                      </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                    <div class="input-field col s12">
+                        <input placeholder="메뉴명" style="color: aliceblue;" id="mname" name="mname" type="text" class="validate">
+                      </div>
+                      <div class="input-field col s12">
+                        <input placeholder="가격" style="color: aliceblue;" id="mprice" name="mprice" type="text" class="validate">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input placeholder="메뉴 소개" style="color: aliceblue;" id="mintro" name="mintro" type="text" class="validate">
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                          <input placeholder="품절여부" style="color: aliceblue;" id="check" name="mintro" type="text" class="validate">
+                        </div>
+                      </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input placeholder="이미지 넣어야돼" style="color: aliceblue;" id="mimage" name="mimage" type="text" class="validate">
+                      </div>
+                    </div>              
+            </p>
+            <div style="width : 100%; right:0; display:flex;justify-content: flex-end; justify-content: center"> 
+              <input class="mybutton" type="submit" value="넣기" id="close">
+            </form> 
+            </div>
+        
+        </div>
+    </div>
+</div>
+</div>
+<!--메뉴 넣기-->
+<div class="overlay-updateM">
+<div class="modal-wrapper">
+    <div class="modal-innerM">
+        <div class="thumb"></div>
+        <div class="bottom-info">
+            <div class="titlee" style="color: aliceblue;">메뉴를 수정 해주세요</div>
+            <p lass="description">
+                <form class="col s12" action="update_menu" method="POST" name="update_menu">
+                    <div class="row">
+                      <div class="input-field col s6">
+                      <!-- Select Box -->
+                      <select id="cname" name="cname">
+                          <option value="none">=== 카테고리 ===</option>
+                              <c:forEach items="${list}" var="CategoryVo">
+                                  <option value="${CategoryVo.cname }">${CategoryVo.cname }</option>
+                              </c:forEach>
+                      </select>
+                        <!--input placeholder="카테고리" id="cname" name="cname" type="text" class="validate"-->
+                      </div>
+                    </div>
+              <!--반복문써서 넣어야됨 -->
+                    <div class="row">
+                    <div class="input-field col s12">
+                        <input placeholder="메뉴명" style="color: aliceblue;" id="mname" name="mname" type="text" class="validate">
+                      </div>
+                   
+                      <div class="input-field col s12">
+                        <input placeholder="가격" style="color: aliceblue;" id="mprice" name="mprice" type="text" class="validate">
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input placeholder="메뉴 소개" style="color: aliceblue;" id="mintro" name="mintro" type="text" class="validate">
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                          <input placeholder="품절여부" style="color: aliceblue;" id="check" name="mintro" type="text" class="validate">
+                        </div>
+                      </div>
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input placeholder="이미지 넣어야돼" style="color: aliceblue;" id="mimage" name="mimage" type="text" class="validate">
+                      </div>
+                    </div>              
+            </p>
+            <div style="width : 100%; right:0; display:flex;justify-content: flex-end; justify-content:center"> 
+              <input class="mybutton" type="submit" value="수정" id="close">
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--메뉴 수정-->>
+    <script>
+        $(function(){ $("#addcategory").click(function(){
+            $(".overlay").fadeIn(); });
+            });
+        $(function(){ $("#updatecategory").click(function(){
+            $(".overlay-updateC").fadeIn(); });  
+            });
+        $(function(){ $("#addmenu").click(function(){
+            $(".overlay-addmenu").fadeIn(); });  
+            });  
+        $(function(){ $("#updateM").click(function(){
+            $(".overlay-updateM").fadeIn(); });  
+            });
+        $(function(){ $("#showcategory").click(function(){
+            $("#categoryhide").show(),
+            $("#menuhide").hide();
+            });
+        });
+        $(function(){ $("#showmenu").click(function(){
+            $("#menuhide").show(),
+            $("#categoryhide").hide();
+        }) ;
+        });
+        
+        
 
+
+
+           
+
+            
+    </script>            
+<!--$(".modal-wrapper").click(function(){
+            $(".overlay").fadeOut(); }); -->>
 
             <!-- jQuery Js -->
             <script src="/assets/js/jquery-1.10.2.js"></script>
@@ -394,6 +677,7 @@
             </script>
             <!-- Custom Js -->
             <script src="/assets/js/custom-scripts.js"></script>
+            
 
             <script>
                 $("#catgo").on("change", function () { //clilc = 밸류체인지
@@ -425,15 +709,16 @@
                             html +="</tr>";
                             html +="</thead>" ;
                             for(let menuVo of Object.keys(data)){
+                               
                                 var capital = data[menuVo];
                                 console.log("test menuVo.mimage: "+capital.mimage)
                                 html +="<tbody>";
                                 html +="<tr>";
-                                html +="<td align='center'><img src="+capital.mimage+" id='new_img' width=100 height=100></td>";
+                                html +="<td align='center'><img src="+capital.mimage+" id='new_img'></td>";
                                 html +="<td align='center'>"+capital.mname+"</td>";
                                 html +="<td align='center'>"+capital.mprice+"</td>";
                                 html +="<td align='center'>"+capital.mintro+"</td>";
-                                html +="<td align='center'> <a href='Menu_del?mseq="+capital.mseq+"'>삭제</td>";
+                                html +="<td align='center'> <a href='content?mseq="+capital.mseq+"'>삭제</td>";
                                 html +="</tr>";
                                 html +="</tbody>";
                             }

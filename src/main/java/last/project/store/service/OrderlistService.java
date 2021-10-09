@@ -1,5 +1,6 @@
 package last.project.store.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,7 +8,7 @@ import last.project.store.domain.OrderListVo;
 
 public interface OrderListService {
 
-    List<OrderListVo> selectAll(String scode);
+    List<OrderListVo> selectAll(HashMap<String, Object> map);
 
     List<OrderListVo> selectAlls(String scode);
 

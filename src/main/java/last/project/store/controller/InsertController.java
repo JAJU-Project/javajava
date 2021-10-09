@@ -76,23 +76,23 @@ public class InsertController { // 각각의 정보를 추가할때 쓰이는 �
         log.info("#category.do Post mname: " + mname);
         log.info("#category.do Post mprice: " + mprice);
 
-        List<BasketVo> blist = basketService.selectByMname(kid, mname);
+        List<BasketVo> blist = basketService.selectByMname(kid, mname); // 장바구니에 추가중인 고객 kid, 장바구니에 추가할 메뉴 이름
         log.info("#basket_in.do bcount1: " + bcount);
         log.info("#basket_in.do blist.size: " + blist.size());
         mprice = mprice * bcount; // 상품가격 = 상품가격 * 상품의개수
-        if (blist.size() != 0) {
-            int get_bcount = blist.get(0).getBcount();
-            int get_mprice = blist.get(0).getMprice();
-            bcount = bcount + get_bcount;
-            mprice = mprice + get_mprice;
-            basketVo.setBcount(bcount);
+        if (blist.size() != 0) { // blist 가 0이 아니라는건 해당 고객(kid) 가 이미 장바구니에 물품을 추가 했다는 의미
+            int get_bcount = blist.get(0).getBcount(); // 그럼 이미 추가한 메뉴의 수량을 가져오고
+            int get_mprice = blist.get(0).getMprice(); // 추가 한 메뉴의 가격을 가져 옵니다.
+            bcount = bcount + get_bcount; // jsp에서 받아온 bcount 에 BasketTable 에서 가져온 bcount를 더함
+            mprice = mprice + get_mprice; // jsp에서 받아온 mprice 에 BasketTable 에서 가져온 mpirce를 더함
+            basketVo.setBcount(bcount); // set
             basketVo.setKid(kid);
             basketVo.setMname(mname);
             basketVo.setMprice(mprice);
-            basketService.updateAll(basketVo);
+            basketService.updateAll(basketVo); // 이건 업데이트
             log.info("#basket_in.do bcount2: " + bcount);
             return "redirect:client_category.do";
-        } else {
+        } else { // blist 가 0 이라는건 장바구니에 해당하는 메뉴가 없다는 뜻.
             basketVo.setMname(mname);
             basketVo.setBcount(bcount);
             basketVo.setMprice(mprice);

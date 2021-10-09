@@ -208,27 +208,25 @@
                         </li>
 </ul>  
       <!--/. NAV TOP  -->
-        <nav class="navbar-default navbar-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="main-menu">
+      <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <li>
+                    <a class="waves-effect waves-dark" href="index"><i class="fa fa-dashboard"></i>Sales</a>
+                </li>
+                <li>
+                    <a href="review" class="waves-effect waves-dark"><i class="fa fa-desktop"></i>Review</a>
+                </li>
+                <li>
+                    <a href="menu" class="waves-effect waves-dark"><i class="fa fa-table"></i>Menu</a>
+                </li>
+                <li>
+                    <a href="empty" class="waves-effect waves-dark"><i class="fa fa-fw fa-file"></i>Other</a>
+                </li>
+            </ul>
 
-                    <li>
-                        <a class="active-menu waves-effect waves-dark" href="index"><i class="fa fa-dashboard"></i> SALES</a>
-                    </li>
-                    <li>
-                        <a href="review" class="waves-effect waves-dark"><i class="fa fa-desktop"></i>REVIEW</a>
-                    </li>
-                    <li>
-                        <a href="menu" class="waves-effect waves-dark"><i class="fa fa-table"></i>MENU</a>
-                    </li>
-                    <li>
-                        <a href="empty" class="waves-effect waves-dark"><i class="fa fa-fw fa-file"></i> EMPTY PAGE</a>
-                    </li>
-                </ul>
-
-            </div>
-
-        </nav>
+        </div>
+  </nav>
         <!-- /. NAV SIDE  -->
       
       <div id="page-wrapper">
@@ -399,7 +397,7 @@
   
          $.ajax({
            type : 'POST',                 
-           url : "salesByMenu", //todo: 재영쓰바꿔  
+           url : "test1", //todo: 재영쓰바꿔  
            data: {catgo: $("#catgo").val()},          
            success : function(data) {   
             var html="";
@@ -413,16 +411,6 @@
             html +="</div>";
             html +="<div class='card-image'>";
             html +="<ul class='collection'>";
-            for(let SalesVo of Object.keys(data)){
-                    var capital = data[SalesVo];
-                    html +="<li class='collection-item avatar'>";
-                    html +="<i class='material-icons circle green'>track_changes</i>";
-                    
-                    html +="<span class='title'>"+capital.mname+"</span>";
-                    html +="<p>"+capital.sacoin+"원<br></p>";
-                    html +="<a href='#!'' class='secondary-content'><i class='material-icons'>grade</i></a>";
-                    html +="</li>";
-                }
             html +="<li class='collection-item avatar'>";
             html +="<i class='material-icons circle green'>track_changes</i>";
             html +="<span class='title'>아이스아메리카노</span>";
@@ -559,7 +547,7 @@
          var activeTab = $(this).attr('data-tab');
          $.ajax({
            type : 'POST',                 
-           url : "dayCustomer", //재영쓰바꿔  
+           url : "test3", //재영쓰바꿔  
            data: {catgo: $("#catgo").val()},          
            success : function(data) {   
             var html="";
@@ -571,7 +559,7 @@
             html +="<div class='col-xs-12 col-sm-6 col-md-6'>";
             html +="<div class='card-panel text-center'>";
             html +="<h4>CUSTOMERS</h4>";
-            html +="<div class='easypiechart' id='easypiechart-blue' data-percent='"+data+"' ><span class='percent'>"+data+"</span>";
+            html +="<div class='easypiechart' id='easypiechart-blue' data-percent='82' ><span class='percent'>82</span>";
             html +="</div>";
             html +="</div>";
             html +="</div>";
@@ -597,7 +585,7 @@
          var activeTab = $(this).attr('data-tab');
          $.ajax({
            type : 'POST',                 
-           url : "age", //재영쓰바꿔  
+           url : "test4", //재영쓰바꿔  
            data: {catgo: $("#catgo").val()},          
            success : function(data) {   
             var html="";
@@ -623,29 +611,29 @@
                element: 'morris-donut-chart',
                 data: [{
                     label: "10대",
-                    value: data.teenager
+                    value: 12
                 }, {
                     label: "20대",
-                    value: data.twenties
+                    value: 30
                 },
             {
                     label: "30대",
-                    value: data.thirties
+                    value: 30
                 },
             {
                     label: "40대",
-                    value: data.forties
+                    value: 30
                 },
             {
                     label: "50대",
-                    value: data.fifties
+                    value: 30
                 },
             {
                     label: "60대",
-                    value: data.sixties
+                    value: 30
                 }, {
-                    label: "그외",
-                    value: data.etc
+                    label: "70대",
+                    value: 5
                 }],
                colors: [
     '#A6A6A6','#414e63',

@@ -7,8 +7,8 @@
         select * from orderlist where TO_CHAR(oldate,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') 
         and scode = #{scode}
     </select>
-    <select id="selectAll" resultType="OrderListVo" parameterType="String">
-        select mname1, mname2, mname3, mname4, mname5, mname6, mname7, mname8, mname9, mname10,
+    <select id="selectAll" resultType="OrderListVo" parameterType="java.util.HashMap">
+        select oseq ,mname1, mname2, mname3, mname4, mname5, mname6, mname7, mname8, mname9, mname10,
         sum(olcount1) as olcount1, sum(olcount2) as olcount2, sum(olcount3) as olcount3,
         sum(olcount4) as olcount4, sum(olcount5) as olcount5, 
         sum(olcount6) as olcount6, sum(olcount7) as olcount7,
@@ -20,8 +20,8 @@
         sum(mprice7) as mprice7, sum(mprice8) as mprice8, 
         sum(mprice9) as mprice9, sum(mprice10) as mprice10
         from orderlist 
-        where scode = #{scode}
-        group by mname1,mname2,mname3,mname4,mname5,mname6,mname7,mname8,mname9,mname10
+        where scode = #{scode} and ostate=#{ostate}
+        group by oseq,mname1,mname2,mname3,mname4,mname5,mname6,mname7,mname8,mname9,mname10
     </select>
 
     <select id="selectAlls" resultType="OrderListVo" parameterType="String">

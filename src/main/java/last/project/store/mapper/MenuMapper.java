@@ -16,4 +16,8 @@ public interface MenuMapper {
 
     void deleteByMseq(long mseq);
 
+    void updateByMseq(MenuVo menuVo);
+
+    List<MenuVo> selectByMseq(long mseq);
+
 }

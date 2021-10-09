@@ -16,7 +16,15 @@
         select * from menu where scode=#{scode} and cname=#{cname}
     </select>
 
+    <select id="selectByMseq" resultType="MenuVo" parameterType="long">
+        select * from menu where mseq=#{mseq}
+    </select>
+
     <delete id="deleteByMseq" parameterType="long">
         delete from menu where mseq=#{mseq}
     </delete>
+
+    <update id="updateByMseq" parameterType="MenuVo">
+        update menu set mname=#{mname}, mprice=#{mprice} where mseq=#{mseq}
+    </update>
 </mapper>

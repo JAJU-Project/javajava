@@ -1,3 +1,6 @@
+<%@ page contentType="text/html;charset=utf-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -216,25 +219,23 @@
       <!--/. NAV TOP  -->
         <!--/. NAV TOP  -->
         <nav class="navbar-default navbar-side" role="navigation">
-          <div class="sidebar-collapse">
-              <ul class="nav" id="main-menu">
-
-                  <li>
-                      <a class="active-menu waves-effect waves-dark" href="index"><i class="fa fa-dashboard"></i> Sales</a>
-                  </li>
-                  <li>
-                      <a href="review" class="waves-effect waves-dark"><i class="fa fa-desktop"></i>Review</a>
-                  </li>
-                  <li>
-                      <a href="menu" class="waves-effect waves-dark"><i class="fa fa-table"></i>Menu</a>
-                  </li>
-                  <li>
-                      <a href="empty" class="waves-effect waves-dark"><i class="fa fa-fw fa-file"></i> Empty Page</a>
-                  </li>
-              </ul>
-
-          </div>
-
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li>
+                        <a class="waves-effect waves-dark" href="index"><i class="fa fa-dashboard"></i>Sales</a>
+                    </li>
+                    <li>
+                        <a href="review" class="waves-effect waves-dark"><i class="fa fa-desktop"></i>Review</a>
+                    </li>
+                    <li>
+                        <a href="menu" class="waves-effect waves-dark"><i class="fa fa-table"></i>Menu</a>
+                    </li>
+                    <li>
+                        <a href="empty" class="waves-effect waves-dark"><i class="fa fa-fw fa-file"></i>Other</a>
+                    </li>
+                </ul>
+    
+            </div>
       </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">

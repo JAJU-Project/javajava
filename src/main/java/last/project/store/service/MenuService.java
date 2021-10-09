@@ -12,4 +12,8 @@ public interface MenuService {
     List<MenuVo> selectByCname(String scode, String cname);
 
     void deleteByMseq(long mseq);
+
+    void updateByMseq(MenuVo menuVo);
+
+    List<MenuVo> selectByMseq(long mseq);
 }

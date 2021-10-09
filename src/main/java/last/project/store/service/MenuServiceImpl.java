@@ -37,4 +37,16 @@ public class MenuServiceImpl implements MenuService {
         menuMapper.deleteByMseq(mseq);
     }
 
+    @Override
+    public void updateByMseq(MenuVo menuVo) {
+        // TODO Auto-generated method stub
+        menuMapper.updateByMseq(menuVo);
+    }
+
+    @Override
+    public List<MenuVo> selectByMseq(long mseq) {
+        // TODO Auto-generated method stub
+        return menuMapper.selectByMseq(mseq);
+    }
+
 }

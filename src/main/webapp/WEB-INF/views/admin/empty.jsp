@@ -23,19 +23,57 @@
     <link rel="stylesheet" href="/assets/js/Lightweight-Chart/cssCharts.css"> 
 </head>
 <style>
-	.tabWrap { width: 900px; height: 500px; }
+	.tabWrap { width: 100%; height: 100%; }
 	.tab_Menu { margin: 0px; padding: 0px; list-style: none; }
 	.tabMenu { width: 150px; margin: 0px; text-align: center; 
 			   padding-top: 10px; padding-bottom: 10px; float: left; }
 		.tabMenu a { color: #000000; font-weight: bold; text-decoration: none; }
 	.current { background-color: #FFFFFF; 
-			   border: 1px solid blue; border-bottom:hidden; }
-	.tabPage { width: 900px; height: 470px; float: left; 
-			   border: 1px solid blue; 
-            overflow: scroll;}
+			   border: 1px solid blue; }
+	.tabPage { width: 100%; height: 100%; float: left;  
+            overflow-y: scroll;
+        }
+    #orderr{
+        width: 300px;
+    }
+    .input-field{
+        color: aliceblue;
+    }
+    .menu_price{
+        display: flex;
+        flex-direction: row;
+    }
+    .mp_son{
+        color: aliceblue;
+        flex-basis: 30%;
+        font-size: 15;
+    }
+    .menu_mother{
+        display: flex;
+        flex-direction: column;
+        margin-right: 100px;
+    }
+    .menu_son{
+        color: yellow;
+        font-size: 20;
+    }
+    #magin{
+        margin-left: 150px;
+    }
 
 </style>
 <body>
+    <div class="modal-wrapper" id="modal-wrapper" style=" display: none;">
+        <div class="modal-inner">
+            
+            <div class="bottom-info">
+             
+
+            </div>
+
+        </div>
+    
+    </div>
     <div id="wrapper">
         <nav class="navbar navbar-default top-navbar" role="navigation">
             <div class="navbar-header">
@@ -232,9 +270,8 @@
        <nav class="navbar-default navbar-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav" id="main-menu">
-
                 <li>
-                    <a class="active-menu waves-effect waves-dark" href="index"><i class="fa fa-dashboard"></i> Sales</a>
+                    <a class="waves-effect waves-dark" href="index"><i class="fa fa-dashboard"></i>Sales</a>
                 </li>
                 <li>
                     <a href="review" class="waves-effect waves-dark"><i class="fa fa-desktop"></i>Review</a>
@@ -243,13 +280,12 @@
                     <a href="menu" class="waves-effect waves-dark"><i class="fa fa-table"></i>Menu</a>
                 </li>
                 <li>
-                    <a href="empty" class="waves-effect waves-dark"><i class="fa fa-fw fa-file"></i> Empty Page</a>
+                    <a href="empty" class="waves-effect waves-dark"><i class="fa fa-fw fa-file"></i>Other</a>
                 </li>
             </ul>
 
         </div>
-
-    </nav>
+  </nav>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
 		  <div class="header"> 
@@ -279,115 +315,11 @@
                                     <a href="#tabContent04" >주문 취소</a>
                                 </li>
                             </ul>
-                            
                             <div class="tab_Content_Wrap">
                                 <div id="tabContent01" class="tabPage">
-                                <c:forEach items="${olist}" var="list">
-                                 <c:if test="${list.ostate==1}">
-                                    <div class="flex_bbox">
-                                    <div id="orderr">
-                                    <img src="/img/wait.png" id="imgbox"/>
-                                    <div>
-                                    <p>주문번호</p>
-                                    <p>${list.oseq}</p>
-                                    <p>주문일시</p>
-                                    <p>${list.oldate}</p>
-                                    </div>
-                                    <div>
-                                    <table>
-                                    <thead>
-                                    <p>상세 주문내역</p>
-                                    <tr>
-                                    <th>메뉴</th>
-                                    <th>수량</th>
-                                    <th>가격</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody border="10">
+                                <!-- 요 부분 -->
                                     
-                                        <c:if test="${!empty list.mname1}">
-                                            <tr>
-                                            <td>${list.mname1}</td>
-                                            <td>${list.olcount1}</td>
-                                            <td>${list.mprice1}</td>
-                                            </tr>
-                                        </c:if>
-                                        <c:if test="${!empty list.mname2}">
-                                            <tr>
-                                            <td>${list.mname2}</td>
-                                            <td>${list.olcount2}</td>
-                                            <td>${list.mprice2}</td>
-                                            </tr>
-                                        </c:if>
-                                        <c:if test="${!empty list.mname3}">
-                                            <tr>
-                                            <td>${list.mname3}</td>
-                                            <td>${list.olcount3}</td>
-                                            <td>${list.mprice3}</td>
-                                            </tr>
-                                        </c:if>
-                                        <c:if test="${!empty list.mname4}">
-                                            <tr>
-                                            <td>${list.mname4}</td>
-                                            <td>${list.olcount4}</td>
-                                            <td>${list.mprice4}</td>
-                                            </tr>
-                                        </c:if>
-                                        <c:if test="${!empty list.mname5}">
-                                            <tr>
-                                            <td>${list.mname5}</td>
-                                            <td>${list.olcount5}</td>
-                                            <td>${list.mprice5}</td>
-                                            </tr>
-                                        </c:if>
-                                        <c:if test="${!empty list.mname6}">
-                                            <tr>
-                                            <td>${list.mname6}</td>
-                                            <td>${list.olcount6}</td>
-                                            <td>${list.mprice6}</td>
-                                            </tr>
-                                        </c:if>
-                                        <c:if test="${!empty list.mname7}">
-                                            <tr>
-                                            <td>${list.mname7}</td>
-                                            <td>${list.olcount7}</td>
-                                            <td>${list.mprice7}</td>
-                                            </tr>
-                                        </c:if>
-                                        <c:if test="${!empty list.mname8}">
-                                            <tr>
-                                            <td>${list.mname8}</td>
-                                            <td>${list.olcount8}</td>
-                                            <td>${list.mprice8}</td>
-                                            </tr>
-                                        </c:if>
-                                        <c:if test="${!empty list.mname9}">
-                                            <tr>
-                                            <td>${list.mname9}</td>
-                                            <td>${list.olcount9}</td>
-                                            <td>${list.mprice9}</td>
-                                            </tr>
-                                        </c:if>
-                                        <c:if test="${!empty list.mname10}">
-                                            <tr>
-                                            <td>${list.mname10}</td>
-                                            <td>${list.olcount10}</td>
-                                            <td>${list.mprice10}</td>
-                                            </tr>
-                                        </c:if>
-                                    
-                                    </tbody>
-                                    </table>
-                                    </div>
-                                    <input type="button" value="주문 접수" onclick="submit">
-                                    <input type="button" value="주문취소" onclick="confirm(`정말 취소하시겠습니까`)">  
-                                </div>
-                                </c:if>
-                                </c:forEach>
-                                </div>
-                               
-
-                           
+                                <!-- 요 까지 -->
                                 </div>
                                 <div id="tabContent02" class="tabPage">
                                     Tab2 Content
@@ -418,6 +350,8 @@
         </div>
      <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
+   
+
     <!-- jQuery Js -->
     <script src="assets/js/jquery-1.10.2.js"></script>
 	
@@ -467,7 +401,7 @@
     </script>
     <script>
             $("#waitorder").on("click", function(){
-                console.log("aasdasd");
+                
                 $.ajax({
                     url:"order",
                     type:"post",
@@ -475,80 +409,44 @@
                     success: function(data){
                         var html="";
                         html += '<div class="flex_bbox">';
-                        for(let list of Object.keys(data)){
-                            var capital = data[list];
-                            console.log("size>"+list.length);
-                            console.log("list>"+JSON.stringify(data[list]));
-                            console.log("list.mname1:"+capital.MNAME1);
-                            if(capital.ostate==1){
-                                html += '<div id="orderr">';
-                                html += '<img src="/img/wait.png" id="imgbox"/>';
-                                html += '<div>';
-                                html +=      '<p>주문번호</p>';
-                                html +=      '<p>'+capital.oseq+'</p>';
-                                html +=      '<p>주문일시</p>';
-                                html +=      '<p>'+capital.oldate+'</p>';
-                                html +=      '</div>';
-                                html +=       '<div>';
-                                html +=      '<table>';
-                                html +=          '<thead>';
-                                html +=              '<p>상세 주문내역</p>';
-                                html +=              '<tr>';
-                                html +=              '<th>메뉴</th>';
-                                html +=              '<th>수량</th>';
-                                html +=               '<th>가격</th>';
-                                html +=            '</tr>';
-                                html +=         '</thead>';
-                                html +=         '<tbody border="10">';
-                                if(capital.mname1!=null){
-                                    html +=             '<tr>';
-                                    html +=               '<td>'+capital.mname1+'</td>';
-                                    html +=               '<td>'+capital.olcount1+'</td>';
-                                    html +=                '<td>'+capital.mprice1+'</td>';
-                                    html +=             '</tr>';
-                                }
-                                if(capital.mname2!=null){
-                                    html +=             '<tr>';
-                                    html +=               '<td>'+capital.mname2+'</td>';
-                                    html +=               '<td>'+capital.olcount2+'</td>';
-                                    html +=                '<td>'+capital.mprice2+'</td>';
-                                    html +=             '</tr>';
-                                }
-                                if(capital.mname3!=null){
-                                    html +=             '<tr>';
-                                    html +=               '<td>'+capital.mname3+'</td>';
-                                    html +=               '<td>'+capital.olcount3+'</td>';
-                                    html +=                '<td>'+capital.mprice3+'</td>';
-                                    html +=             '</tr>';
-                                }
-                                if(capital.mname4!=null){
-                                    html +=             '<tr>';
-                                    html +=               '<td>'+capital.mname4+'</td>';
-                                    html +=               '<td>'+capital.olcount4+'</td>';
-                                    html +=                '<td>'+capital.mprice4+'</td>';
-                                    html +=             '</tr>';
-                                }
-                                if(capital.mname5!=null){
-                                    html +=             '<tr>';
-                                    html +=               '<td>'+capital.mname5+'</td>';
-                                    html +=               '<td>'+capital.olcount5+'</td>';
-                                    html +=                '<td>'+capital.mprice5+'</td>';
-                                    html +=             '</tr>';
-                                }
-                                html +=      '</tbody>';
-                                html +=    '</table>';
-                                html +=     '</div>';
-                                html += '<input type="button" value="주문 접수" onclick="submit">'
-                                html += '<input type="button" value="주문취소" onclick="confirm(`정말 취소하시겠습니까`)">'    
-                                html +=   '</div>';
-                            }
-                        }
+                        html += '<div id="orderr">';
+                        html += '<div>';
+                        html += '<table>';
+                        html += '<thead style="border: 1cm;">';
+                        html += '<tr>';
+                        html += '<th class="center">주문 상태</th>';
+                        html += '<th class="center">주문 번호</th>';
+                        html += '<th class="center">주문 목록</th>';
+                        html += '<th class="center">가격</th>';
+                        html += '<th class="center">주문 상세</th>';
+                        html += '<th class="center">주문 접수</th>';
+                        html += '<th class="center">주문 취소</th>';
+                        html += '</tr>';
+                        html += '</thead>';
+                        html += '<tbody>';
+                        html += '<tr>';
+                        html += '<td class="center"><img src="/img/wait.png" style="width: 60px; height: 60px;"></td>';
+                        html += '<td class="center">seq</td>';
+                        html += '<td class="center">아이스 카페라떼 등</td>';
+                        html += '<td class="center">3500</td>';
+                        html += ' <td class="center"><button onclick="detail()">주문 상세</button></td>';
+                        html += '<td class="center">';
+                        html += '<input type="button" value="접수하기" onclick="">';
+                        html += '</td>';
+                        html += ' <td class="center">';
+                        html += '<input type="button" value="주문취소" onclick="confirm(`정말 취소하시겠습니까`)"/>'
+                        html += '</td>';       
+                        html += '</tr>';
+                        html += '</tbody>';
+                        html += '</table>';
+                        html += '</div>';    
                         html += '</div>';
-                   
-                        $("#tabContent01").html(html);
-                    }
-                })
+                        html += '</div>';
+               
+                    $("#tabContent01").html(html);
+                }
             })
+        })
     </script>
      <script>
         $("#waitorder2").on("click", function(){
@@ -561,34 +459,32 @@
                     var html="";
                     html += '<div class="flex_bbox">';
                     html += '<div id="orderr">';
-                    html += '<img src="/img/ing.png" id="imgbox"/>';
                     html += '<div>';
-                    html +=      '<p>주문번호</p>';
-                    html +=      '<p>{list.no}</p>';
-                    html +=      '<p>주문일시</p>';
-                    html +=      '<p>{list.date}</p>';
-                    html +=      '</div>';
-                    html +=       '<div>';
-                    html +=      '<table>';
-                    html +=          '<thead>';
-                    html +=              '<p>상세 주문내역</p>';
-                    html +=              '<tr>';
-                    html +=              '<th>메뉴</th>';
-                    html +=              '<th>수량</th>';
-                    html +=               '<th>가격</th>';
-                    html +=            '</tr>';
-                    html +=         '</thead>';
-                    html +=         '<tbody border="10">';
-                    html +=             '<tr>';
-                    html +=               '<td>{list.menu}</td>';
-                    html +=               '<td>{list.asd}</td>';
-                    html +=                '<td>{list.prices}</td>';
-                    html +=             '</tr>';
-                    html +=      '</tbody>';
-                    html +=    '</table>';
-                    html +=     '</div>';
-                    html += '<input type="button" value="조리 완료" onclick="submit">'    
-                    html +=   '</div>';
+                    html += '<table>';
+                    html += '<thead style="border: 1cm;">';
+                    html += '<tr>';
+                    html += '<th class="center">주문 상태</th>';
+                    html += '<th class="center">주문 번호</th>';
+                    html += '<th class="center">주문 목록</th>';
+                    html += '<th class="center">가격</th>';
+                    html += '<th class="center">주문 상세</th>';
+                    html += '<th class="center">조리 완료</th>';
+                    html += '</tr>'; 
+                    html += '<tr>';
+                    html += '<td class="center"><img src="/img/ing.png" style="width: 60px; height: 60px;"></td>';
+                    html += '<td class="center">seq</td>';
+                    html += '<td class="center">아이스 아메리카노 등</td>';
+                    html += '<td class="center">3500</td>';
+                    html += '<td class="center"><button onclick="detail()">주문 상세</button></td>';
+                    html += '<td class="center">';
+                    html += '<input type="button" value="조리완료" onclick="">';
+                    html += '</td>';
+                    html += '</tr>';
+                    html += '</tbody>';
+                    html += '</table>';
+                    html += '</div>';   
+                    html += '</div>';
+                    html += '</div>';
                     html += '</div>';
                
                     $("#tabContent02").html(html);
@@ -598,7 +494,6 @@
 </script>
 <script>
     $("#waitorder3").on("click", function(){
-        console.log("aasdasd");
         $.ajax({
             url:"order",
             type:"post",
@@ -607,35 +502,30 @@
                 var html="";
                 html += '<div class="flex_bbox">';
                 html += '<div id="orderr">';
-                html += '<img src="/img/complet.png" id="imgbox"/>';
                 html += '<div>';
-                html +=      '<p>주문번호</p>';
-                html +=      '<p>{list.no}</p>';
-                html +=      '<p>주문일시</p>';
-                html +=      '<p>{list.date}</p>';
-                html +=      '</div>';
-                html +=       '<div>';
-                html +=      '<table>';
-                html +=          '<thead>';
-                html +=              '<p>상세 주문내역</p>';
-                html +=              '<tr>';
-                html +=              '<th>메뉴</th>';
-                html +=              '<th>수량</th>';
-                html +=               '<th>가격</th>';
-                html +=            '</tr>';
-                html +=         '</thead>';
-                html +=         '<tbody border="10">';
-                html +=             '<tr>';
-                html +=               '<td>{list.menu}</td>';
-                html +=               '<td>{list.asd}</td>';
-                html +=                '<td>{list.prices}</td>';
-                html +=             '</tr>';
-                html +=      '</tbody>';
-                html +=    '</table>';
-                html +=     '</div>'; 
-                html +=   '</div>';
+                html += '<table>';
+                html += '<thead style="border: 1cm;">';
+                html += '<tr>';
+                html += '<th class="center">주문 상태</th>';
+                html += '<th class="center">주문 번호</th>';
+                html += '<th class="center">주문 목록</th>';
+                html += '<th class="center">가격</th>';
+                html += '<th class="center">주문 상세</th>';
+                html += '</tr>';
+                html += '</thead>';
+                html += '<tbody>';
+                html += '<tr>';              
+                html += '<td class="center"><img src="/img/complet.png" style="width: 60px; height: 60px;"></td>';
+                html += '<td class="center">seq</td>';
+                html += '<td class="center">아이스 카페라떼 등</td>';
+                html += '<td class="center">3500</td>';
+                html += '<td class="center"><button onclick="detail()">주문 상세</button></td>';
+                html += '</tr>';
+                html += '</tbody>';
+                html += '</table>';
+                html += '</div>'; 
                 html += '</div>';
-           
+                html += '</div>';
                 $("#tabContent03").html(html);
             }
         })
@@ -652,35 +542,30 @@
                 var html="";
                 html += '<div class="flex_bbox">';
                 html += '<div id="orderr">';
-                html += '<img src="/img/cancel.png" id="imgbox"/>';
                 html += '<div>';
-                html +=      '<p>주문번호</p>';
-                html +=      '<p>{list.no}</p>';
-                html +=      '<p>주문일시</p>';
-                html +=      '<p>{list.date}</p>';
-                html +=      '</div>';
-                html +=       '<div>';
-                html +=      '<table>';
-                html +=          '<thead>';
-                html +=              '<p>상세 주문내역</p>';
-                html +=              '<tr>';
-                html +=              '<th>메뉴</th>';
-                html +=              '<th>수량</th>';
-                html +=               '<th>가격</th>';
-                html +=            '</tr>';
-                html +=         '</thead>';
-                html +=         '<tbody border="10">';
-                html +=             '<tr>';
-                html +=               '<td>{list.menu}</td>';
-                html +=               '<td>{list.asd}</td>';
-                html +=                '<td>{list.prices}</td>';
-                html +=             '</tr>';
-                html +=      '</tbody>';
-                html +=    '</table>';
-                html +=     '</div>';  
-                html +=   '</div>';
+                html += '<table>';
+                html += '<thead style="border: 1cm;">';
+                html += '<tr>';
+                html += '<th class="center">주문 상태</th>';
+                html += '<th class="center">주문 번호</th>';
+                html += '<th class="center">주문 목록</th>';
+                html += '<th class="center">가격</th>';
+                html += '<th class="center">주문 상세</th>';
+                html += '</tr>';
+                html += '</thead>';
+                html += '<tbody>';
+                html += '<tr>';              
+                html += '<td class="center"><img src="/img/cancel.png" style="width: 60px; height: 60px;"></td>';
+                html += '<td class="center">seq</td>';
+                html += '<td class="center">아이스 카페라떼 등</td>';
+                html += '<td class="center">3500</td>';
+                html += '<td class="center"><button onclick="detail()">주문 상세</button></td>';
+                html += '</tr>';
+                html += '</tbody>';
+                html += '</table>';
+                html += '</div>'; 
                 html += '</div>';
-           
+                html += '</div>';
                 $("#tabContent04").html(html);
             }
         })

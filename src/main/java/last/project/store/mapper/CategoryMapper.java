@@ -14,4 +14,8 @@ public interface CategoryMapper {
 
     List<String> selectByScode(String scode);
 
+    void deleteByCname(String scode, String cname);
+
+    void updateByCname(CategoryVo categoryVo);
+
 }

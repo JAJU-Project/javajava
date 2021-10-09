@@ -1,7 +1,6 @@
 package last.project.store.domain;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -50,7 +49,7 @@ public class OrderListVo {
     private long mprice8;
     private long mprice9;
     private long mprice10;
-    private String ostate;
+    private int ostate;
     private String kid;
 
 }

@@ -1,5 +1,6 @@
 package last.project.store.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public interface OrderListMapper {
 
     void updateCancel(long oseq);
 
-    List<OrderListVo> selectAll(String scode);
+    List<OrderListVo> selectAll(HashMap<String, Object> map);
 
     List<OrderListVo> selectAlls(String scode);
 

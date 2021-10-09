@@ -10,4 +10,8 @@ public interface CategoryService {
     void insertAll(CategoryVo categoryVo);
 
     List<String> selectByScode(String scode);
+
+    void deleteByCname(String scode, String cname);
+
+    void updateByCname(CategoryVo categoryVo);
 }

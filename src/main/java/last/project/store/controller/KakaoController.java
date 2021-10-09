@@ -174,7 +174,7 @@ public class KakaoController {
         orderListVo.setOspot(ospot);
         orderListVo.setSname(sname);
         orderListVo.setMprice(mprice);
-        orderListVo.setOstate("1");
+        // orderListVo.setOstate(1);
 
         switch (blist_size) {
             case 1:

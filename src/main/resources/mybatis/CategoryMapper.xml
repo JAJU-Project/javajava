@@ -15,6 +15,13 @@
         insert into category values(#{scode}, #{cname}, sysdate)
     </insert>
 
+    <delete id="deleteByCname" parameterType="String">
+        delete from category where scode=#{scode} and cname=#{cname}
+    </delete>
+
+    <update id="updateByCname" parameterType="CategoryVo">
+        update category set cname=#{cname} where scode=#{scode} and cname=#{cname}
+    </update>
     
         
 </mapper>
