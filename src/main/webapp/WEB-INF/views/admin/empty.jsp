@@ -39,31 +39,37 @@
     .input-field{
         color: aliceblue;
     }
-    .menu_price{
+    .mother_father{
         display: flex;
-        flex-direction: row;
     }
-    .mp_son{
-        color: aliceblue;
+    .mother{
+        display: flex;
+        flex-basis: 70%;
+    }
+    .father{
+        display: flex;
         flex-basis: 30%;
-        font-size: 15;
     }
-    .menu_mother{
+    #mother_1{
+        flex-basis: 40%;
+    }
+    .mother_side{
         display: flex;
-        flex-direction: column;
-        margin-right: 100px;
     }
-    .menu_son{
-        color: yellow;
-        font-size: 20;
+    #mother_2{
+        flex-basis:70%;
     }
-    #magin{
-        margin-left: 150px;
+    #mother_3{
+        margin-left: 30px;
+        flex-basis: 10%;
+    }
+    .center{
+        align-items: center;
+    }
+    .color{
+        color: aliceblue;
     }
 
-     .center{
-        align-items: center !important;
-    }
 </style>
 <body>
     <div class="modal-wrapper" id="modal-wrapper" style=" display: none;">
@@ -320,7 +326,7 @@
                             </ul>
                             <div class="tab_Content_Wrap">
                                 <div id="tabContent01" class="tabPage">
-                                
+                                <c:forEach items="${olist1}" var="list">
                                     <div class="flex_bbox">
                                     <div id="orderr">
                                     <div>
@@ -336,9 +342,9 @@
                                     <th class="center">주문 취소</th>
                                     </tr>
                                     </thead>
-                                    <c:forEach items="${olist1}" var="list">
                                     <tbody>
                                         <tr>
+                                            <c:forEach items="${olist1}" var="list">
                                         <td class="center"><img src="/img/wait.png" style="width: 60px; height: 60px;"></td>
                                         <td class="center">${list.oseq}</td>
                                         <td class="center">${list.mname1} 등</td>
@@ -351,14 +357,13 @@
                                             <input type="button" value="주문취소" onclick="confirm(`정말 취소하시겠습니까`)">
                                         </td>
                                         </tr>
+                                        </c:forEach>
                                     </tbody>
-                                    </c:forEach>
                                     </table>
                                     </div>
-                                  
                                 </div>
                                     </div>
-                                
+                                </c:forEach>
                                 </div>
                                 <div id="tabContent02" class="tabPage">
                                     Tab2 Content
@@ -398,33 +403,36 @@
                 type:"post",
                 data:seqData,
                 success:function(data){
-                    console.log(oseq);
                     var html="";
-                    html +='<div class="row">';
-                    html +='<div class=titlee></div>';
-                    html +='<input class="input-field" value="주문번호:'+oseq+'  " readonly></input>';
+                   
+                    html +='<div class=titlee>상세 주문내역</div>';
+                    html +='<input class="input-field" value="주문번호:  " readonly></input>';
                     html +='<input class=input-field value="주문시간 : {시간}" readonly></input>';
                     html +='<input class=input-field value="주문 목록" readonly></input>';
-                    html +='<div class="menu_price">';
-                    html +='<div class="mp_son">메뉴</div>';
-                    html +='<div class="menu_mother">';
-                    html +='<div class="menu_son">메뉴 여기</div>';
-                    html +='<div class="menu_son">메뉴 여기</div>';
-                    html +='<div class="menu_son">메뉴 여기</div>';
-                    html +='<div class="menu_son">메뉴 여기</div>';
-                    html +='<div class="menu_son">메뉴 여기</div>';
-                    html +='</div>'
-                    html +='<div class="mp_son" id="magin">가격</div>';
-                    html +='<div class="menu_mother">';
-                    html +='<div class="menu_son">가격 여기</div>';
-                    html +='<div class="menu_son">가격 여기</div>';
-                    html +='<div class="menu_son">가격 여기</div>';
-                    html +='<div class="menu_son">가격 여기</div>';
-                    html +='<div class="menu_son">가격 여기</div>';
-                    html +='</div>'
+                    html +='<div class="mother_father">';
+                    html +='<div class="mother">';
+                    html +='<div class="color" id="mother_1">메뉴</div>';
+                    html +='<div class="mother_side">';
+                    html +='<div class="mother_son">'
+                    for (let i = 0; i < data.mname.length; i++) {
+                        html +='<div class="menu_son">'+data.mname[i]+'</div>';
+                    }
                     html +='</div>';
-                    html +='<input class=input-field value="총가격  : {가격}" readonly></input>';
+                    html +='<div mother_son>';
+                    for (let i = 0; i < data.olcount.length; i++) {
+                        html +='<div class="menu_son">'+data.olcount[i]+'</div>';
+                    }
                     html +='</div>';
+                    html +='</div>';
+                    html +='</div>';
+                    html +='<div class=mother_son>';
+                    for (let i = 0; i < data.mprice.length; i++) {
+                        html +='<div class="menu_son">'+data.mprice[i]+'</div>';
+                    }
+                    html +='</div>'
+                    html +='</div>'                   
+                    html +='<input class=input-field value="총가격  :'+data.totalPrice+'" readonly></input>';
+                 
                     $(".bottom-info").html(html);
                 }
             })

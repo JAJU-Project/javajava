@@ -166,14 +166,11 @@ public class KakaoController {
 
         OrderListVo orderListVo = new OrderListVo();
 
-        orderListVo.setMname(mname);
-
-        orderListVo.setOlcount(bcount);
         orderListVo.setScode(scode);
         orderListVo.setKid(kid);
         orderListVo.setOspot(ospot);
         orderListVo.setSname(sname);
-        orderListVo.setMprice(mprice);
+
         // orderListVo.setOstate(1);
 
         switch (blist_size) {

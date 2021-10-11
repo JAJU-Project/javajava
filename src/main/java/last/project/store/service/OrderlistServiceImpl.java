@@ -112,4 +112,10 @@ public class OrderListServiceImpl implements OrderListService {
         // TODO Auto-generated method stub
         return orderListMapper.selectByScode(scode);
     }
+
+    @Override
+    public List<OrderListVo> selectAll2(HashMap<String, Object> map) {
+        // TODO Auto-generated method stub
+        return orderListMapper.selectAll2(map);
+    }
 }

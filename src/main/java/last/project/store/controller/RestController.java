@@ -1,7 +1,9 @@
 package last.project.store.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -131,8 +133,348 @@ public class RestController {
 
     @RequestMapping("test4")
     @ResponseBody
-    public String test4_mo(String oseq) {
+    public HashMap<String, Object> test4_mo(String oseq, HttpSession session) {
+        String scode = (String) session.getAttribute("scode");
         log.info("#test4 oseq: " + oseq);
-        return null;
+
+        // List<OrderListVo> oList = orderListService.selectAll(map);
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("scode", scode);
+        map.put("oseq", Long.parseLong(oseq));
+        List<OrderListVo> olist = orderListService.selectAll2(map);
+        log.info("#test4 olist: " + olist);
+        HashMap<String, Object> maps = new HashMap<String, Object>();
+        long totalPrice = 0l;
+        int count = 0;
+        if (olist.get(0).getMname2() == null) {
+            count = 1;
+            String[] mname = new String[count];
+            Long[] mprice = new Long[count];
+            int[] olcount = new int[count];
+
+            totalPrice = olist.get(0).getMprice1();
+            maps.put("count", count);
+            maps.put("oseq", oseq);
+            mname[0] = olist.get(0).getMname1();
+            maps.put("mname", mname);
+            mprice[0] = olist.get(0).getMprice1();
+            maps.put("mprice", mprice);
+            olcount[0] = olist.get(0).getOlcount1();
+            maps.put("olcount", olcount);
+            maps.put("totalPrice", totalPrice);
+            maps.put("oldate", olist.get(0).getOldate());
+            return maps;
+        } else if (olist.get(0).getMname3() == null) {
+            count = 2;
+            String[] mname = new String[count];
+            Long[] mprice = new Long[count];
+            int[] olcount = new int[count];
+
+            totalPrice = olist.get(0).getMprice1() + olist.get(0).getMprice2();
+            maps.put("count", count);
+            maps.put("oseq", oseq);
+            mname[0] = olist.get(0).getMname1();
+            mname[1] = olist.get(0).getMname2();
+            maps.put("mname", mname);
+            mprice[0] = olist.get(0).getMprice1();
+            mprice[1] = olist.get(0).getMprice2();
+            maps.put("mprice", mprice);
+            olcount[0] = olist.get(0).getOlcount1();
+            olcount[1] = olist.get(0).getOlcount2();
+            maps.put("olcount", olcount);
+            maps.put("totalPrice", totalPrice);
+            maps.put("oldate", olist.get(0).getOldate());
+            return maps;
+        } else if (olist.get(0).getMname4() == null) {
+            count = 3;
+            String[] mname = new String[count];
+            Long[] mprice = new Long[count];
+            int[] olcount = new int[count];
+
+            totalPrice = olist.get(0).getMprice1() + olist.get(0).getMprice2() + olist.get(0).getMprice3();
+            maps.put("count", count);
+            maps.put("oseq", oseq);
+            mname[0] = olist.get(0).getMname1();
+            mname[1] = olist.get(0).getMname2();
+            mname[2] = olist.get(0).getMname3();
+            maps.put("mname", mname);
+            mprice[0] = olist.get(0).getMprice1();
+            mprice[1] = olist.get(0).getMprice2();
+            mprice[2] = olist.get(0).getMprice3();
+            maps.put("mprice", mprice);
+            olcount[0] = olist.get(0).getOlcount1();
+            olcount[1] = olist.get(0).getOlcount2();
+            olcount[2] = olist.get(0).getOlcount3();
+            maps.put("olcount", olcount);
+            maps.put("totalPrice", totalPrice);
+            maps.put("oldate", olist.get(0).getOldate());
+            return maps;
+        } else if (olist.get(0).getMname5() == null) {
+            count = 4;
+            String[] mname = new String[count];
+            Long[] mprice = new Long[count];
+            int[] olcount = new int[count];
+
+            totalPrice = olist.get(0).getMprice1() + olist.get(0).getMprice2() + olist.get(0).getMprice3()
+                    + olist.get(0).getMprice4();
+            maps.put("count", count);
+            maps.put("oseq", oseq);
+            mname[0] = olist.get(0).getMname1();
+            mname[1] = olist.get(0).getMname2();
+            mname[2] = olist.get(0).getMname3();
+            mname[3] = olist.get(0).getMname4();
+            maps.put("mname", mname);
+            mprice[0] = olist.get(0).getMprice1();
+            mprice[1] = olist.get(0).getMprice2();
+            mprice[2] = olist.get(0).getMprice3();
+            mprice[3] = olist.get(0).getMprice4();
+            maps.put("mprice", mprice);
+            olcount[0] = olist.get(0).getOlcount1();
+            olcount[1] = olist.get(0).getOlcount2();
+            olcount[2] = olist.get(0).getOlcount3();
+            olcount[3] = olist.get(0).getOlcount4();
+            maps.put("olcount", olcount);
+            maps.put("totalPrice", totalPrice);
+            maps.put("oldate", olist.get(0).getOldate());
+            return maps;
+        } else if (olist.get(0).getMname6() == null) {
+            count = 5;
+            String[] mname = new String[count];
+            Long[] mprice = new Long[count];
+            int[] olcount = new int[count];
+
+            totalPrice = olist.get(0).getMprice1() + olist.get(0).getMprice2() + olist.get(0).getMprice3()
+                    + olist.get(0).getMprice4() + olist.get(0).getMprice5();
+            maps.put("count", count);
+            maps.put("oseq", oseq);
+            mname[0] = olist.get(0).getMname1();
+            mname[1] = olist.get(0).getMname2();
+            mname[2] = olist.get(0).getMname3();
+            mname[3] = olist.get(0).getMname4();
+            mname[4] = olist.get(0).getMname5();
+            maps.put("mname", mname);
+            mprice[0] = olist.get(0).getMprice1();
+            mprice[1] = olist.get(0).getMprice2();
+            mprice[2] = olist.get(0).getMprice3();
+            mprice[3] = olist.get(0).getMprice4();
+            mprice[4] = olist.get(0).getMprice5();
+            maps.put("mprice", mprice);
+            olcount[0] = olist.get(0).getOlcount1();
+            olcount[1] = olist.get(0).getOlcount2();
+            olcount[2] = olist.get(0).getOlcount3();
+            olcount[3] = olist.get(0).getOlcount4();
+            olcount[4] = olist.get(0).getOlcount5();
+            maps.put("olcount", olcount);
+            maps.put("totalPrice", totalPrice);
+            maps.put("oldate", olist.get(0).getOldate());
+            return maps;
+        } else if (olist.get(0).getMname7() == null) {
+            count = 6;
+            String[] mname = new String[count];
+            Long[] mprice = new Long[count];
+            int[] olcount = new int[count];
+
+            totalPrice = olist.get(0).getMprice1() + olist.get(0).getMprice2() + olist.get(0).getMprice3()
+                    + olist.get(0).getMprice4() + olist.get(0).getMprice5() + olist.get(0).getMprice6();
+            maps.put("count", count);
+            maps.put("oseq", oseq);
+            mname[0] = olist.get(0).getMname1();
+            mname[1] = olist.get(0).getMname2();
+            mname[2] = olist.get(0).getMname3();
+            mname[3] = olist.get(0).getMname4();
+            mname[4] = olist.get(0).getMname5();
+            mname[5] = olist.get(0).getMname6();
+            maps.put("mname", mname);
+            mprice[0] = olist.get(0).getMprice1();
+            mprice[1] = olist.get(0).getMprice2();
+            mprice[2] = olist.get(0).getMprice3();
+            mprice[3] = olist.get(0).getMprice4();
+            mprice[4] = olist.get(0).getMprice5();
+            mprice[5] = olist.get(0).getMprice6();
+            maps.put("mprice", mprice);
+            olcount[0] = olist.get(0).getOlcount1();
+            olcount[1] = olist.get(0).getOlcount2();
+            olcount[2] = olist.get(0).getOlcount3();
+            olcount[3] = olist.get(0).getOlcount4();
+            olcount[4] = olist.get(0).getOlcount5();
+            olcount[5] = olist.get(0).getOlcount6();
+            maps.put("olcount", olcount);
+            maps.put("totalPrice", totalPrice);
+            maps.put("oldate", olist.get(0).getOldate());
+            return maps;
+        } else if (olist.get(0).getMname8() == null) {
+            count = 7;
+            String[] mname = new String[count];
+            Long[] mprice = new Long[count];
+            int[] olcount = new int[count];
+
+            totalPrice = olist.get(0).getMprice1() + olist.get(0).getMprice2() + olist.get(0).getMprice3()
+                    + olist.get(0).getMprice4() + olist.get(0).getMprice5() + olist.get(0).getMprice6()
+                    + olist.get(0).getMprice7();
+            maps.put("count", count);
+            maps.put("oseq", oseq);
+            mname[0] = olist.get(0).getMname1();
+            mname[1] = olist.get(0).getMname2();
+            mname[2] = olist.get(0).getMname3();
+            mname[3] = olist.get(0).getMname4();
+            mname[4] = olist.get(0).getMname5();
+            mname[5] = olist.get(0).getMname6();
+            mname[6] = olist.get(0).getMname7();
+            maps.put("mname", mname);
+            mprice[0] = olist.get(0).getMprice1();
+            mprice[1] = olist.get(0).getMprice2();
+            mprice[2] = olist.get(0).getMprice3();
+            mprice[3] = olist.get(0).getMprice4();
+            mprice[4] = olist.get(0).getMprice5();
+            mprice[5] = olist.get(0).getMprice6();
+            mprice[6] = olist.get(0).getMprice7();
+            maps.put("mprice", mprice);
+            olcount[0] = olist.get(0).getOlcount1();
+            olcount[1] = olist.get(0).getOlcount2();
+            olcount[2] = olist.get(0).getOlcount3();
+            olcount[3] = olist.get(0).getOlcount4();
+            olcount[4] = olist.get(0).getOlcount5();
+            olcount[5] = olist.get(0).getOlcount6();
+            olcount[6] = olist.get(0).getOlcount7();
+            maps.put("olcount", olcount);
+            maps.put("totalPrice", totalPrice);
+            maps.put("oldate", olist.get(0).getOldate());
+            return maps;
+        } else if (olist.get(0).getMname9() == null) {
+            count = 8;
+            String[] mname = new String[count];
+            Long[] mprice = new Long[count];
+            int[] olcount = new int[count];
+
+            totalPrice = olist.get(0).getMprice1() + olist.get(0).getMprice2() + olist.get(0).getMprice3()
+                    + olist.get(0).getMprice4() + olist.get(0).getMprice5() + olist.get(0).getMprice6()
+                    + olist.get(0).getMprice7() + olist.get(0).getMprice8();
+            maps.put("count", count);
+            maps.put("oseq", oseq);
+            mname[0] = olist.get(0).getMname1();
+            mname[1] = olist.get(0).getMname2();
+            mname[2] = olist.get(0).getMname3();
+            mname[3] = olist.get(0).getMname4();
+            mname[4] = olist.get(0).getMname5();
+            mname[5] = olist.get(0).getMname6();
+            mname[6] = olist.get(0).getMname7();
+            mname[7] = olist.get(0).getMname8();
+            maps.put("mname", mname);
+            mprice[0] = olist.get(0).getMprice1();
+            mprice[1] = olist.get(0).getMprice2();
+            mprice[2] = olist.get(0).getMprice3();
+            mprice[3] = olist.get(0).getMprice4();
+            mprice[4] = olist.get(0).getMprice5();
+            mprice[5] = olist.get(0).getMprice6();
+            mprice[6] = olist.get(0).getMprice7();
+            mprice[7] = olist.get(0).getMprice8();
+            maps.put("mprice", mprice);
+            olcount[0] = olist.get(0).getOlcount1();
+            olcount[1] = olist.get(0).getOlcount2();
+            olcount[2] = olist.get(0).getOlcount3();
+            olcount[3] = olist.get(0).getOlcount4();
+            olcount[4] = olist.get(0).getOlcount5();
+            olcount[5] = olist.get(0).getOlcount6();
+            olcount[6] = olist.get(0).getOlcount7();
+            olcount[7] = olist.get(0).getOlcount8();
+            maps.put("olcount", olcount);
+            maps.put("totalPrice", totalPrice);
+            maps.put("oldate", olist.get(0).getOldate());
+            return maps;
+        } else if (olist.get(0).getMname10() == null) {
+            count = 9;
+            String[] mname = new String[count];
+            Long[] mprice = new Long[count];
+            int[] olcount = new int[count];
+
+            totalPrice = olist.get(0).getMprice1() + olist.get(0).getMprice2() + olist.get(0).getMprice3()
+                    + olist.get(0).getMprice4() + olist.get(0).getMprice5() + olist.get(0).getMprice6()
+                    + olist.get(0).getMprice7() + olist.get(0).getMprice8() + olist.get(0).getMprice9();
+            maps.put("count", count);
+            maps.put("oseq", oseq);
+            mname[0] = olist.get(0).getMname1();
+            mname[1] = olist.get(0).getMname2();
+            mname[2] = olist.get(0).getMname3();
+            mname[3] = olist.get(0).getMname4();
+            mname[4] = olist.get(0).getMname5();
+            mname[5] = olist.get(0).getMname6();
+            mname[6] = olist.get(0).getMname7();
+            mname[7] = olist.get(0).getMname8();
+            mname[8] = olist.get(0).getMname9();
+            maps.put("mname", mname);
+            mprice[0] = olist.get(0).getMprice1();
+            mprice[1] = olist.get(0).getMprice2();
+            mprice[2] = olist.get(0).getMprice3();
+            mprice[3] = olist.get(0).getMprice4();
+            mprice[4] = olist.get(0).getMprice5();
+            mprice[5] = olist.get(0).getMprice6();
+            mprice[6] = olist.get(0).getMprice7();
+            mprice[7] = olist.get(0).getMprice8();
+            mprice[8] = olist.get(0).getMprice9();
+            maps.put("mprice", mprice);
+            olcount[0] = olist.get(0).getOlcount1();
+            olcount[1] = olist.get(0).getOlcount2();
+            olcount[2] = olist.get(0).getOlcount3();
+            olcount[3] = olist.get(0).getOlcount4();
+            olcount[4] = olist.get(0).getOlcount5();
+            olcount[5] = olist.get(0).getOlcount6();
+            olcount[6] = olist.get(0).getOlcount7();
+            olcount[7] = olist.get(0).getOlcount8();
+            olcount[8] = olist.get(0).getOlcount9();
+            maps.put("olcount", olcount);
+            maps.put("totalPrice", totalPrice);
+            maps.put("oldate", olist.get(0).getOldate());
+            return maps;
+        } else {
+            count = 10;
+            String[] mname = new String[count];
+            Long[] mprice = new Long[count];
+            int[] olcount = new int[count];
+
+            totalPrice = olist.get(0).getMprice1() + olist.get(0).getMprice2() + olist.get(0).getMprice3()
+                    + olist.get(0).getMprice4() + olist.get(0).getMprice5() + olist.get(0).getMprice6()
+                    + olist.get(0).getMprice7() + olist.get(0).getMprice8() + olist.get(0).getMprice9()
+                    + olist.get(0).getMprice10();
+            maps.put("count", count);
+            maps.put("oseq", oseq);
+            mname[0] = olist.get(0).getMname1();
+            mname[1] = olist.get(0).getMname2();
+            mname[2] = olist.get(0).getMname3();
+            mname[3] = olist.get(0).getMname4();
+            mname[4] = olist.get(0).getMname5();
+            mname[5] = olist.get(0).getMname6();
+            mname[6] = olist.get(0).getMname7();
+            mname[7] = olist.get(0).getMname8();
+            mname[8] = olist.get(0).getMname9();
+            mname[9] = olist.get(0).getMname10();
+            maps.put("mname", mname);
+            mprice[0] = olist.get(0).getMprice1();
+            mprice[1] = olist.get(0).getMprice2();
+            mprice[2] = olist.get(0).getMprice3();
+            mprice[3] = olist.get(0).getMprice4();
+            mprice[4] = olist.get(0).getMprice5();
+            mprice[5] = olist.get(0).getMprice6();
+            mprice[6] = olist.get(0).getMprice7();
+            mprice[7] = olist.get(0).getMprice8();
+            mprice[8] = olist.get(0).getMprice9();
+            mprice[9] = olist.get(0).getMprice10();
+
+            maps.put("mprice", mprice);
+            olcount[0] = olist.get(0).getOlcount1();
+            olcount[1] = olist.get(0).getOlcount2();
+            olcount[2] = olist.get(0).getOlcount3();
+            olcount[3] = olist.get(0).getOlcount4();
+            olcount[4] = olist.get(0).getOlcount5();
+            olcount[5] = olist.get(0).getOlcount6();
+            olcount[6] = olist.get(0).getOlcount7();
+            olcount[7] = olist.get(0).getOlcount8();
+            olcount[8] = olist.get(0).getOlcount9();
+            olcount[9] = olist.get(0).getOlcount10();
+            maps.put("olcount", olcount);
+            maps.put("totalPrice", totalPrice);
+            maps.put("oldate", olist.get(0).getOldate());
+            return maps;
+        }
+
     }
 }

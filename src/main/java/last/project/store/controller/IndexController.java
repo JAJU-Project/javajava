@@ -32,10 +32,7 @@ public class IndexController {
 
     @RequestMapping("index")
     public String home() {
-        HashMap<String, Integer> test = new HashMap<String, Integer>();
-
-        // return "admin/index";
-        return "ordertest";
+        return "admin/index";
     }
 
     @RequestMapping("review")

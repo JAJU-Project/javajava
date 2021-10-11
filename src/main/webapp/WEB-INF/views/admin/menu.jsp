@@ -40,10 +40,7 @@
         <div class="modal-inner">
             
             <div class="bottom-info">
-                <div class="title">
-                    
-                </div>
-
+                
             </div>
 
         </div>
@@ -279,8 +276,8 @@
                 <h1 class="page-header">
                     Menu Page
                 </h1> 
-                <button id="showcategory" onclick="showcategory()">category</button>
-                <button id="showmenu" onclick="showmenu()">menu</button>
+                <button onclick="showcategory()">category</button>
+                <button onclick="showmenu()">menu</button>
             </div>
             
 
@@ -302,8 +299,11 @@
                                  <div>
                                    <button style="color: black;" id="addcategory" onclick="addcatego()">카테고리 추가</button>
                                  </div>
+                                 <div id="hidden">
+                                
+                                 </div>
                                  <div>
-                                    <button style="color: black;" id="updatecategory">카테고리 수정</button>
+                                    <button style="color: black;" id="updatecategory" onclick="updatecategory()">카테고리 수정</button>
                                  </div>
                             </div>
 
@@ -323,7 +323,7 @@
                                 ALL Menu
                             </div>
                             <span id="new_span">
-                               <button style="color: black;" id="addmenu">메뉴 추가</button>
+                               <button style="color: black;" onclick="addmenu()">메뉴 추가</button>
                               
                             </span>
                             
@@ -354,7 +354,7 @@
                                                     <td class="center">${menuVo.mintro}</td>
                                                     <td class="center">check</td>
                                                     <td class="center"><a href="#"><input type="button" value="삭제"></a></td>
-                                                    <td class="center"><input type="button" id="updateM" value="수정"></td>
+                                                    <td class="center"><input type="button" id="updateM" onclick="updatemenu()" value="수정"></td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
@@ -365,13 +365,12 @@
                         <!--End Advanced Tables -->
                     </div>
                 </div>
-                
                 <script>
                     var categohide = document.getElementById("categoryhide");
                     var menu = document.getElementById("menuhide");
                     var modal = document.getElementById("modal-wrapper")
-                    function showcategory(){
-                        
+                    
+                    function showcategory(){ 
                         categohide.style.display = 'block';
                         menu.style.display = 'none';
                     }
@@ -379,21 +378,192 @@
                         menu.style.display = 'block';
                         categohide.style.display = 'none';
                     }
-
                     function addcatego(){
-                        modal.style.display ='flex';                   
+                        modal.style.display ='flex';
+                        $.ajax({
+                            success:function(data){
+                                var html="";
+                                html +='<div class="titlee">새로운 카테고리를 넣어주세요</div>';
+                                html +='<form action="inset_catego" method="POST" name="insert_catego">';
+                                html +='<div class="row">';
+                                html +='<div class="input-field col s12">';
+                                html +='<input style="color: aliceblue;" placeholder="카테고리 명" id="catego" name="catego" type="text">';
+                                html +='</div>';
+                                html +='<button>입력</button>';
+                                html +='</fome>';
+                                $(".bottom-info").html(html);    
+                            }
+                        })
+                    }
+                    function addmenu(){
+                        modal.style.display = 'flex';
+                        $.ajax({
+                            success:function(data){
+                                var html="";
+                                html +='<div class="titlee" style="color: aliceblue;">메뉴를 추가 해주세요</div>';
+                                html +='<form action="inset_menu" method="POST" name="insert_menu">';
+                                html +='<div class="row">';
+                                html +='<div class="input-field col s6">';
+                                html +='<select id="cname" name="cname">';
+                                html +='<option value="none">=== 카테고리 ===</option>';
+                                html +='<c:forEach items="${list}" var="CategoryVo">';
+                                html +='<option value="${CategoryVo.cname }">${CategoryVo.cname }</option>';
+                                html +='</c:forEach>';
+                                html +='</select>';
+                                html +='</div>';
+                                html +='</div>';
+                                html +='<div class="row">';
+                                html +='<div class="input-field col s12">';
+                                html +='<input placeholder="메뉴명" style="color: aliceblue;" id="mname" name="mname" type="text" class="validate">';
+                                html +='</div>';
+                                html +='<div class="input-field col s12">';
+                                html +='<input placeholder="가격" style="color: aliceblue;" id="mprice" name="mprice" type="text" class="validate">';
+                                html +='</div>';
+                                html +='</div>';
+                                html +='<div class="input-field col s12">';
+                                html +='<input placeholder="메뉴 소개" style="color: aliceblue;" id="mintro" name="mintro" type="text" class="validate">';
+                                html +='</div>';
+                                html +='<div class="input-field col s12">';
+                                html +='<input placeholder="품절여부" style="color: aliceblue;" id="check" name="mintro" type="text" class="validate">';
+                                html +='</div>';
+                                html +='<div class="input-field col s12">';
+                                html +='<input placeholder="이미지 넣어야돼" style="color: aliceblue;" id="mimage" name="mimage" type="text" class="validate">';
+                                html +='</div>';
+                                html +='<input class="mybutton" type="submit" value="넣기" id="close">';
+                                html +='</form>';
+                                $(".bottom-info").html(html);
+                            }
+                        })
+                    }
+                    
+                    function updatecategory(){
+                        const cname = document.getElementById("cname_seq");
+                        alert(cname);
+                        modal.style.display='flex';
+                        $.ajax({
+                            url:"selectcategory",
+                            type:"get",
+                            data:{seq:$('seq').val()},
+                            success:function(data){
+                                var html="";
+                                html +='<div class="titlee">현재 카테고리 목록</div>';
+                                html +='<form action="update_category" method="POST" name="update_category">';
+                                html +='<div class="row">';
+                                html +='<div class="input-field col s12">';
+                                html +='<input placeholder="{list.category}" style="color: aliceblue;" id="category" type="text">';
+                                html +='</div>';
+                                html +='</div>';
+                                html +='<input class="mybutton" type="submit" value="수정" id="close"/>';
+                                html +='</form>';
+                                $(".bottom-info").html(html);         
+                            }
+                        });
+                    }
+                    function updatemenu(){
+                        modal.style.display='flex';
+                        $.ajax({
+                            url:"selectcategory",
+                            type:"get",
+                            data:{seq:$('seq').val()},
+                            success:function(data){
+                                var html="";
+                                html +='<div class="titlee" style="color: aliceblue;">메뉴를 수정 해주세요</div>';
+                                html +='<form action="update_menu" method="POST" name="insert_menu">';
+                                html +='<div class="input-field col s6">';
+                                html +='<select id="cname" name="cname">';
+                                html +='<option value="none">=== 카테고리 ===</option>';
+                                html +='<c:forEach items="${list}" var="CategoryVo">';
+                                html +='<option value="${CategoryVo.cname }">${CategoryVo.cname }</option>';
+                                html +='</c:forEach>';
+                                html +='</select>';
+                                html +='</div>';
+                                html +='<div class="input-field col s12">';
+                                html +='<input placeholder="메뉴명" value="#" style="color: aliceblue;" id="mname" name="mname" type="text" class="validate">';
+                                html +='</div>';
+                                html +='<div class="input-field col s12">';
+                                html +='<input placeholder="가격" value="#" style="color: aliceblue;" id="mprice" name="mprice" type="text" class="validate">';
+                                html +='</div>';
+                                html +='<div class="input-field col s12">';
+                                html +='<input placeholder="메뉴 소개" value="#" style="color: aliceblue;" id="mintro" name="mintro" type="text" class="validate">';
+                                html +='</div>';
+                                html +='<div class="input-field col s12">';
+                                html +='<input placeholder="품절여부" value="#" style="color: aliceblue;" id="check" name="mintro" type="text" class="validate">';
+                                html +='</div>';
+                                html +='<div class="input-field col s12">';
+                                html +='<input placeholder="이미지 넣어야돼" value="#" style="color: aliceblue;" id="mimage" name="mimage" type="text" class="validate">';
+                                html +='</div>';
+                                html +='<input class="mybutton" type="submit" value="넣기" id="close">';
+                                html +='</form>';
+                                $(".bottom-info").html(html);
+                            }
+                        });
                     }
                     window.onclick =(event)=>{
                         if(event.target == modal){
                             modal.style.display='none';
                         }
                     }
+                    $("#catgo").on("change", function () { //clilc = 밸류체인지
+                    $.ajax({
+                        url: "rest",
+                        type: "post",
+                        data: {catgo: $("#catgo").val()},
+                        
+                        success: function(data) {
+                            /*
+                            for(let menuVo of Object.keys(data)){
+                                var capital = data[menuVo];
+                                console.log(menuVo, capital);
+                                console.log("mname 나오는지 확인"+capital.mname);
+                                console.log("test1")
+                            }*/
+                           
+                            var html="";
+                            var htmll="";
+                           
+                            html +="<table border='1' width='50%'>";
+                            html +="<tr>";
+                            html +="<thead>";
+                            html +="<th>이미지</th>";
+                            html +="<th>메뉴명</th>";
+                            html +="<th>가격</th>";
+                            html +="<th>메뉴소개</th>";
+                            html +="<th>삭제</th>";            
+                            html +="</tr>";
+                            html +="</thead>" ;
+                            for(let menuVo of Object.keys(data)){
+                               
+                                var capital = data[menuVo];
+                                console.log("test menuVo.mimage: "+capital.mimage)
+                                html +="<tbody>";
+                                html +="<tr>";
+                                html +="<td align='center'><img src="+capital.mimage+" id='new_img'></td>";
+                                html +="<td align='center'>"+capital.mname+"</td>";
+                                html +="<td align='center'>"+capital.mprice+"</td>";
+                                html +="<td align='center'>"+capital.mintro+"</td>";
+                                htmll +='<input id="cname_seq" type="hidden" value="#"/>';
+                                html +="<td align='center'> <a href='content?mseq="+capital.mseq+"'>삭제</td>";
+                                html +="</tr>";
+                                html +="</tbody>";
+                            }
+                            html +="";
+                            html +="</table>";
+                            $("#catgo").val("");   
+                            $("#card-content").html(html);
+                            $("#hidden").html(htmll);
+                           
+
+                        }
+                    });
+                });
+
+
                     
 
 
                     
                 
-                    </script>
+                </script>
 
             <!-- jQuery Js -->
             <script src="/assets/js/jquery-1.10.2.js"></script>
@@ -425,62 +595,6 @@
             <!-- Custom Js -->
             <script src="/assets/js/custom-scripts.js"></script>
             
-
-            <script>
-                $("#catgo").on("change", function () { //clilc = 밸류체인지
-                    $.ajax({
-                        url: "rest",
-                        type: "post",
-                        data: {catgo: $("#catgo").val()},
-                        
-                        success: function(data) {
-                            /*
-                            for(let menuVo of Object.keys(data)){
-                                var capital = data[menuVo];
-                                console.log(menuVo, capital);
-                                console.log("mname 나오는지 확인"+capital.mname);
-                                console.log("test1")
-                            }*/
-                            console.log("test")
-                            alert(JSON.stringify(data));
-                            var html="";
-                           
-                            html +="<table border='1' width='50%'>";
-                            html +="<tr>";
-                            html +="<thead>";
-                            html +="<th>이미지</th>";
-                            html +="<th>메뉴명</th>";
-                            html +="<th>가격</th>";
-                            html +="<th>메뉴소개</th>";
-                            html +="<th>삭제</th>";            
-                            html +="</tr>";
-                            html +="</thead>" ;
-                            for(let menuVo of Object.keys(data)){
-                               
-                                var capital = data[menuVo];
-                                console.log("test menuVo.mimage: "+capital.mimage)
-                                html +="<tbody>";
-                                html +="<tr>";
-                                html +="<td align='center'><img src="+capital.mimage+" id='new_img'></td>";
-                                html +="<td align='center'>"+capital.mname+"</td>";
-                                html +="<td align='center'>"+capital.mprice+"</td>";
-                                html +="<td align='center'>"+capital.mintro+"</td>";
-                                html +="<td align='center'> <a href='content?mseq="+capital.mseq+"'>삭제</td>";
-                                html +="</tr>";
-                                html +="</tbody>";
-                            }
-                            html +="";
-                            html +="</table>";
-                            $("#catgo").val("");   
-                            $("#card-content").html(html);
-                           
-
-                        }
-                    });
-                });
-
-
-            </script>
         
 </body>
 

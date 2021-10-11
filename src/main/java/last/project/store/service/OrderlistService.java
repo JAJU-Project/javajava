@@ -14,6 +14,8 @@ public interface OrderListService {
 
     List<Map<String, Object>> select1(String scode);
 
+    List<OrderListVo> selectAll2(HashMap<String, Object> map);
+
     void updateByOseq(long oseq);
 
     void updateCancel(long oseq);

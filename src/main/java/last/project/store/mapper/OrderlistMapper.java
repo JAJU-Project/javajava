@@ -20,6 +20,8 @@ public interface OrderListMapper {
 
     List<OrderListVo> selectAlls(String scode);
 
+    List<OrderListVo> selectAll2(HashMap<String, Object> map);
+
     List<Map<String, Object>> select1(String scode);
 
     void insertBy1(OrderListVo orderListVo);

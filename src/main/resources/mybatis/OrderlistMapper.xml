@@ -28,6 +28,10 @@
         select * from orderlist where scode = #{scode}
     </select>
 
+    <select id="selectAll2" resultType="OrderListVo" parameterType="java.util.HashMap">
+        select * from orderlist where scode = #{scode} and oseq=#{oseq}
+    </select>
+
     <update id="updateByOseq" parameterType="long" >
         update orderlist set ostate=2 where oseq=#{oseq}
     </update>
