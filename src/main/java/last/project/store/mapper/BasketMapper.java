@@ -1,5 +1,6 @@
 package last.project.store.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -20,5 +21,9 @@ public interface BasketMapper {
     List<BasketVo> selectByMname(String kid, String mname);
 
     void updateAll(BasketVo basketVo);
+
+    List<BasketVo> selectByBaseq(long baseq);
+
+    void updateByMap(HashMap<String, Object> map);
 
 }

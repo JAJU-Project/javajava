@@ -45,11 +45,16 @@ public class RestController {
 
     @PostMapping("order")
     @ResponseBody
-    public List<OrderListVo> order(String order, HttpSession session) {
+    public List<OrderListVo> order(String ostate, HttpSession session) {
         String scode = (String) session.getAttribute("scode");
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("scode", scode);
+        map.put("ostate", Integer.parseInt(ostate));
         log.info("#order scode: " + scode);
-        List<OrderListVo> orList = orderListService.selectAlls(scode);
-        log.info("#order orList: " + orList);
+        log.info("#order ostate: " + ostate);
+        List<OrderListVo> orList = orderListService.selectAlls(map);
+        log.info("#order orList: " + orList.size());
+
         return orList;
     }
 

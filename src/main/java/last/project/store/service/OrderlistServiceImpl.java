@@ -24,9 +24,9 @@ public class OrderListServiceImpl implements OrderListService {
     }
 
     @Override
-    public List<OrderListVo> selectAlls(String scode) {
+    public List<OrderListVo> selectAlls(HashMap<String, Object> map) {
         // TODO Auto-generated method stub
-        return orderListMapper.selectAlls(scode);
+        return orderListMapper.selectAlls(map);
     }
 
     @Override

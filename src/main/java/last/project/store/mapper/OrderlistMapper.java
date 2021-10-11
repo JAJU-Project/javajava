@@ -18,7 +18,7 @@ public interface OrderListMapper {
 
     List<OrderListVo> selectAll(HashMap<String, Object> map);
 
-    List<OrderListVo> selectAlls(String scode);
+    List<OrderListVo> selectAlls(HashMap<String, Object> map);
 
     List<OrderListVo> selectAll2(HashMap<String, Object> map);
 

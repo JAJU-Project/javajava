@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="last.project.store.mapper.BasketMapper">
     <insert id="insertAll" parameterType="BasketVo">
-        insert into basket values(#{mname}, #{bcount}, #{mprice}, #{kid})
+        insert into basket values(#{mname}, #{bcount}, #{mprice}, #{kid},ba_seq.NEXTVAL)
     </insert>
 
     <select id="selectByKid" resultType="BasketVo" parameterType="String">
@@ -15,10 +15,19 @@
         select * from basket where kid=#{kid} and mname=#{mname}
     </select>
 
+    <select id="selectByBaseq" resultType="BasketVo" parameterType="long">
+        select * from basket where baseq=#{baseq}
+    </select>
     <update id="updateAll" parameterType="BasketVo">
         update basket
         set mprice=#{mprice}, bcount=#{bcount}
         where kid=#{kid} and mname=#{mname}
+    </update>
+
+    <update id="updateByMap" parameterType="java.util.HashMap">
+        update basket
+        set mprice=#{mprice}, bcount=#{bcount}
+        where baseq=#{baseq}
     </update>
 
     <delete id="deleteBykid" parameterType="String">

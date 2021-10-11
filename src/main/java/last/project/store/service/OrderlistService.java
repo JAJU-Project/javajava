@@ -10,7 +10,7 @@ public interface OrderListService {
 
     List<OrderListVo> selectAll(HashMap<String, Object> map);
 
-    List<OrderListVo> selectAlls(String scode);
+    List<OrderListVo> selectAlls(HashMap<String, Object> map);
 
     List<Map<String, Object>> select1(String scode);
 

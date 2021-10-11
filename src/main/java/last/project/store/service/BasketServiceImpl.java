@@ -1,5 +1,6 @@
 package last.project.store.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -42,6 +43,18 @@ public class BasketServiceImpl implements BasketService {
     public void updateAll(BasketVo basketVo) {
         // TODO Auto-generated method stub
         basketMapper.updateAll(basketVo);
+    }
+
+    @Override
+    public List<BasketVo> selectByBaseq(long baseq) {
+        // TODO Auto-generated method stub
+        return basketMapper.selectByBaseq(baseq);
+    }
+
+    @Override
+    public void updateByMap(HashMap<String, Object> map) {
+        // TODO Auto-generated method stub
+        basketMapper.updateByMap(map);
     }
 
 }

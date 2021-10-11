@@ -1,11 +1,15 @@
 package last.project.store.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import last.project.store.domain.BasketVo;
@@ -70,6 +74,33 @@ public class ListController {
         ModelAndView mv = new ModelAndView("basket"); // basket.jsp 이동
         mv.addObject("blist", blist); // 장바구니 리스트 전송
         return mv;
+    }
+
+    @RequestMapping("countTest")
+    @ResponseBody
+    public List<BasketVo> countTest(long data0, int data1) {
+        // 0 => seq , 1 = count
+        long baseq = data0;
+        int count = data1; // update 될 수량
+        log.info("#countTest baseq: " + baseq);
+        log.info("#countTest count: " + count);
+        List<BasketVo> blist = basketService.selectByBaseq(baseq);
+        int mprice = blist.get(0).getMprice();
+        int bcount = blist.get(0).getBcount();
+        int menu_price = mprice / bcount; // 상품 1개당 가격
+
+        int update_price = menu_price * count; // update 될 가격
+        log.info("#menu_price: " + menu_price);
+        log.info("#update_price: " + update_price);
+        log.info("#blist: " + blist);
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("mprice", update_price);
+        map.put("bcount", count);
+        map.put("baseq", baseq);
+
+        basketService.updateByMap(map);
+        blist = basketService.selectByBaseq(baseq);
+        return blist;
     }
 
     @GetMapping("menu_in") // 메뉴추가 버튼을 누르면 카테고리를 보내주기 위한 용도

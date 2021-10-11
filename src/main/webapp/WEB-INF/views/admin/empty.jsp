@@ -326,7 +326,6 @@
                             </ul>
                             <div class="tab_Content_Wrap">
                                 <div id="tabContent01" class="tabPage">
-                                <c:forEach items="${olist1}" var="list">
                                     <div class="flex_bbox">
                                     <div id="orderr">
                                     <div>
@@ -343,8 +342,8 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <c:forEach items="${olist1}" var="list">
                                         <tr>
-                                            <c:forEach items="${olist1}" var="list">
                                         <td class="center"><img src="/img/wait.png" style="width: 60px; height: 60px;"></td>
                                         <td class="center">${list.oseq}</td>
                                         <td class="center">${list.mname1} 등</td>
@@ -363,7 +362,6 @@
                                     </div>
                                 </div>
                                     </div>
-                                </c:forEach>
                                 </div>
                                 <div id="tabContent02" class="tabPage">
                                     Tab2 Content
@@ -495,13 +493,19 @@
     </script>
     <script>
             $("#waitorder").on("click", function(){
-                
+                var ostateDate = {"ostate":"1"}
                 $.ajax({
                     url:"order",
                     type:"post",
-                    data:{order:$("#order").val()},
+                    data:ostateDate,
                     success: function(data){
                         var html="";
+                        for(let list of Object.keys(data)){
+                            var capital = data[list];
+                            //console.log("size>"+list.length);
+                            //console.log("list>"+JSON.stringify(data[list]));
+                            console.log("list.mname1:"+capital.mname1);
+                        }
                         html += '<div class="flex_bbox">';
                         html += '<div id="orderr">';
                         html += '<div>';
@@ -518,12 +522,14 @@
                         html += '</tr>';
                         html += '</thead>';
                         html += '<tbody>';
+                        for(let list of Object.keys(data)){
+                            var capital = data[list];
                         html += '<tr>';
                         html += '<td class="center"><img src="/img/wait.png" style="width: 60px; height: 60px;"></td>';
-                        html += '<td class="center">seq</td>';
-                        html += '<td class="center">아이스 카페라떼 등</td>';
-                        html += '<td class="center">3500</td>';
-                        html += ' <td class="center"><button onclick="detail()">주문 상세</button></td>';
+                        html += '<td class="center">'+capital.oseq+'</td>';
+                        html += '<td class="center">'+capital.mname1+' 등</td>';
+                        html += '<td class="center">'+capital.mprice1+'</td>';
+                        html += ' <td class="center"><button onclick="detail('+capital.oseq+')">주문 상세</button></td>';
                         html += '<td class="center">';
                         html += '<input type="button" value="접수하기" onclick="">';
                         html += '</td>';
@@ -531,6 +537,7 @@
                         html += '<input type="button" value="주문취소" onclick="confirm(`정말 취소하시겠습니까`)"/>'
                         html += '</td>';       
                         html += '</tr>';
+                        }
                         html += '</tbody>';
                         html += '</table>';
                         html += '</div>';    
@@ -545,10 +552,11 @@
      <script>
         $("#waitorder2").on("click", function(){
             console.log("aasdasd");
+            var ostateDate = {"ostate":"2"}
             $.ajax({
                 url:"order",
                 type:"post",
-                data:{order:$("#order").val()},
+                data:ostateDate,
                 success: function(data){
                     var html="";
                     html += '<div class="flex_bbox">';
@@ -564,16 +572,21 @@
                     html += '<th class="center">주문 상세</th>';
                     html += '<th class="center">조리 완료</th>';
                     html += '</tr>'; 
-                    html += '<tr>';
-                    html += '<td class="center"><img src="/img/ing.png" style="width: 60px; height: 60px;"></td>';
-                    html += '<td class="center">seq</td>';
-                    html += '<td class="center">아이스 아메리카노 등</td>';
-                    html += '<td class="center">3500</td>';
-                    html += '<td class="center"><button onclick="detail()">주문 상세</button></td>';
-                    html += '<td class="center">';
-                    html += '<input type="button" value="조리완료" onclick="">';
-                    html += '</td>';
-                    html += '</tr>';
+                    html += '</thead>';
+                    html += '<tbody>';
+                    for(let list of Object.keys(data)){
+                            var capital = data[list];
+                        html += '<tr>';
+                        html += '<td class="center"><img src="/img/wait.png" style="width: 60px; height: 60px;"></td>';
+                        html += '<td class="center">'+capital.oseq+'</td>';
+                        html += '<td class="center">'+capital.mname1+' 등</td>';
+                        html += '<td class="center">'+capital.mprice1+'</td>';
+                        html += ' <td class="center"><button onclick="detail('+capital.oseq+')">주문 상세</button></td>';
+                        html += '<td class="center">';
+                        html += '<input type="button" value="조리완료" onclick="">';
+                        html += '</td>';
+                        html += '</tr>';
+                    }
                     html += '</tbody>';
                     html += '</table>';
                     html += '</div>';   
@@ -588,10 +601,11 @@
 </script>
 <script>
     $("#waitorder3").on("click", function(){
+        var ostateDate = {"ostate":"3"}
         $.ajax({
             url:"order",
             type:"post",
-            data:{order:$("#order").val()},
+            data:ostateDate,
             success: function(data){
                 var html="";
                 html += '<div class="flex_bbox">';
@@ -608,13 +622,16 @@
                 html += '</tr>';
                 html += '</thead>';
                 html += '<tbody>';
-                html += '<tr>';              
-                html += '<td class="center"><img src="/img/complet.png" style="width: 60px; height: 60px;"></td>';
-                html += '<td class="center">seq</td>';
-                html += '<td class="center">아이스 카페라떼 등</td>';
-                html += '<td class="center">3500</td>';
-                html += '<td class="center"><button onclick="detail()">주문 상세</button></td>';
-                html += '</tr>';
+                for(let list of Object.keys(data)){
+                            var capital = data[list];
+                        html += '<tr>';
+                        html += '<td class="center"><img src="/img/wait.png" style="width: 60px; height: 60px;"></td>';
+                        html += '<td class="center">'+capital.oseq+'</td>';
+                        html += '<td class="center">'+capital.mname1+' 등</td>';
+                        html += '<td class="center">'+capital.mprice1+'</td>';
+                        html += ' <td class="center"><button onclick="detail('+capital.oseq+')">주문 상세</button></td>';
+                        html += '</tr>';
+                }
                 html += '</tbody>';
                 html += '</table>';
                 html += '</div>'; 
@@ -627,11 +644,12 @@
 </script>
 <script>
     $("#waitorder4").on("click", function(){
+        var ostateDate = {"ostate":"4"}
         console.log("aasdasd");
         $.ajax({
             url:"order",
             type:"post",
-            data:{order:$("#order").val()},
+            data:ostateDate,
             success: function(data){
                 var html="";
                 html += '<div class="flex_bbox">';
@@ -648,13 +666,16 @@
                 html += '</tr>';
                 html += '</thead>';
                 html += '<tbody>';
-                html += '<tr>';              
-                html += '<td class="center"><img src="/img/cancel.png" style="width: 60px; height: 60px;"></td>';
-                html += '<td class="center">seq</td>';
-                html += '<td class="center">아이스 카페라떼 등</td>';
-                html += '<td class="center">3500</td>';
-                html += '<td class="center"><button onclick="detail()">주문 상세</button></td>';
-                html += '</tr>';
+                for(let list of Object.keys(data)){
+                            var capital = data[list];
+                        html += '<tr>';
+                        html += '<td class="center"><img src="/img/wait.png" style="width: 60px; height: 60px;"></td>';
+                        html += '<td class="center">'+capital.oseq+'</td>';
+                        html += '<td class="center">'+capital.mname1+' 등</td>';
+                        html += '<td class="center">'+capital.mprice1+'</td>';
+                        html += ' <td class="center"><button onclick="detail('+capital.oseq+')">주문 상세</button></td>';
+                        html += '</tr>';
+                }
                 html += '</tbody>';
                 html += '</table>';
                 html += '</div>'; 

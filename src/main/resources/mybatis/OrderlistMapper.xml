@@ -24,8 +24,8 @@
         group by oseq,mname1,mname2,mname3,mname4,mname5,mname6,mname7,mname8,mname9,mname10
     </select>
 
-    <select id="selectAlls" resultType="OrderListVo" parameterType="String">
-        select * from orderlist where scode = #{scode}
+    <select id="selectAlls" resultType="OrderListVo" parameterType="java.util.HashMap">
+        select * from orderlist where scode = #{scode} and ostate=#{ostate}
     </select>
 
     <select id="selectAll2" resultType="OrderListVo" parameterType="java.util.HashMap">

@@ -12,5 +12,5 @@ public class BasketVo {
     private int bcount;
     private int mprice;
     private String kid;
-
+    private long baseq;
 }
