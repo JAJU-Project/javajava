@@ -12,9 +12,10 @@
     <link href="/assets/css/client.css" rel="stylesheet">
     <style>
       table {
-        width: 100%;
+        width: 10%;
         border-top: 1px solid #c1bbbb;
         border-collapse: collapse;
+        
       }
       th, td {
         border-bottom: 1px solid #c1bbbb;
