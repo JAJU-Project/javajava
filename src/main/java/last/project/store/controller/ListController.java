@@ -62,7 +62,9 @@ public class ListController {
             List<MenuVo> mlist = menuService.selectByCname(scode, cname); // 매장코드와 카테고리 이름을 통해서 메뉴의 정보를 불러온다.
             log.info("#catrgory.do cname: " + cname);
             mv.addObject("mlist", mlist); // 메뉴정보를 jsp로 넘겨준다.
+            
         }
+        System.out.println(mv);
         return mv;
     }
 

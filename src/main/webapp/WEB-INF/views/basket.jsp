@@ -12,7 +12,7 @@
     <link href="/assets/css/client.css" rel="stylesheet">
     <style>
       table {
-        width: 10%;
+        width: 100%;
         border-top: 1px solid #c1bbbb;
         border-collapse: collapse;
         

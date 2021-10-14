@@ -47,59 +47,12 @@
         <div id="tab">
           <ul style="display: flex; flex-direction: row;">
            <c:forEach items="${clist }" var="categoryVo">
-            <li style="text-align: center;" onclick="selectcategort('${categoryVo.cname}')">${categoryVo.cname}</li>
-            
-
+            <li style="text-align: center;" onclick="selectcategory('${categoryVo.cname}')">${categoryVo.cname}</li>
             </c:forEach>
           </ul>
         </div>
         <div class="menu" style=" width:100%; height:690px;">
 
-
-        <table>
-          <thead>
-
-          </thead>
-          <tbody>
-           <c:if test="${!empty mlist}">
-            <c:forEach items="${mlist}" var="menuVo">
-            <tr>
-              <td>
-                이미지
-               </td>
-
-              <th>
-                <div onclick="menus()" id="modal_menu">${menuVo.mname }</div>
-                
-              </th>
-
-              <td>${menuVo.mprice}</td>
-                <c:forEach items="${clist}" var="categoryVo" >
-                <c:if test="${categoryVo.cname == menuVo.cname}">
-                  <form action="basket_in.do" method="post">
-                        <th>
-                            <select id="bcount" name="bcount" >
-                                    <c:forEach var="i" begin="1" end="8">
-                                        <option value="${i}">${i}</option>
-                                    </c:forEach>
-                            </select>
-                        </th>
-                        <input type="hidden" name="cname" id="cname" value="${categoryVo.cname}">
-                        <input type="hidden" name="mname" id="mname" value="${menuVo.mname}">
-                        <input type="hidden" name="mprice" id="mprice" value="${menuVo.mprice}">
-              <td>
-                <button class="button" type="submit">담기</button>
-              </td>
-                </form>
-                  </c:if>
-                    
-                </c:forEach>
-            </tr>
-              </c:forEach>
-
-          </tbody>
-              </c:if>
-        </table>
           <div>
         <a href="basket.do">
         <button class="btn" id="btn" type="submit" style="position:fixed; right:600px; top:800px; width:10px; height:10px; ">
@@ -203,12 +156,71 @@
         }
       })
     }
+    function selectcategory(category){
+      
+      var cname = {"cname":category};
+      
+      $.ajax({
+        url:"client_category.do",
+        type:"get",
+        data:cname,
+        success:function(data){
+          var html = "";
+
+          html +='<table>';
+          html +='<thead>';
+          html +='<tr>';
+          html +='<th>이미지</th>';
+          html +='<th>메뉴명</th>';
+          html +='<th>가격</th>';
+          html +='<th>수량</th>';
+          html +='<th>장바구니 추가</th>';
+          html +='</tr>';
+          html +='</thead>';
+          html +='<tbody>';
+          html +='<c:if test="${!empty mlist}">';
+          html +='<c:forEach items="${mlist}" var="menuVo">';
+          html +='<tr>';
+          html +='<td>이미지</td>';
+          html +='<td><div onclick="menus()" id="modal_menu">${menuVo.mname }</div></td>';
+          html +='<td>${menuVo.mprice}</td>';
+          html +='<c:forEach items="${clist}" var="categoryVo">';
+          html +='<c:if test="${categoryVo.cname == menuVo.cname}">';
+          html +='<form action="basket_in.do" method="post">';
+          html +='<td>';
+          html +='<select id="bcount" name="bcount">';
+          html +='<c:forEach var="i" begin="1" end="8">';
+          html +='<option value="${i}">${i}</option>';
+          html +='</c:forEach>';
+          html +='</select>'
+
+          html +='</td>';
+          html +='<input type="hidden" name="cname" id="cname" value="${categoryVo.cname}">';
+          html +='<input type="hidden" name="mname" id="mname" value="${menuVo.mname}">';
+          html +='<input type="hidden" name="mprice" id="mprice" value="${menuVo.mprice}">';
+          html +='<td>';
+          html +='<button class="button" type="submit">담기</button>';
+          html +='</td>';
+          html +='</form>';
+          html +='</c:if>';
+          html +='</c:forEach>';
+          html +='</tr>';
+          html +='</c:forEach>';
+          html +='</tbody>';
+          html +='</c:if>';
+          html +='</table>';
+         $(".menu").html(html);
+        }
+      })
+
+    }
 
     window.onclick =(event)=>{
       if(event.target == modal){
         modal.style.display='none';
                       }
                   }
+
 </script>
 
 
