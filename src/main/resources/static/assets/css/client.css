@@ -1,0 +1,496 @@
+*{margin:0; padding:0;}
+ul{list-style:none;}
+a{text-decoration:none; color:inherit;}
+.box{max-width:995px; width:100%; height:750px; border:1px solid #cbc3c3; margin:0 auto;}
+
+/*주문내역*/
+#SSubject {
+  text-align: center;
+}
+*{
+  font-family: 'a옛날목욕탕L', Times, serif; 
+}
+
+
+#tab ul{white-space:nowrap; 
+    overflow-x: auto; text-align:center}
+
+#tab ul li{display:inline-block; padding: 10px 20px; background: rgb(255 255 255); margin-right:10px;}
+
+#tab ul li :hover{
+    background: #eed297;
+    border-radius: 80%;
+    border-bottom: 20px;
+    cursor: pointer;
+}
+
+table.type11 {
+    border-collapse: separate;
+    border-spacing: 1px;
+    text-align: center;
+    line-height: 1.5;
+    margin: 20px 10px;
+  }
+  table.type11 th {
+    width: 155px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #fff;
+    background: #edd9b6 ;
+  }
+  table.type11 td {
+    width: 155px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #eee;
+  }
+
+  #bar {
+    width:1000px; 
+    margin: auto;
+  }
+
+  #new_span {
+    margin-left: 20px;
+    font-size: 30px;
+}
+
+.button {
+	display: inline-block;
+	width: 60px;
+	height: 40px;
+	text-align: center;
+	text-decoration: none;
+	line-height: 35px;
+	outline: none;
+}
+.btn{
+padding: 0;
+border: none;
+background: none;
+
+}
+.button::before,
+.button::after {
+	position: absolute;
+	z-index: -1;
+	display: block;
+	content: '';
+}
+.button,
+.button::before,
+.button::after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all .3s;
+	transition: all .3s;
+}
+.button {
+	position: relative;
+	z-index: 2;
+	background-color: #fff;
+	border:2px solid #a59c9c;
+	color: #a59c9c;
+	line-height: 35px;
+	overflow: hidden;
+}
+.button:hover {
+	color: #fff;
+}
+.button::after {
+	top: -100%;
+	width: 100%;
+	height: 100%;
+}
+.button:hover::after {
+	top: 0;
+	background-color: #a59c9c;
+}
+/*주문내역 요니 */
+#bar {
+  width:1000px; 
+  margin: auto;
+}
+
+#tandn {
+  width: 33.3%;
+}
+
+#tandn1 {
+  width: 25%;
+}
+#tandn2 {
+  width: 25%;
+}
+#tandn3 {
+  width: 25%;
+}
+#tandn4 {
+  width: 25%;
+}
+
+#orderstate {
+  width: 200px;
+  height: 200px;
+  margin: 0px 1000px 0px 0px;
+}
+#ordst {
+  text-align: left;
+  border-spacing: 1px;
+  line-height: 1.5;
+  margin: 20px 10px;
+}
+/*
+#topMenu {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  top: 5px; bottom: 50px; left: 972px;
+}
+*/
+#new_img {
+  width: 60px;
+  height: 60px;
+ 
+}
+#dataTables-example {
+  width: 5pc;
+}
+
+
+#orderp, #twotable {
+  width: 100%;
+  border: 1px solid #444444;
+}
+#orderbarname{
+  align-items: center;
+  position: relative; 
+  top: 20px; 
+  bottom: 20px;
+}
+.ab{
+  align-content: center;
+}
+#twotable {
+  position: relative;
+  top: 25px; bottom: 50px; left: 0px;
+}
+.center {
+  text-align: center;
+}
+td {
+  text-align: center;
+}
+#subject {
+  width: 250px;
+  position: relative;
+  top: 0px; bottom: 20px; left: 0px;
+}
+#subjectbar {
+  position: relative;
+  top: 15px; bottom: 20px; left: 0px;
+}
+#backlogo {
+  display : block;
+  margin : auto;
+  position: relative;
+  top: 0px; bottom: 0px; right: 10px;
+}
+#porma {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  top: 20px; bottom: 0px; left: 690px;
+}
+#idinput {
+  width: 500px;
+  display : block;
+  margin : auto;
+  position: relative;
+  top: 0px; bottom: 0px; right: 25px;
+}
+#passinput {
+  width: 500px;
+  display : block;
+  margin : auto;
+  position: relative;
+  top: 10px; bottom: 0px; right: 50px;
+}
+#sendbutton {
+  display : block;
+  margin : auto;
+  position: relative;
+  top: 20px; bottom: 0px; right: 50px;
+}
+
+.abso {
+  position: absolute;
+  top: 9px; bottom: 20px; left: 15px;
+  width: 7pc;
+  height: 7pc;
+}
+
+body {
+  font-family: Arial;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  vertical-align: middle;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+  position: relative;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color:#fbd39738;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+.prev {
+  left: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: black;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Container for image text */
+.caption-container {
+  text-align: center;
+  background-color: rgb(236, 199, 149);
+  padding: 2px 16px;
+  color: white;
+  font-size:x-large;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+#file {
+  position: relative;
+  top: 10px; bottom: 0px; right: 50px;
+}
+/* 리뷰배경 */
+#bg {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+    
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
+}
+
+/* 리뷰작성 */
+
+#lili {
+  padding: 14px;
+}
+/*
+#ree {
+  position: relative;
+  top: 0px; bottom: 20px; left: 572px;
+}
+*/
+#subject {
+  width: 250px;
+}
+#subjectbar {
+  
+  align-items: center;
+  position: relative;
+  top: 60px; bottom: 0px; left: 316px;
+  color: black;
+}
+#porma {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  position: relative;
+  top: 74px; bottom: 0px; left: 420px;
+  color: black;
+}
+#id {
+  width: 250px;
+}
+#idinput {
+  display : block;
+  position: relative;
+  top: 45px; bottom: 0px; left: 370px;
+  color: black;
+}
+#passinput {
+  width: 500px;
+  display : block;
+  margin : auto;
+  position: relative;
+  top: 120px; bottom: 0px; right: 85px;
+  color: black;
+}
+#sendbutton {
+  display: flex;
+  flex-wrap: wrap;
+  display : block;
+  margin : auto;
+  position: relative;
+  top: 145px; bottom: 0px; left: -100px;
+  
+}
+
+#file {
+  align-content: center;
+  position: relative;
+  top: 105px; bottom: 0px; left: 440px;
+  color: white;
+}
+/* 리뷰배경 */
+#bg {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  min-width: 100%;
+  min-height: 100%;
+}
+#messageinput1 {
+  position: relative;
+  top: 85px; bottom: 0px; left: 410px;
+  color: black;
+  align-items: center;
+}
+
+#messageinput2 {
+  align-items: center;
+  position: relative;
+  top: 95px; bottom: 0px; left: 220px;
+}
+
+/*베이지 상단바*/
+
+.header-list{
+  width:100%;
+}
+.header-list {
+  
+  display: flex;
+  flex-wrap: wrap;
+}
+.bullets{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 20px;
+  z-index: 2;
+}
+.bullets label{
+  display: inline-block;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,0.55);
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+/*
+@media screen and (max-width: 768px) {
+  .header-list {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  #menubox, #li5 {
+    padding:15px;
+    display:inline-block
+  }
+  #menubox {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .menu-ul {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+}
+*/
+#li1, #li2, #li3, #li4, #li5{ /*상단바 menu01~05*/
+  padding: 30px 70px;
+}
+
+#titledes {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 30px;
+  height: 20px;
+  position: relative;
+  top: 10px; bottom: 0px; right: 80;
+}
+
+
+/*베이지 상단바 끝*/

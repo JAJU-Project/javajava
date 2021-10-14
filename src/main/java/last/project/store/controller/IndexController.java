@@ -103,6 +103,11 @@ public class IndexController {
         return "redirect:empty";
     }
 
+    @RequestMapping("completion")
+    public String completion(long oseq) { // 3으로
+        return "redirect:empty";
+    }
+
     @RequestMapping("user")
     public String user() {
         return "examples/user";

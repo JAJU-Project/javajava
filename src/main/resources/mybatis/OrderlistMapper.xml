@@ -40,6 +40,8 @@
         update orderlist set ostate=4 where oseq=#{oseq}
     </update>
 
+    
+
     <select id="select1" resultType="java.util.HashMap" parameterType="String">
         select  kid, mname1, mname2, mprice1, mprice2, olcount1, olcount2, oldate,
         oseq, ospot,ostate, scode, sname from orderlist where scode = #{scode}

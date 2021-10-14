@@ -69,6 +69,9 @@
     .color{
         color: aliceblue;
     }
+    #color{
+        color: aliceblue;
+    }
 
 </style>
 <body>
@@ -350,10 +353,10 @@
                                         <td class="center">${list.mprice1} </td>
                                         <td class="center"><button onclick="detail(`${list.oseq}`)">주문 상세</button></td>
                                         <td class="center">
-                                            <input type="button" value="접수하기" onclick="">
+                                            <input type="button" value="접수하기" onclick="location.href='receipt?oseq=${list.oseq}'">
                                         </td>
                                         <td class="center">
-                                            <input type="button" value="주문취소" onclick="confirm(`정말 취소하시겠습니까`)">
+                                            <input type="button" value="주문취소" onclick="cancel('${list.oseq}');">
                                         </td>
                                         </tr>
                                         </c:forEach>
@@ -411,19 +414,19 @@
                     html +='<div class="mother">';
                     html +='<div class="color" id="mother_1">메뉴</div>';
                     html +='<div class="mother_side">';
-                    html +='<div class="mother_son">'
+                    html +='<div id="color" class="mother_son">'
                     for (let i = 0; i < data.mname.length; i++) {
                         html +='<div class="menu_son">'+data.mname[i]+'</div>';
                     }
                     html +='</div>';
-                    html +='<div mother_son>';
+                    html +='<div id="color" class="mother_son" style="magin-left">';
                     for (let i = 0; i < data.olcount.length; i++) {
                         html +='<div class="menu_son">'+data.olcount[i]+'</div>';
                     }
                     html +='</div>';
                     html +='</div>';
                     html +='</div>';
-                    html +='<div class=mother_son>';
+                    html +='<div id="color" class=mother_son>';
                     for (let i = 0; i < data.mprice.length; i++) {
                         html +='<div class="menu_son">'+data.mprice[i]+'</div>';
                     }
@@ -531,10 +534,10 @@
                         html += '<td class="center">'+capital.mprice1+'</td>';
                         html += ' <td class="center"><button onclick="detail('+capital.oseq+')">주문 상세</button></td>';
                         html += '<td class="center">';
-                        html += '<input type="button" value="접수하기" onclick="">';
+                        html += '<input type="button" value="접수하기" onclick="location.href='+receipt?oseq=capital.oseq+'">';
                         html += '</td>';
                         html += ' <td class="center">';
-                        html += '<input type="button" value="주문취소" onclick="confirm(`정말 취소하시겠습니까`)"/>'
+                        html += '<input type="button" value="주문취소" onclick="cancel('+capital.oseq+')"/>'
                         html += '</td>';       
                         html += '</tr>';
                         }
@@ -599,6 +602,7 @@
             })
         })
 </script>
+
 <script>
     $("#waitorder3").on("click", function(){
         var ostateDate = {"ostate":"3"}
@@ -685,6 +689,24 @@
             }
         })
     })
+
+
+    function cancel(oseq){
+                var seqDate = {"oseq":oseq}
+                   var ok = confirm("정말 취소하시겠습니까?");
+                   if(ok){
+                     $.ajax({
+                         url:"cancel",
+                         type:"post",
+                         data: seqDate
+                     })
+
+                   }else{
+                       alert("취소되었습니다.")
+                   }
+                   
+
+                }
 </script>
 
 

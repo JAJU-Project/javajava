@@ -1,28 +1,16 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 
-<c:if test="${!empty blist}">
-
-<!doctype html>
-<html lang="ko">
-  <head>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head>
+    <meta charset="utf-8" />
  
-    <meta charset="utf-8">
-    <title>CSS</title>
-    <link href="/assets/css/client.css" rel="stylesheet">
-    <style>
-      table {
-        width: 100%;
-        border-top: 1px solid #c1bbbb;
-        border-collapse: collapse;
-      }
-      th, td {
-        border-bottom: 1px solid #c1bbbb;
-        padding: 30px;
-      }
-    </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- 상단바, 사이드바 스타일 시작 -->
+    <title>자주해요</title> 
+    <link href="/assets/css/client.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<!-- 상단바, 사이드바 스타일 시작 -->
 <style>
     * {padding:0;margin:0;}
     body {background:#fff;}
@@ -132,9 +120,14 @@
             </header>
    
             <!-- 상단바 끝 -->
-          
-      
+         <div class="orderbarnamee" id="orderbarname" style="position: relative; top: 20px; bottom: 20px;">
+    <body style="text-align: center">
+        
+        <h1>리뷰 작성</h1>
 
+        <a href="creview.do" style="position: absolute; left:50px; top:10px; color:#f1cf9d; "> << 리뷰 보기</a>
+
+    </div>
         <meta name="viewport" content="width=device-width, initial-scale=1">
        
         <style type="text/css">
@@ -150,211 +143,90 @@
       li a span {display:block;}
             
    </style>
-  </head>
-
-  <div class="orderbarnamee" id="orderbarname" style="position: relative; top: 20px; bottom: 20px;">
-    <body style="text-align: center">
-        
-        <h1>장바구니</h1>
-
-        <a href="client_category.do" style="position: absolute; left:50px; top:10px; color:#f1cf9d; "> << 메뉴 더 담기</a>
-    </div>
-    
-
-  <div class="cart2" style= "position: relative; top: 40px; bottom: 20px;">
-  <body>
-    <table>
-      <thead>
-
-      </thead>
-      <tbody>
-        <tr>
-         <td>
-          <p><input type = "checkbox" name="pick" value="S" onclick='checkOnlyOne(this)'/> 매장</p>
-         <br><input type = "checkbox" name="pick" value="P" onclick='checkOnlyOne(this)' /> 포장
-        </td>
-          <td></td>
-          <td></td>
-          <td></td>
-         <td> <a class="button" href="#">비우기</a></td>
-        </tr>
-<script>
-function checkOnlyOne(element) {
+   <script>
+       function showImage() {
+           var newImage = document.getElementById('image-show').lastElementChild;
+       }
+       function loadFile(input) {
+           var file = input.files[0];
+           var newImage = document.createElement("img");
+           newImage.setAttribute("class", 'img');
+           newImage.src = URL.createObjectURL(file);   
+           newImage.style.width = "70%";
+           newImage.style.height = "70%";
+           newImage.style.objectFit = "contain";
+           var container = document.getElementById('image-show');
+           container.appendChild(newImage);
+       };
+    </script>
   
-  const checkboxes 
-      = document.getElementsByName("pick");
-  
-  checkboxes.forEach((cb) => {
-    cb.checked = false;
-  })
-  
-  element.checked = true;
-}
-</script>
-
-<!--수량
-
-    <script>
-      $(function (){
-        $.ajax({
-          url:"rest",
-          type:"post",
-          data:{catgo:"ICE"},
-          success: function(data){
-            var a = data[0];
-            console.log(data[0]);
-            console.log(document.getElementById("wlgns").innerHTML);
-            var b = document.getElementById("wlgns").innerHTML;
-            document.getElementById("wlgns").innerHTML = "<td><img src="+a.mimage+" id='new_img' width=100 height=100></td><td><P>"+a.mname+"</P><P id = 'menu3Price'> "+a.mprice+"</P></td>"+b;
-            console.log(a.mprice);
-          }
-        });
-      })
-    </script>-->
-    <form method="post" action="kakaoPay.do">
-    <c:forEach items="${blist}" var="BasketVo">
-        <script>
-                function plusV(){
-                  document.getElementById("menuCount").value++;
-                  var price = document.getElementById("menuPrice").innerHTML;
-                  var a = price * document.getElementById("menuCount").value ;
-                  document.getElementById("wlgns").value = a ;
-                  var total = Number(document.getElementById("total_amount").innerHTML);
-                  total += Number(price);
-                  document.getElementById("total_amount").innerHTML =total;
-                  document.getElementById("menuIn").value =total;
+   <body class="reviewbody">
+     <!-- <div class="loader_bg" id="backlogo">
+        <img class="mr.back" id="mr.back" src="img/Mr.back.png">
+      </div>-->
+            
+            <!-- 아이디자동입력되게끔 -->
+            
+                <form name = "input" method="POST" action="b1write.do" enctype="multipart/form-data">
+                    <div class="form-group" id="idinput">
+                        <label for="id">Id</label>
+                        <input class="form-control" type="text" name="id" id="id" value="${loginOkUser.id}" readonly/>
+                    </div>
+                    <div class="form-group" id="subjectbar">
+                        <label for="subject">제목</label>
+                        <input class="form-control" type="text" name="subject" id="subject" />
+                    </div>
+            <!-- 체크박스 -->
+            <div id="porma">
+            <div>
+            <input type='checkbox'
+                name='animal' 
+                value='포장'
+                onclick='checkOnlyOne(this)'/> 포장
+            <br />
+            </div>
+            <div>
+            <input type='checkbox' 
+                name='animal' 
+                value='매장' 
+                onclick='checkOnlyOne(this)'/> 매장
+            <br />
+            </div>
+            </div>
+            <script>
+                function checkOnlyOne(element) {
+            
+                    const checkboxes 
+                        = document.getElementsByName("animal");
+                    
+                    checkboxes.forEach((cb) => {
+                    cb.checked = false;
+                    })
+                    
+                    element.checked = true;
                 }
-                
-                function minusV(){
-                  document.getElementById("menuCount").value--;
-                  var price = document.getElementById("menuPrice").innerHTML;
-                  var a = price * document.getElementById("menuCount").value ;
-                  document.getElementById("wlgns").value = a ;
-                  var total = Number(document.getElementById("total_amount").innerHTML);
-                  total -= Number(price);
-                  document.getElementById("total_amount").innerHTML =total;
-                }
-          </script>
-
- <tr id="wlgns">
-            <td>${BasketVo.mname }</td>
-           <td>
-            <P id = 'menuPrice'>${BasketVo.mprice}</P>
-            </td>
-
-              <td>
-                <form name="form" method="get">
-                  <input type=button value=" - " onClick="minusV()">
-                  <input id= "menuCount" type=text name="bcount" value="${BasketVo.bcount}" readonly="readonly" style="text-align:center;">
-                  <input type="button" value=" + " onClick="plusV()">
-                  </form>
-              </td>
-         
-          <td> <input id="menuIn" type="text" name="sum" size="11" value="0" readonly>원</td>
-          <td> <a class="button" href="#">삭제</a></td>
-        </tr>
-        </c:forEach>
-      
-<!--수량-->
-
-<!--
-        <tr >
-          <td><img src=${menuVo.mimage} id="new_img" width=100 height=100></td>
-          <td>
-            <P>${BasketVo.mname }</P>
-            <P>${BasketVo.bcount }</P>
-            </td>
-               
-              <td>
-                <form name="form" method="get">
-                  <input type=hidden name="sell_price" value="5500">
-                  <input type="button" value=" - " onclick="del();">
-                  <input type=text name="amount" value=1 readonly="readonly" onchange="change();" style="text-align:center;">
-                  <input type="button" value=" + " onclick="add();">
-                  </form>
-              </td>
-         
-          <td> <input type="text" name="sum" size="11" readonly>원</td>
-          <td><a class="button" href="#">삭제</a></td>
-
-        </tr>
-
-
-        <tr>
-          <td>이미지</td>
-          <td>
-            <P>레몬에이드</P>
-           <p>2800</p>
-             </td>
- 
-              <td>
-                <form>
-                  <input type=button value=" - " onClick="minusV();">
-                  <input id= "menu3Count" type=text name=amount value=0 readonly="readonly" style="text-align:center;">
-                  <input type="button" value=" + " onClick="plusV();">
-                  </form>
-              </td>
-         
-          <td> <input id="" type="text" name="sum" size="11" value="0" readonly>원</td>
-          <td><a class="button" href="#">삭제</a></td>
-
-        </tr>
-        <tr>
-          <td>이미지</td>
-          <td>
-            <P>녹차프라푸치노</P>
-            <P> 4500원</P>
-            </td>
-               
-              <td>
-                <form>
-                  <input type=button value=" - " onClick="javascript:this.form.amount.value--;">
-                  <input type=text name=amount value=0 readonly="readonly" style="text-align:center;">
-                  <input type=button value=" + " onClick="javascript:this.form.amount.value++;">
-                  </form>
-              </td>
-         
-          <td> <input type="text" name="sum" size="11" readonly>원</td>
-          <td><a class="button" href="#">삭제</a></td>
-
-        </tr>
-        <tr>
-          <td>이미지</td>
-          <td>
-            <P> 아이스바닐라라떼</P>
-            <P> 4700원</P>
-            </td>
-               
-              <td>
-                <form>
-                  <input type=button value=" - " onClick="javascript:this.form.amount.value--;">
-                  <input type=text name=amount value=0 readonly="readonly" style="text-align:center;">
-                  <input type=button value=" + " onClick="javascript:this.form.amount.value++;">
-                  </form>
-              </td>
-         
-          <td> <input type="text" name="sum" size="11" readonly>원</td>
-          <td><a class="button" href="#">삭제</a></td>
-
-        </tr>
--->
-         
-      </tbody>
-    
-    </table>
-   
-
-</div>
-
-<div style="position: absolute; bottom:1px; right:30px;">
- <table>
- <tr>
-  <td>총 금액</td> <td id="total_amount">0</td>
-  <td><a href="">결제하기 >></a></td>
- </tr>
- </table>
-</div>
-
-</body>
+            </script>
+           
+           <!-- 체크박스끝 -->
+           
+          <div class="form-group">
+                <div id="messageinput1"><label for="message">리뷰를 작성해주세용</label></div>
+                <div id="messageinput2"><textarea class="form-control" name="content" rows="10" cols="60"></textarea></div>
+          </div>
+          <div class = "form-group">
+          <input type="file" id="file" name="file" accept="image/*" onchange="loadFile(this)">
+          <div class="image-show" id="image-show"></div>
+          </div>
+            <div class="form-group" id="passinput">
+              <label for="password">비밀번호</label>
+              <input class="form-control" type="password" name="pword" id="pword" />
+          </div>
+          <div>
+              <input type="submit" value="Send" class="btn btn-primary btn-block" id="sendbutton"  style="color:#f1cf9d; " />
+            </div>
+      </form>   
+    </body>
 </html>
-</c:if>
+          
+          
+ 
