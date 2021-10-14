@@ -36,7 +36,7 @@
     <thead>
       <div>
     <tr>
-      <th class="th1" id="ord"><a href="order">주문내역</a></th>
+      <th class="th1" id="ord"><a href="basket.do">주문내역</a></th>
       <th class="th2"><a href='creview.do'>리뷰</a></th>
     </tr>
   </div>

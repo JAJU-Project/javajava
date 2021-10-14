@@ -20,6 +20,8 @@ public interface OrderListService {
 
     void updateCancel(long oseq);
 
+    void updateCompletion(long oseq);
+
     void insertBy1(OrderListVo orderListVo);
 
     void insertBy2(OrderListVo orderListVo);

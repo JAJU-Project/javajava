@@ -105,6 +105,7 @@ public class IndexController {
 
     @RequestMapping("completion")
     public String completion(long oseq) { // 3으로
+        orderListService.updateCompletion(oseq);
         return "redirect:empty";
     }
 

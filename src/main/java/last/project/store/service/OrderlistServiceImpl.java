@@ -118,4 +118,10 @@ public class OrderListServiceImpl implements OrderListService {
         // TODO Auto-generated method stub
         return orderListMapper.selectAll2(map);
     }
+
+    @Override
+    public void updateCompletion(long oseq) {
+        // TODO Auto-generated method stub
+        orderListMapper.updateCompletion(oseq);
+    }
 }

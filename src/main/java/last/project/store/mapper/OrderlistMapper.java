@@ -16,6 +16,8 @@ public interface OrderListMapper {
 
     void updateCancel(long oseq);
 
+    void updateCompletion(long oseq);
+
     List<OrderListVo> selectAll(HashMap<String, Object> map);
 
     List<OrderListVo> selectAlls(HashMap<String, Object> map);
