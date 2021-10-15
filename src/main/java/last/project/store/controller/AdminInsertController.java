@@ -1,19 +1,15 @@
 package last.project.store.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import last.project.store.domain.BasketVo;
 import last.project.store.domain.CategoryVo;
 import last.project.store.domain.ManagerVo;
 import last.project.store.domain.MenuVo;
 import last.project.store.domain.RandomCode;
 import last.project.store.domain.StoreVo;
-import last.project.store.service.BasketService;
 import last.project.store.service.CategoryService;
 import last.project.store.service.ManagerService;
 import last.project.store.service.MenuService;
@@ -25,16 +21,14 @@ import lombok.extern.java.Log;
 @Controller
 @Log
 @AllArgsConstructor
-public class InsertController { // 각각의 정보를 추가할때 쓰이는 컨트롤러
+public class AdminInsertController {
 
     private ManagerService managerService;
     private CategoryService categoryService;
     private MenuService menuService;
-    private BasketService basketService;
-    private StoreService storeService;
     private SalesService salesService;
+    private StoreService storeService;
 
-    // 호엥
     @PostMapping("sign_up.do") // 관리자 회원 가입을 위한
     public String sign_up(ManagerVo managerVo) { // 아이디 유효성검사 할 예정.
         String maid = managerVo.getMaid();
@@ -43,7 +37,7 @@ public class InsertController { // 각각의 정보를 추가할때 쓰이는 �
         return "redirect:/";
     }
 
-    @PostMapping("inset_catego")
+    @PostMapping("inset_catego") // 카테고리 추가
     public String category_in(CategoryVo categoryVo, HttpSession session) { // 페이지에서 카테고리명을 받아온다.
         String scode = (String) session.getAttribute("scode"); // session에 유지되고 있는 매장코드(scode) 선언.
         log.info("#category_in.do cname: " + categoryVo.getCname() + ", scode: " + scode);
@@ -53,7 +47,7 @@ public class InsertController { // 각각의 정보를 추가할때 쓰이는 �
         // redirect해준다.
     }
 
-    @PostMapping("inset_menu")
+    @PostMapping("inset_menu") // 메뉴 추가
     public String menu_in(HttpSession session, MenuVo menuVo) { // 페이지에서 메뉴 정보를 받아온다.
         log.info("#inset_menu:" + menuVo);
         String mname = menuVo.getMname();
@@ -64,43 +58,6 @@ public class InsertController { // 각각의 정보를 추가할때 쓰이는 �
         menuService.insertAll(menuVo); // 관리자가 입력한 메뉴 insert
         salesService.insertAll(mname, scode);
         return "redirect:menu"; // 매장관리 페이지로 다시 이동.
-    }
-
-    @PostMapping("basket_in")
-    public String basket_in(HttpSession session, int bcount, String cname, String mname, int mprice) { // 장바구니 담기 클릭시
-        BasketVo basketVo = new BasketVo(); // BasketVo 객체 생성
-        String kid = (String) session.getAttribute("email"); // session에 유지되고 있는 고객 id값 가져오기.
-        String scode = (String) session.getAttribute("scode"); // session에 유지되고 있는 매장코드값 가져오기
-        int basicprice = mprice;
-        log.info("#category.do Post kid:" + kid + ", scode:" + scode + ", senior:" + bcount + ", cname:" + cname);
-        log.info("#category.do Post mname: " + mname);
-        log.info("#category.do Post mprice: " + mprice);
-
-        List<BasketVo> blist = basketService.selectByMname(kid, mname); // 장바구니에 추가중인 고객 kid, 장바구니에 추가할 메뉴 이름
-        log.info("#basket_in.do bcount1: " + bcount);
-        log.info("#basket_in.do blist.size: " + blist.size());
-        mprice = mprice * bcount; // 상품가격 = 상품가격 * 상품의개수
-        if (blist.size() != 0) { // blist 가 0이 아니라는건 해당 고객(kid) 가 이미 장바구니에 물품을 추가 했다는 의미
-            int get_bcount = blist.get(0).getBcount(); // 그럼 이미 추가한 메뉴의 수량을 가져오고
-            int get_mprice = blist.get(0).getMprice(); // 추가 한 메뉴의 가격을 가져 옵니다.
-            bcount = bcount + get_bcount; // jsp에서 받아온 bcount 에 BasketTable 에서 가져온 bcount를 더함
-            mprice = mprice + get_mprice; // jsp에서 받아온 mprice 에 BasketTable 에서 가져온 mpirce를 더함
-            basketVo.setBcount(bcount); // set
-            basketVo.setKid(kid);
-            basketVo.setMname(mname);
-            basketVo.setMprice(mprice);
-            basketService.updateAll(basketVo); // 이건 업데이트
-            log.info("#basket_in.do bcount2: " + bcount);
-            return "redirect:client_category.do";
-        } else { // blist 가 0 이라는건 장바구니에 해당하는 메뉴가 없다는 뜻.
-            basketVo.setMname(mname);
-            basketVo.setBcount(bcount);
-            basketVo.setMprice(mprice);
-            basketVo.setKid(kid);
-            basketVo.setBasicprice(basicprice);
-            basketService.insertAll(basketVo); // 장바구니에 추가
-            return "redirect:client_category.do"; // 카테고리로 다시 이동
-        }
     }
 
     @PostMapping("store_create.do") // 매장생성
@@ -129,5 +86,4 @@ public class InsertController { // 각각의 정보를 추가할때 쓰이는 �
         }
         return null;
     }
-
 }

@@ -13,25 +13,21 @@ import lombok.extern.java.Log;
 @Controller
 @Log
 @AllArgsConstructor
-public class UpdateController { // 수정 부분
-
+public class AdminUpdateController {
     private MenuService menuService;
     private CategoryService categoryService;
 
-    @PostMapping("update_menu")
+    @PostMapping("update_menu") // 메뉴 업데이트
     public String menuUpdate(MenuVo menuVo) {
-        // long mprice = menuVo.getMprice();
-        // menuVo.setMprice(mprice);
         log.info("menuUpdate: menuVo" + menuVo);
         menuService.updateByMseq(menuVo);
 
         return "redirect:menu";
     }
 
-    @PostMapping("categoUpdate")
+    @PostMapping("categoUpdate") // 카테고리 업데이트
     public String categoUpdate(CategoryVo categoryVo) {
         categoryService.updateByCname(categoryVo);
         return null;
     }
-
 }

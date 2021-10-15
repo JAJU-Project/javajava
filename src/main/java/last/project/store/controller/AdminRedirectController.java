@@ -14,16 +14,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 
 @Controller
-@AllArgsConstructor
 @Log
-public class RedirectController { // 페이지 이동 담당.
-
+@AllArgsConstructor
+public class AdminRedirectController {
     private MenuService menuService;
-
-    @GetMapping("/")
-    public String index() { // Test용 index 페이지
-        return "index";
-    }
 
     @GetMapping("sign_up.do") // 회원가입
     public String sign_up() {

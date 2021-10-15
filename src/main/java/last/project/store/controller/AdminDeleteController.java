@@ -11,8 +11,7 @@ import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor
-public class DeleteController {
-
+public class AdminDeleteController {
     private MenuService menuService;
     private CategoryService categoryService;
 
