@@ -58,13 +58,13 @@ table.type11 {
 }
 
 .button {
-	display: inline-block;
-	width: 60px;
-	height: 40px;
-	text-align: center;
-	text-decoration: none;
-	line-height: 35px;
-	outline: none;
+   display: inline-block;
+   width: 60px;
+   height: 40px;
+   text-align: center;
+   text-decoration: none;
+   line-height: 35px;
+   outline: none;
 }
 .btn{
 padding: 0;
@@ -74,40 +74,40 @@ background: none;
 }
 .button::before,
 .button::after {
-	position: absolute;
-	z-index: -1;
-	display: block;
-	content: '';
+   position: absolute;
+   z-index: -1;
+   display: block;
+   content: '';
 }
 .button,
 .button::before,
 .button::after {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-transition: all .3s;
-	transition: all .3s;
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   box-sizing: border-box;
+   -webkit-transition: all .3s;
+   transition: all .3s;
 }
 .button {
-	position: relative;
-	z-index: 2;
-	background-color: #fff;
-	border:2px solid #a59c9c;
-	color: #a59c9c;
-	line-height: 35px;
-	overflow: hidden;
+   position: relative;
+   z-index: 2;
+   background-color: #fff;
+   border:2px solid #a59c9c;
+   color: #a59c9c;
+   line-height: 35px;
+   overflow: hidden;
 }
 .button:hover {
-	color: #fff;
+   color: #fff;
 }
 .button::after {
-	top: -100%;
-	width: 100%;
-	height: 100%;
+   top: -100%;
+   width: 100%;
+   height: 100%;
 }
 .button:hover::after {
-	top: 0;
-	background-color: #a59c9c;
+   top: 0;
+   background-color: #a59c9c;
 }
 /*주문내역 요니 */
 #bar {
@@ -306,7 +306,7 @@ img {
 .caption-container {
   text-align: center;
   background-color: rgb(236, 199, 149);
-  padding: 2px 16px;
+  padding: 40px 16px;
   color: white;
   font-size:x-large;
 }
@@ -462,14 +462,6 @@ img {
     align-items: flex-start;
   }
   
-  #menubox, #li5 {
-    padding:15px;
-    display:inline-block
-  }
-  #menubox {
-    flex-direction: row;
-    align-items: flex-start;
-  }
   .menu-ul {
     display: flex;
     flex-wrap: wrap;
@@ -479,8 +471,8 @@ img {
 
 }
 */
-#li1, #li2, #li3, #li4, #li5{ /*상단바 menu01~05*/
-  padding: 30px 70px;
+#li2, #li3, #li4, #li5{ /*상단바 menu01~05*/
+  padding: 30px 120px;
 }
 
 #titledes {
@@ -494,3 +486,9 @@ img {
 
 
 /*베이지 상단바 끝*/
+
+
+/*오늘 가연쓰가 새로 추가한거*/
+.boss_content {
+  padding-top: 50;
+}

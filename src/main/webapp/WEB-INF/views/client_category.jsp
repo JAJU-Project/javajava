@@ -124,8 +124,8 @@
 
 
 <div id="modal" class="modal-overlay">
-  <div class="modal-window">2
-    <div class="title">3
+  <div class="modal-window">
+    <div class="title">
       <h2>메뉴 상세정보</h2>
     </div>
     <div class="close-area">X</div>
