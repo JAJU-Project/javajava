@@ -66,12 +66,12 @@ public class InsertController { // 각각의 정보를 추가할때 쓰이는 �
         return "redirect:menu"; // 매장관리 페이지로 다시 이동.
     }
 
-    @PostMapping("basket_in.do")
+    @PostMapping("basket_in")
     public String basket_in(HttpSession session, int bcount, String cname, String mname, int mprice) { // 장바구니 담기 클릭시
         BasketVo basketVo = new BasketVo(); // BasketVo 객체 생성
         String kid = (String) session.getAttribute("email"); // session에 유지되고 있는 고객 id값 가져오기.
         String scode = (String) session.getAttribute("scode"); // session에 유지되고 있는 매장코드값 가져오기
-
+        int basicprice = mprice;
         log.info("#category.do Post kid:" + kid + ", scode:" + scode + ", senior:" + bcount + ", cname:" + cname);
         log.info("#category.do Post mname: " + mname);
         log.info("#category.do Post mprice: " + mprice);
@@ -97,6 +97,7 @@ public class InsertController { // 각각의 정보를 추가할때 쓰이는 �
             basketVo.setBcount(bcount);
             basketVo.setMprice(mprice);
             basketVo.setKid(kid);
+            basketVo.setBasicprice(basicprice);
             basketService.insertAll(basketVo); // 장바구니에 추가
             return "redirect:client_category.do"; // 카테고리로 다시 이동
         }

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿<%@ page contentType="text/html;charset=utf-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 <head>
     <meta charset="utf-8" />
@@ -385,12 +388,10 @@
    
     <script src="/assets/js/Lightweight-Chart/jquery.chart.js"></script>
    
-    <!-- Custom Js -->
-    <script src="assets/js/custom-scripts.js"></script> 
+    <!-- Custom Js 
+    <script src="assets/js/custom-scripts.js"></script> -->
 
  
-
-   
    <script>
       $(function() {
         $('#first').click(function() {

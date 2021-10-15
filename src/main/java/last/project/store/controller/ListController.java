@@ -62,10 +62,21 @@ public class ListController {
             List<MenuVo> mlist = menuService.selectByCname(scode, cname); // 매장코드와 카테고리 이름을 통해서 메뉴의 정보를 불러온다.
             log.info("#catrgory.do cname: " + cname);
             mv.addObject("mlist", mlist); // 메뉴정보를 jsp로 넘겨준다.
-            
+
         }
         System.out.println(mv);
         return mv;
+
+    }
+
+    @RequestMapping("client_category_click")
+    @ResponseBody
+    public List<MenuVo> client_category_click(HttpSession session, String cname) {
+        String scode = (String) session.getAttribute("scode");
+        log.info("client_category_click scode: " + scode + ", cname:" + cname);
+        List<MenuVo> mlist = menuService.selectByCname(scode, cname);
+        log.info("mlist:" + mlist);
+        return mlist;
     }
 
     @GetMapping("basket.do") // 고객의 장바구니 리스트

@@ -4,7 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="last.project.store.mapper.BasketMapper">
     <insert id="insertAll" parameterType="BasketVo">
-        insert into basket values(#{mname}, #{bcount}, #{mprice}, #{kid},ba_seq.NEXTVAL)
+        insert into basket 
+        values(#{mname}, #{bcount}, #{mprice}, #{kid},ba_seq.NEXTVAL, #{basicprice})
     </insert>
 
     <select id="selectByKid" resultType="BasketVo" parameterType="String">

@@ -592,8 +592,8 @@
                     $('#dataTables-example').dataTable();
                 });
             </script>
-            <!-- Custom Js -->
-            <script src="/assets/js/custom-scripts.js"></script>
+            <!-- Custom Js 
+            <script src="/assets/js/custom-scripts.js"></script>-->
             
         
 </body>
