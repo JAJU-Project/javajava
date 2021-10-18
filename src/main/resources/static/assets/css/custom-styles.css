@@ -860,3 +860,17 @@ padding: 0 15px 0px 15px;
 
 
     }
+    .buttons{
+        border: 1px solid skyblue;
+        border-radius: 10%;
+        background-color: rgba(0,0,0,0);
+        color: black;
+        padding: 5px;
+    }
+    #mybutton{
+        border: 1px solid skyblue;
+        border-radius: 10%;
+        background-color: rgba(0,0,0,0);
+        color:aliceblue;
+        padding :5px;
+    }

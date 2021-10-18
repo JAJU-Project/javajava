@@ -72,7 +72,29 @@
     #color{
         color: aliceblue;
     }
+    table{
+        width:100%;
+        border:1px solid #444444;
 
+    }
+    th{
+        border:1px solid #444444;
+        padding: 10px;
+        background-color: skyblue;
+    }
+    td{
+        border:1px solid #444444;
+        padding: 10px;
+       min-width: 100px;
+    }
+    #orderbutton{
+        border: 1px solid skyblue;
+        border-radius: 10%;
+        background-color: rgba(0,0,0,0);
+        color: black;
+        padding: 5px;
+    }
+    
 </style>
 <body>
     <div class="modal-wrapper" id="modal-wrapper" style=" display: none;">
@@ -315,7 +337,7 @@
                         <div class="tabWrap">
                             <ul class="tab_Menu">
                                 <li class="tabMenu current" id="waitorder">
-                                    <a href="#tabContent01"></a> >주문 대기중</a>
+                                    <a href="#tabContent01"></a>주문 대기중</a>
                                 </li>
                                 <li class="tabMenu" id="waitorder2">
                                     <a href="#tabContent02" >조리 중</a>
@@ -351,12 +373,12 @@
                                         <td class="center">${list.oseq}</td>
                                         <td class="center">${list.mname1} 등</td>
                                         <td class="center">${list.mprice1} </td>
-                                        <td class="center"><button onclick="detail(`${list.oseq}`)">주문 상세</button></td>
+                                        <td class="center"><button id="orderbutton" onclick="detail(`${list.oseq}`)">주문 상세</button></td>
                                         <td class="center">
-                                            <input type="button" value="접수하기" onclick="location.href='receipt?oseq=${list.oseq}'">
+                                            <input type="button" id="orderbutton" value="접수하기" onclick="location.href='receipt?oseq=${list.oseq}'">
                                         </td>
                                         <td class="center">
-                                            <input type="button" value="주문취소" onclick="cancel('${list.oseq}');">
+                                            <input type="button" id="orderbutton" value="주문취소" onclick="cancel('${list.oseq}');">
                                         </td>
                                         </tr>
                                         </c:forEach>
@@ -580,13 +602,13 @@
                     for(let list of Object.keys(data)){
                             var capital = data[list];
                         html += '<tr>';
-                        html += '<td class="center"><img src="/img/wait.png" style="width: 60px; height: 60px;"></td>';
+                        html += '<td class="center"><img src="/img/ing.png" style="width: 60px; height: 60px;"></td>';
                         html += '<td class="center">'+capital.oseq+'</td>';
                         html += '<td class="center">'+capital.mname1+' 등</td>';
                         html += '<td class="center">'+capital.mprice1+'</td>';
-                        html += ' <td class="center"><button onclick="detail('+capital.oseq+')">주문 상세</button></td>';
+                        html += ' <td class="center"><button id=orderbutton onclick="detail('+capital.oseq+')">주문 상세</button></td>';
                         html += '<td class="center">';
-                        html += '<input type="button" value="조리완료" onclick="">';
+                        html += '<input type="button" id=orderbutton value="조리완료" onclick="">';
                         html += '</td>';
                         html += '</tr>';
                     }
@@ -633,7 +655,7 @@
                         html += '<td class="center">'+capital.oseq+'</td>';
                         html += '<td class="center">'+capital.mname1+' 등</td>';
                         html += '<td class="center">'+capital.mprice1+'</td>';
-                        html += ' <td class="center"><button onclick="detail('+capital.oseq+')">주문 상세</button></td>';
+                        html += ' <td class="center"><button id=orderbutton onclick="detail('+capital.oseq+')">주문 상세</button></td>';
                         html += '</tr>';
                 }
                 html += '</tbody>';
@@ -677,7 +699,7 @@
                         html += '<td class="center">'+capital.oseq+'</td>';
                         html += '<td class="center">'+capital.mname1+' 등</td>';
                         html += '<td class="center">'+capital.mprice1+'</td>';
-                        html += ' <td class="center"><button onclick="detail('+capital.oseq+')">주문 상세</button></td>';
+                        html += ' <td class="center"><button  id=orderbutton onclick="detail('+capital.oseq+')">주문 상세</button></td>';
                         html += '</tr>';
                 }
                 html += '</tbody>';

@@ -1,7 +1,5 @@
-<creview>
-
-  <%@ page contentType="text/html;charset=utf-8" %>
-  <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<%@ page contentType="text/html;charset=utf-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
   
   <!DOCTYPE html>
   <html xmlns="http://www.w3.org/1999/xhtml"> 
@@ -88,34 +86,12 @@
                         <li id="li2"><a href="client_category.do">Menu</a></li>
                         <li id="li3"><a href="creview.do">Review</a></li>
                         <li id="li4"><a href="basket.do">Basket</a></li>
-                        <li id="li5"><a href="order.do">주문내역</a></li>
+                        <li id="li5"><a href="order">Orderlist</a></li>
                     </ul>
                 </div>
             </li>
-            <li id="li6">
-                <div id="menubox">
-                    <input type="checkbox" id="menuicon">
-                    <label for="menuicon" >
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </label>
-                    <div class="sidebar">
-                        <ul class="sitemap-ul">
-                                <ul>
-                                    <p id="lili"><a href="client_category.do">Menu</a></p>
-                                    <p id="lili"><a href="creview.do">Review</a></p>
-                                    <p id="lili"><a href="basket.do">Basket</a></p>
-                                    <p id="lili"><a href="order.do">주문내역</a></p>
-                                </ul>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-        
+          </ul>
    </header>
-
             <!-- 상단바 끝 -->
       <title>자주해요</title> 
       <link href="/assets/css/client.css" rel="stylesheet" />
@@ -133,41 +109,138 @@
     </div>
   <div class="container" id="reviewbox">
     <div class="mySlides">
-      <div class="numbertext">1 / 6</div>
-      <img src="./img/커피1.png" style="width:100%">
+      <img src="./img/커피1.png" style="width:50%">
     </div>
   
     <div class="mySlides">
-      <div class="numbertext">2 / 6</div>
-      <img src="./img/커피2.png" style="width:100%">
+      <img src="##" style="width:50%">
     </div>
   
     <div class="mySlides">
-      <div class="numbertext">3 / 6</div>
-      <img src="./img/커피3.png" style="width:100%">
+      <img src="##" style="width:50%">
     </div>
       
     <div class="mySlides">
-      <div class="numbertext">4 / 6</div>
-      <img src="./img/커피4.png" style="width:100%">
+      <img src="##" style="width:50%">
     </div>
   
     <div class="mySlides">
-      <div class="numbertext">5 / 6</div>
-      <img src="./img/커피5.png" style="width:100%">
+      <img src="##" style="width:50%">
     </div>
       
     <div class="mySlides">
-      <div class="numbertext">6 / 6</div>
-      <img src="./img/커피6.png" style="width:100%">
+      <img src="##" style="width:50%">
     </div>
       <div>
     <a class="prev" onclick="plusSlides(-1)">❮</a>
     <a class="next" onclick="plusSlides(1)">❯</a>
   </div>
     <div class="caption-container">
-      <p id="caption"></p>
+      <div onclick="menus()" id="modal_menu">##리뷰제목##</div>
     </div>
+
+
+    <div id="modal" class="modal-overlay">
+      <div class="modal-window">
+          <div class="title">
+              <h2>리뷰 들여다보기</h2>
+          </div>
+          
+         <div class="content">
+            <br> <div class="content_sub" style="padding: 10px, 50px;">
+            <h3><나는야 현호초이> 님</h3><br>
+            사장님 너무 맛있어여 울랄랄라ㅏ너무 맛있당게여 울랄라 우우랄라 효진초이대 현호 초이
+            </div></br>
+            <div class="boss_content" style="padding-top: 50px;">
+            <h3 style="color:#d9902f;">사장님 한말씀 >></h3><br>
+            현호초이 이러고 있다 ~ ㄳㄳ
+            </div>
+            </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <script>
+      const modal = document.getElementById("modal")
+      const btnModal = document.getElementById("modal_menu")
+        function menus(){
+          modal.style.display='flex'
+          $.ajax({
+            success:function(data){
+              var html = "";
+             html+='<p><img src="https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202104300914127400.png" alt="디카페인 아메리카노"class="fl_l"width="250"height="200"></p>';
+             html+='<h3>디카페인 아메리카노</h3>';
+             html+='<br>부드러운 풍미와 균형잡힌 바디감의 디카페인 아메리카노</br>';
+             $(".content").html(html);
+            }
+          }) /* 리뷰데이터 부르는부분 수정 */
+        }
+    
+        window.onclick =(event)=>{
+          if(event.target == modal){
+            modal.style.display='none';
+                          }
+                      }
+    </script>
+
+      <style>
+        #modal.modal-overlay {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+      
+        }
+        #modal .modal-window {
+            background: rgb(237 224 159 / 65%);
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 13.5px );
+            -webkit-backdrop-filter: blur( 13.5px );
+            border-radius: 10px;
+            border: 1px solid rgba( 255, 255, 255, 0.18 );
+            width: 400px;
+            height: 500px;
+            position: relative;
+            top: -100px;
+            padding: 10px;
+        }
+        #modal .title {
+            padding-left: 10px;
+            display: inline;
+            text-shadow: 1px 1px 2px gray;
+            color: black;
+            
+        }
+        #modal .title h2 {
+            display: inline;
+        }
+        #modal .close-area {
+            display: inline;
+            float: right;
+            padding-right: 10px;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px gray;
+            color: black;
+        }
+        
+        #modal .content {
+            margin-top: 50px;
+            color: black;
+        }
+      </style>
+
+
   
     <div class="row">
       <div class="column">

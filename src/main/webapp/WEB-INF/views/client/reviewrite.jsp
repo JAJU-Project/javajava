@@ -15,16 +15,7 @@
     * {padding:0;margin:0;}
     body {background:#fff;}
     header {width:100%;background:#fbd39738;position:relative;z-index:10;}
-    .header-list {width:1200px;margin:0 auto;font-size:0;padding:15px 0;}
-    .header-list > li {font-size:12px;display:inline-block;vertical-align:middle;}
-    .header-list > li:nth-child(1) {font-size:20px;width:200px;}
-    .header-list > li:nth-child(2) {width:calc(100% - 250px);}
-    .header-list > li:nth-child(3) {width:50px;}
-    .header-list > li > div {width:auto;}
-    
-    .menu-ul {font-size:0;}
-    .menu-ul > li {font-size:12px;display:inline-block;vertical-align:middle;}
-    .menu-ul > li > a {display:block;width:auto;padding:15px;}
+ 
     
     input[id="menuicon"] {display:none;}
     input[id="menuicon"] + label {display:block;position:relative;width:100%;height:40px;cursor:pointer;}
@@ -42,12 +33,12 @@
     .sitemap-ul {font-size:0;width:1200px;margin:15px auto;text-align:center;}
     .sitemap-ul > li {font-size:12px;display:inline-block;vertical-align:top;width:20%;}
     </style>
-     <style>
+     <style>/* 이부분 없어도 될듯*/
         input[id="menuicon"] {display:none;}
         input[id="menuicon"] + label {display:block;margin:30px;width:60px;height:50px;position:relative;cursor:pointer;}
         input[id="menuicon"] + label span {display:block;position:absolute;width:100%;height:5px;border-radius:30px;background:#000;transition:all .35s;}
         input[id="menuicon"] + label span:nth-child(1) {top:0;}
-        input[id="menuicon"] + label span:nth-child(2) {top:50%;transform:translateY(-50%);} /* 비슷하게 사용할 수 있는 style top:calc(50% - 2.5px); margin-top:-2.5px;*/
+        input[id="menuicon"] + label span:nth-child(2) {top:50%;transform:translateY(-50%);} 
         input[id="menuicon"] + label span:nth-child(3) {bottom:0;}
         input[id="menuicon"]:checked + label {z-index:2;}
         input[id="menuicon"]:checked + label span {background:#fff;}
@@ -56,7 +47,7 @@
         input[id="menuicon"]:checked + label span:nth-child(3) {bottom:50%;transform:translateY(50%) rotate(-45deg);}
         div[class="sidebar"] {width:300px;height:100%;background:#222;position:fixed;top:0;left:-300px;z-index:1;transition:all .35s;}
         input[id="menuicon"]:checked + label + div {left:0;}
-        </style>
+        </style><!-- 이부분 없어도 될듯-->
 
         <style>
             * {padding:0;margin:0;}
@@ -79,46 +70,99 @@
             div[class="sidebar"] {width:300px;height:100%;background:#f5f5f5;position:fixed;top:0;right:-300px;z-index:1;transition:all .35s;}
             input[id="menuicon"]:checked + ul + div {right:0;}
             
+            #modal.modal-overlay {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(1.5px);
+      -webkit-backdrop-filter: blur(1.5px);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      z-index: 10000;
+
+  }
+  #modal .modal-window {
+      background: rgb(237 224 159 / 65%);
+      box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+      backdrop-filter: blur( 13.5px );
+      -webkit-backdrop-filter: blur( 13.5px );
+      border-radius: 10px;
+      border: 1px solid rgba( 255, 255, 255, 0.18 );
+      width: 400px;
+      height: 500px;
+      position: relative;
+      top: -100px;
+      padding: 10px;
+  }
+  #modal .title {
+      padding-left: 10px;
+      display: inline;
+      text-shadow: 1px 1px 2px gray;
+      color: white;
+      
+  }
+  #modal .title h2 {
+      display: inline;
+  }
+  #modal .close-area {
+      display: inline;
+      float: right;
+      padding-right: 10px;
+      cursor: pointer;
+      text-shadow: 1px 1px 2px gray;
+      color: white;
+  }
+  
+  #modal .content {
+      margin-top: 30px;
+      
+      text-shadow: 1px 1px 2px gray;
+      color: white;
+  }
     </style>
-     <!-- 상단바, 사이드바 스타일 끝 -->
+    <style type="text/css">
+
+        * {margin:0; padding:0;}
+        
+        li {float:left; list-style:none; margin:1px;}
+        
+        li a {display:block; width:130px; height:40px;   font-size:12px; 
+        
+         text-align:center; padding-top:10px; text-decoration:none;}
+        
+        li a span {display:block;}
+              
+     </style>
+    
+    
+    
+    <!-- 상단바, 사이드바 스타일 끝 -->
 
     <header>
-        <meta name="viewport" content="width=device-width,initial-scale=1"><!--모바일 반응형 전용-->
+
         <ul class="header-list">
             <li id="titledes"><img src="" id="titlelogo"></li>
             <li>
                 <div class="menu-ulul">
-                    <ul class="menu-ul">
+                    <ul class="menu-ul" style="text-align: center">
                         <li id="li2"><a href="client_category.do">Menu</a></li>
                         <li id="li3"><a href="creview.do">Review</a></li>
                         <li id="li4"><a href="basket.do">Basket</a></li>
-                        <li id="li5"><a href="order.do">주문내역</a></li>
+                        <li id="li5"><a href="order">orderList</a></li>
                     </ul>
                 </div>
             </li>
-            <li id="li6">
-                <div id="menubox">
-                    <input type="checkbox" id="menuicon">
-                    <label for="menuicon" >
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </label>
-                    <div class="sidebar">
-                        <ul class="sitemap-ul">
-                                <ul>
-                                    <p id="lili"><a href="client_category.do">Menu</a></p>
-                                    <p id="lili"><a href="creview.do">Review</a></p>
-                                    <p id="lili"><a href="basket.do">Basket</a></p>
-                                    <p id="lili"><a href="order.do">주문내역</a></p>
-                                </ul>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
                 </ul>
             </header>
-   
+     
             <!-- 상단바 끝 -->
          <div class="orderbarnamee" id="orderbarname" style="position: relative; top: 20px; bottom: 20px;">
     <body style="text-align: center">

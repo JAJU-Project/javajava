@@ -3,7 +3,6 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
 
-
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
@@ -11,9 +10,9 @@
     <title>Page Title</title>
     <link href="/assets/css/client.css" rel="stylesheet">
 </head>
-
 <style>
   table {
+    
     width: 100%;
     border-top: 1px solid #bdb8b8;
     border-collapse: collapse;
@@ -22,8 +21,101 @@
     border-bottom: 1px solid #bdb8b8;
     padding: 10px;
   }
+</style>
+<body style="text-align: center" id="body">
+  <div style="padding:30px;"> 
+  <h1><img src="img/jaju1.png" class=jaju alt="jaju" style= " position: relative; top:10px; width:80px; height:80px;"> X 
+    <img src="https://www.hollys.co.kr/websrc/images/layout/logo_210302.gif" alt="HOLLYS COFFEE">
+ 
+  </h1>
 
-    #modal.modal-overlay {
+</div>
+
+
+
+  <table class="type11" id="bar">
+    <thead>
+      <div>
+    <tr>
+      <th class="th1" id="ord"><a href="order.do">주문내역</a></th>
+      <th class="th2"><a href='creview.do'>리뷰</a></th>
+    </tr>
+  </div>
+    </thead>
+  </table>
+<p>
+    <div class="box">
+        <div id="tab">
+          <ul>
+           <c:forEach items="${clist }" var="categoryVo">
+            <li><a href="client_category.do?cname=${categoryVo.cname}">${categoryVo.cname}</a></li>
+
+            </c:forEach>
+          </ul>
+        </div>
+        <div class="menu" style=" width:100%; height:690px;">
+
+
+        <table>
+          <thead>
+
+          </thead>
+          <tbody>
+           <c:if test="${!empty mlist}">
+            <c:forEach items="${mlist}" var="menuVo">
+            <tr>
+              <td>
+                이미지
+               </td>
+
+              <th>
+                <div onclick="menus()" id="modal_menu">${menuVo.mname }</div>
+                
+              </th>
+
+              <td>${menuVo.mprice}</td>
+                <c:forEach items="${clist}" var="categoryVo" >
+                <c:if test="${categoryVo.cname == menuVo.cname}">
+                  <form action="basket_in.do" method="post">
+                        <th>
+                            <select id="bcount" name="bcount" >
+                                    <c:forEach var="i" begin="1" end="8">
+                                        <option value="${i}">${i}</option>
+                                    </c:forEach>
+                            </select>
+                        </th>
+                        <input type="hidden" name="cname" id="cname" value="${categoryVo.cname}">
+                        <input type="hidden" name="mname" id="mname" value="${menuVo.mname}">
+                        <input type="hidden" name="mprice" id="mprice" value="${menuVo.mprice}">
+              <td>
+                <button class="button" type="submit">담기</button>
+              </td>
+                </form>
+                  </c:if>
+                    
+                </c:forEach>
+            </tr>
+              </c:forEach>
+
+          </tbody>
+              </c:if>
+        </table>
+          <div>
+        <a href="basket.do">
+        <button class="btn" id="btn" type="submit" style="position:fixed; right:600px; top:800px; width:10px; height:10px; ">
+        <img class="btn_img" src="img/cartt.png">
+        </button>
+        </a>
+        </div>
+      </div>
+    </div>
+     
+
+</p>
+
+
+<style>
+  #modal.modal-overlay {
       width: 100%;
       height: 100%;
       position: absolute;
@@ -57,95 +149,43 @@
   #modal .title {
       padding-left: 10px;
       display: inline;
-      text-shadow: 1px 1px 2px gray;
-      color: white;
+
+      color: black;
       
   }
   #modal .title h2 {
       display: inline;
   }
-  #modal .close-area {
-      display: inline;
-      float: right;
-      padding-right: 10px;
-      cursor: pointer;
-      text-shadow: 1px 1px 2px gray;
-      color: white;
-  }
+ 
   
   #modal .content {
       margin-top: 30px;
-      
-      text-shadow: 1px 1px 2px gray;
-      color: white;
+      color: black;
   }
 </style>
-
-<body style="text-align: center">
-  <div style="padding:30px;"> 
-    <h1><img src="img/jaju1.png" class=jaju alt="jaju" style= " position: relative; top:10px; width:80px; height:80px;"> X 
-      <img src="https://www.hollys.co.kr/websrc/images/layout/logo_210302.gif" alt="HOLLYS COFFEE">
-    </h1>
-  </div>
-
-
-
-  <table class="type11" id="bar">
-      <thead>
-        <div>
-          <tr>
-            <th class="th1" id="ord"><a href="basket.do">주문내역</a></th>
-            <th class="th2"><a href='creview.do'>리뷰</a></th>
-          </tr>
-        </div>
-      </thead>
-  </table>
-
-    <div class="box">
-      <div id="tab">
-        <ul style="display: flex; flex-direction: row;">
-          <c:forEach items="${clist }" var="categoryVo">
-            <li style="text-align: center;" onclick="categoryclick('${categoryVo.cname}')">${categoryVo.cname}</li>
-          </c:forEach>
-        </ul>
-      </div>
-
-    <div class="menu" style=" width:100%; height:690px;">
-      <div>
-        <a href="basket.do">
-          <button class="btn" id="btn" type="submit" style="position:fixed; right:600px; top:800px; width:10px; height:10px; ">
-            <img class="btn_img" src="img/cartt.png">
-          </button>
-        </a>
-      </div>
-    </div>
-     
 
 
 
 <div id="modal" class="modal-overlay">
   <div class="modal-window">
-    <div class="title">
-      <h2>메뉴 상세정보</h2>
-    </div>
-    <div class="close-area">X</div>
-    <div class="content"></div>
+      <div class="title">
+          <h2>메뉴 상세정보</h2>
+      </div>
+
+      <div class="content">
+         
+         
+        </div>
+      </div>
   </div>
 </div>
-
-<script src="assets/js/jquery-1.10.2.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/materialize/js/materialize.min.js"></script>
-<script src="assets/js/jquery.metisMenu.js"></script> 
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js" ></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
-
-
 <script>
   const modal = document.getElementById("modal")
   const btnModal = document.getElementById("modal_menu")
+  const body = document.getElementById("body")
     function menus(){
       modal.style.display='flex'
+      body.style.overflowY='hidden';
       $.ajax({
         success:function(data){
           var html = "";
@@ -157,106 +197,16 @@
       })
     }
 
-    
-
     window.onclick =(event)=>{
       if(event.target == modal){
+        body.style.overflowY="";
         modal.style.display='none';
+        
                       }
                   }
-
 </script>
 
-<script>
-function categoryclick(cname){
-    
-      var cnameDate = {"cname":cname};
-      
-      $.ajax({
-        url:"client_category_click",
-        type:"get",
-        data:cnameDate,
-        success:function(data){
-          var html = "";
-          html +='<table>';
-          html +='<thead>';
-          html +='<tr>';
-          html +='<th>이미지</th>';
-          html +='<th>메뉴명</th>';
-          html +='<th>가격</th>';
-          html +='<th>수량</th>';
-          html +='<th>장바구니 추가</th>';
-          html +='</tr>';
-          html +='</thead>';
-                   
-          for(let list of Object.keys(data)){
 
-            var capital = data[list];
-            console.log(data);
-            console.log("capital.cname:",capital.cname);
-            html +='<tbody>';
-            html +='<tr>';
-            html +='<td>이미지</td>';
-            html +='<td><div onclick="menus()" id="modal_menu">'+capital.mname+'</div></td>';
-            html +='<td>'+capital.mprice+'</td>';                  
-            html +='<form action="basket_in" method="post" id=plz name=plz>';
-            html +='<td>';
-
-            html +='<select id="'+capital.mseq+'" name="'+capital.mseq+'" >';
-              for (var i = 1; i < 9; i++) {
-                html +='<option value="'+i+'">'+i+'</option>';           
-              }
-            html +='</select>'
-            
-            html +='</td>';
-            html +='<input type="hidden" name="cname" id="cname" value="'+capital.cname+'">';
-            html +='<input type="hidden" name="mname" id="mname" value="'+capital.mname+'">';
-            html +='<input type="hidden" name="mprice" id="mprice" value="'+capital.mprice+'">';
-            html +='<td>';
-            //html +='<button class="button" type="submit" onclick="basketinsert('+capital.mseq+',$(`#bcount`).val())">담기</button>';
-            //html +='<button class="button" type="submit">담기</button>';
-            //html +='<button class="button" type="button" onclick="basketinsert('+this.form+')">담기</button>';
-            html +='<button class="button" type="submit" onclick="basketinsert(`'+capital.mname+'`,$(`#'+capital.mseq+'`).val(),`'+capital.cname+'`,`'+capital.mprice+'`)">담기</button>';
-          
-            html +='</td>';
-            html +='</form>';            
-            html +='</tr>';
-            html +='</tbody>';
-             
-             //html +='<div class="menu" style=" width:100%; height:690px;">';
-             html +='<div>';
-             html +='<a href="basket.do">';
-             html +='<button class="btn" id="btn" type="submit" style="position:fixed; right:600px; top:800px; width:10px; height:10px; ">';
-             html +='<img class="btn_img" src="img/cartt.png">';
-             html +='</button>';
-             html +='</a>';
-             html +='</div>';
-             //html +='</div>';
-          }
-          
-          
-         
-          
-          html +='</table>';
-         $(".menu").html(html);
-        }
-      })
-
-    }
-</script>
-
-  <script>
-  function basketinsert(mname,bcount,cname,mprice){
-    var basketDate = {"mname":mname,
-                      "bcount":bcount,"cname":cname,"mprice":mprice};
-    $.ajax({
-      url:"basket_in",
-      type:"post",
-      data:basketDate,
-    })
-    
-  }
-  </script>
 
 </body>
 </html>

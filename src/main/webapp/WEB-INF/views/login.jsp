@@ -4,25 +4,30 @@
 <html>
 <meta charset="utf-8">
 <head>
-    <title>Page Title</title>
+    <title>자주해요</title>
 </head>
 <body style="text-align: center">
-<h1>SpringBoot Index.jsp</h1>
-<p>jsp의 위치는 wabapp/WEB-INF/views 에요</p>
+    <style>
+        body{
+            background-color: yellow;
+        }
+    
+
+    </style>
+<h1>자리에서 주문해요~</h1>
+<img class="img_ani" src ="img/커피6.png" style="width: 200px; height: 200px;"/>
 
 <form name="loginInfo" method="post" action="login.do">
                
-            <table>
-                <tr>
-                    <td bgcolor="skyblue">아이디</td>
-                    <td><input type="text" name="maid" maxlength="50"></td>
-                </tr>
-                <tr>
-                    <td bgcolor="skyblue">비밀번호</td>
-                    <td><input type="password" name="mapwd" maxlength="50"></td>
-                </tr>
-            </table>
-            <br>
+        
+           <div class="login">     
+            <div class="id"> 
+            <input placeholder="ID" type="text" name="maid" maxlength="50"></td>  
+            </div>
+            <div class="password"> 
+            <input placeholder="PASSWORD" type="password" name="mapwd" maxlength="50"></td>
+            </div>
+           </div>
             <input type="submit" value="로그인"/>
         </form>
 

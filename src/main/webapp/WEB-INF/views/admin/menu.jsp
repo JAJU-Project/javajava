@@ -276,8 +276,8 @@
                 <h1 class="page-header">
                     Menu Page
                 </h1> 
-                <button onclick="showcategory()">category</button>
-                <button onclick="showmenu()">menu</button>
+                <button style="margin-left: 30px;" class="buttons" onclick="showcategory()">category</button>
+                <button  class="buttons" onclick="showmenu()">menu</button>
             </div>
             
 
@@ -297,13 +297,13 @@
                                 </select>
                                  </div>
                                  <div>
-                                   <button style="color: black;" id="addcategory" onclick="addcatego()">카테고리 추가</button>
+                                   <button  class="buttons" id="addcategory" onclick="addcatego()">카테고리 추가</button>
                                  </div>
                                  <div id="hidden">
                                 
                                  </div>
                                  <div>
-                                    <button style="color: black;" id="updatecategory" onclick="updatecategory()">카테고리 수정</button>
+                                    <button style="margin-top: 10px;" class="buttons id="updatecategory" onclick="updatecategory()">카테고리 수정</button>
                                  </div>
                             </div>
 
@@ -323,7 +323,7 @@
                                 ALL Menu
                             </div>
                             <span id="new_span">
-                               <button style="color: black;" onclick="addmenu()">메뉴 추가</button>
+                               <button style="color:black;" class="buttons" onclick="addmenu()">메뉴 추가</button>
                               
                             </span>
                             
@@ -353,8 +353,8 @@
                                                     <td class="center">${menuVo.cname}</td>
                                                     <td class="center">${menuVo.mintro}</td>
                                                     <td class="center">check</td>
-                                                    <td class="center"><a href="#"><input type="button" value="삭제"></a></td>
-                                                    <td class="center"><input type="button" id="updateM" onclick="updatemenu()" value="수정"></td>
+                                                    <td class="center"><a href="#"><input  class="buttons" type="button" value="삭제"></a></td>
+                                                    <td class="center"><input type="button" class="buttons" id="updateM" onclick="updatemenu()" value="수정"></td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
@@ -389,7 +389,7 @@
                                 html +='<div class="input-field col s12">';
                                 html +='<input style="color: aliceblue;" placeholder="카테고리 명" id="catego" name="catego" type="text">';
                                 html +='</div>';
-                                html +='<button>입력</button>';
+                                html +='<button style="margin-left: 20px;" class="mybutton">입력</button>';
                                 html +='</fome>';
                                 $(".bottom-info").html(html);    
                             }
@@ -438,12 +438,10 @@
                     
                     function updatecategory(){
                         const cname = document.getElementById("cname_seq");
-                        alert(cname);
+                        alert(updatecategory);
                         modal.style.display='flex';
                         $.ajax({
-                            url:"selectcategory",
-                            type:"get",
-                            data:{seq:$('seq').val()},
+                         
                             success:function(data){
                                 var html="";
                                 html +='<div class="titlee">현재 카테고리 목록</div>';
