@@ -19,4 +19,6 @@ public interface BasketService {
     List<BasketVo> selectByBaseq(long baseq);
 
     void updateByMap(HashMap<String, Object> map);
+
+    void deleteBybaseq(HashMap<String, Object> map);
 }

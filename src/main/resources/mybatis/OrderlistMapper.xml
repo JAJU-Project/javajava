@@ -7,6 +7,11 @@
         select * from orderlist where TO_CHAR(oldate,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD') 
         and scode = #{scode}
     </select>
+
+    <select id="selectByKid" resultType="OrderListVo" parameterType="String">
+        select * from orderlist where scode=#{scode} and kid = #{kid}
+    </select>
+    
     <select id="selectAll" resultType="OrderListVo" parameterType="java.util.HashMap">
         select oseq ,mname1, mname2, mname3, mname4, mname5, mname6, mname7, mname8, mname9, mname10,
         sum(olcount1) as olcount1, sum(olcount2) as olcount2, sum(olcount3) as olcount3,

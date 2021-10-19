@@ -44,4 +44,5 @@ public interface OrderListService {
 
     List<OrderListVo> selectByScode(String scode);
 
+    List<OrderListVo> selectByKid(String scode, String kid);
 }

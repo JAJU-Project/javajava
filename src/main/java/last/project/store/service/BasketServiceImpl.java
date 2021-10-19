@@ -57,4 +57,10 @@ public class BasketServiceImpl implements BasketService {
         basketMapper.updateByMap(map);
     }
 
+    @Override
+    public void deleteBybaseq(HashMap<String, Object> map) {
+        // TODO Auto-generated method stub
+        basketMapper.deleteBybaseq(map);
+    }
+
 }

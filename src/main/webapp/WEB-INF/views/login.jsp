@@ -12,7 +12,7 @@
 
 <form name="loginInfo" method="post" action="login.do">
                
-            <table>
+            <table align="center">
                 <tr>
                     <td bgcolor="skyblue">아이디</td>
                     <td><input type="text" name="maid" maxlength="50"></td>

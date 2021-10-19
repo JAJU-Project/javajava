@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 
 
 
@@ -82,6 +82,18 @@
 </style>
 
 <body style="text-align: center">
+
+  <script src="assets/js/jquery-1.10.2.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/materialize/js/materialize.min.js"></script>
+  <script src="assets/js/jquery.metisMenu.js"></script> 
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js" ></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+ 
+
   <div style="padding:30px;"> 
     <h1><img src="img/jaju1.png" class=jaju alt="jaju" style= " position: relative; top:10px; width:80px; height:80px;"> X 
       <img src="https://www.hollys.co.kr/websrc/images/layout/logo_210302.gif" alt="HOLLYS COFFEE">
@@ -133,26 +145,30 @@
   </div>
 </div>
 
-<script src="assets/js/jquery-1.10.2.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/materialize/js/materialize.min.js"></script>
-<script src="assets/js/jquery.metisMenu.js"></script> 
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js" ></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
 
 
 <script>
   const modal = document.getElementById("modal")
   const btnModal = document.getElementById("modal_menu")
-    function menus(){
+    function menus(data){
+      console.log("data: "+data);
+      var cnameDate = {"mseq":data};
       modal.style.display='flex'
       $.ajax({
+        url:"client_menu_click",
+        type:"get",
+        data:cnameDate,
         success:function(data){
-          var html = "";
-         html+='<p><img src="https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202104300914127400.png" alt="디카페인 아메리카노"class="fl_l"width="250"height="200"></p>';
-         html+='<h3>디카페인 아메리카노</h3>';
-         html+='<br>부드러운 풍미와 균형잡힌 바디감의 디카페인 아메리카노</br>';
-         $(".content").html(html);
+          console.log("data2:"+ data);
+          for(let list of Object.keys(data)){
+            var capital = data[list];
+            var html = "";
+            html+='<p><img src="'+capital.mimage+'" \
+            class="fl_l"width="250"height="200"></p>';
+           html+='<h3>'+capital.mname+'</h3>';
+            html+='<br>'+capital.mintro+'</br>';
+          }
+          $(".content").html(html);
         }
       })
     }
@@ -197,7 +213,7 @@ function categoryclick(cname){
             html +='<tbody>';
             html +='<tr>';
             html +='<td>이미지</td>';
-            html +='<td><div onclick="menus()" id="modal_menu">'+capital.mname+'</div></td>';
+            html +='<td><div onclick="menus(`'+capital.mseq+'`)" id="modal_menu">'+capital.mname+'</div></td>';
             html +='<td>'+capital.mprice+'</td>';                  
             html +='<form action="basket_in" method="post" id=plz name=plz>';
             html +='<td>';
@@ -213,10 +229,8 @@ function categoryclick(cname){
             html +='<input type="hidden" name="mname" id="mname" value="'+capital.mname+'">';
             html +='<input type="hidden" name="mprice" id="mprice" value="'+capital.mprice+'">';
             html +='<td>';
-            //html +='<button class="button" type="submit" onclick="basketinsert('+capital.mseq+',$(`#bcount`).val())">담기</button>';
-            //html +='<button class="button" type="submit">담기</button>';
-            //html +='<button class="button" type="button" onclick="basketinsert('+this.form+')">담기</button>';
-            html +='<button class="button" type="submit" onclick="basketinsert(`'+capital.mname+'`,$(`#'+capital.mseq+'`).val(),`'+capital.cname+'`,`'+capital.mprice+'`)">담기</button>';
+            html +='<button class="button" type="submit" onclick=\
+            "basketinsert(`'+capital.mname+'`,$(`#'+capital.mseq+'`).val(),`'+capital.cname+'`,`'+capital.mprice+'`)">담기</button>';
           
             html +='</td>';
             html +='</form>';            

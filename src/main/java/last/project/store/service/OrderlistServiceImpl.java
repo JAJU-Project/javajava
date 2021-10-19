@@ -124,4 +124,10 @@ public class OrderListServiceImpl implements OrderListService {
         // TODO Auto-generated method stub
         orderListMapper.updateCompletion(oseq);
     }
+
+    @Override
+    public List<OrderListVo> selectByKid(String scode, String kid) {
+        // TODO Auto-generated method stub
+        return orderListMapper.selectByKid(scode, kid);
+    }
 }

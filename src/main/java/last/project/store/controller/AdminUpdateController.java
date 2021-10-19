@@ -51,6 +51,7 @@ public class AdminUpdateController {
     @RequestMapping("completion") // 조리 완료
     public String completion(long oseq) { // 3으로
         orderListService.updateCompletion(oseq);
+        log.info("#completion");
         return "redirect:empty";
     }
 }

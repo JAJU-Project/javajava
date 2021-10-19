@@ -8,7 +8,7 @@
     </select>
 
     <select id="selectAll2" resultType="SalesVo" parameterType="String">
-        select * from sales where scode=#{scode}
+        select * from sales where scode=#{scode} order by sacoin desc
     </select>
 
     <select id="selectSacoin" resultType = "long" parameterType="String">

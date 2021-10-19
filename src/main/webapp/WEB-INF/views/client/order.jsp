@@ -228,6 +228,7 @@
     <div>
         <table id="orderp" style="position: relative; top: 30px; bottom: 20px;">
             <thead>
+            
                 <td id="morp">매장/포장</td>
                 <td>매장명</td>
                 <td>주문일시</td>

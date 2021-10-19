@@ -177,7 +177,7 @@
           <td></td>
           <td></td>
           <td></td>
-         <td> <a class="button" href="#">비우기</a></td>
+         <td> <a class="button" href="basket_delete">비우기</a></td>
         </tr>
 <script>
 function checkOnlyOne(element) {
@@ -252,7 +252,7 @@ function checkOnlyOne(element) {
               </td>
          
           <td> <input id="menuIn" type="text" name="sum" size="11" value="0" readonly>원</td>
-          <td> <a class="button" href="#">삭제</a></td>
+          <td> <a class="button" href="basket_deleteBybaseq?baseq=${BasketVo.baseq}">삭제</a></td>
         </tr>
         </c:forEach>
       

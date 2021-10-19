@@ -534,7 +534,7 @@
                         html += '<td class="center">'+capital.mprice1+'</td>';
                         html += ' <td class="center"><button onclick="detail('+capital.oseq+')">주문 상세</button></td>';
                         html += '<td class="center">';
-                        html += '<input type="button" value="접수하기" onclick="location.href='+receipt?oseq=capital.oseq+'">';
+                        html += '<input type="button" value="접수하기" onclick="location.href=receipt?oseq='+capital.oseq+'">';
                         html += '</td>';
                         html += ' <td class="center">';
                         html += '<input type="button" value="주문취소" onclick="cancel('+capital.oseq+')"/>'
@@ -586,7 +586,7 @@
                         html += '<td class="center">'+capital.mprice1+'</td>';
                         html += ' <td class="center"><button onclick="detail('+capital.oseq+')">주문 상세</button></td>';
                         html += '<td class="center">';
-                        html += '<input type="button" value="조리완료" onclick="">';
+                        html += '<input type="button" value="조리완료" onclick="location.href=`completion?oseq='+capital.oseq+'`">';
                         html += '</td>';
                         html += '</tr>';
                     }

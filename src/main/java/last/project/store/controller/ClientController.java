@@ -5,7 +5,9 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import last.project.store.domain.BasketVo;
 import last.project.store.service.BasketService;
@@ -55,5 +57,15 @@ public class ClientController {
             basketService.insertAll(basketVo); // 장바구니에 추가
             return "redirect:client_category.do"; // 카테고리로 다시 이동
         }
+    }
+
+    @GetMapping("basket.do") // 고객의 장바구니 리스트
+    public ModelAndView basket(HttpSession session) {
+        String kid = (String) session.getAttribute("email"); // 해당고객의 아이디 가져옴.
+        List<BasketVo> blist = basketService.selectByKid(kid); // 아이디를 통해서 장바구니 리스트를 가져온다.
+        log.info("#basket.do blist: " + blist);
+        ModelAndView mv = new ModelAndView("basket"); // basket.jsp 이동
+        mv.addObject("blist", blist); // 장바구니 리스트 전송
+        return mv;
     }
 }

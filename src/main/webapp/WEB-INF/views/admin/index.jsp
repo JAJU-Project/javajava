@@ -398,7 +398,7 @@
   
          $.ajax({
            type : 'POST',                 
-           url : "test1", //todo: 재영쓰바꿔  
+           url : "salesByMenu", //todo: 재영쓰바꿔  
            data: {catgo: $("#catgo").val()},          
            success : function(data) {   
             var html="";
@@ -412,6 +412,17 @@
             html +="</div>";
             html +="<div class='card-image'>";
             html +="<ul class='collection'>";
+            for(let SalesVo of Object.keys(data)){
+                    var capital = data[SalesVo];
+                    html +="<li class='collection-item avatar'>";
+                    html +="<i class='material-icons circle green'>track_changes</i>";
+                    
+                    html +="<span class='title'>"+capital.mname+"</span>";
+                    html +="<p>"+capital.sacoin+"원<br></p>";
+                    html +="<a href='#!'' class='secondary-content'><i class='material-icons'>grade</i></a>";
+                    html +="</li>";
+                }
+
             html +="<li class='collection-item avatar'>";
             html +="<i class='material-icons circle green'>track_changes</i>";
             html +="<span class='title'>아이스아메리카노</span>";
@@ -548,7 +559,7 @@
          var activeTab = $(this).attr('data-tab');
          $.ajax({
            type : 'POST',                 
-           url : "test3", //재영쓰바꿔  
+           url : "dayCustomer", //재영쓰바꿔  
            data: {catgo: $("#catgo").val()},          
            success : function(data) {   
             var html="";
@@ -560,7 +571,9 @@
             html +="<div class='col-xs-12 col-sm-6 col-md-6'>";
             html +="<div class='card-panel text-center'>";
             html +="<h4>CUSTOMERS</h4>";
-            html +="<div class='easypiechart' id='easypiechart-blue' data-percent='82' ><span class='percent'>82</span>";
+            html +="<div class='easypiechart' id='easypiechart-blue' \
+            data-percent='"+data+"' > \
+            <span class='percent'>"+data+"</span>";
             html +="</div>";
             html +="</div>";
             html +="</div>";
@@ -586,7 +599,7 @@
          var activeTab = $(this).attr('data-tab');
          $.ajax({
            type : 'POST',                 
-           url : "test4", //재영쓰바꿔  
+           url : "age", //재영쓰바꿔  
            data: {catgo: $("#catgo").val()},          
            success : function(data) {   
             var html="";
@@ -612,29 +625,29 @@
                element: 'morris-donut-chart',
                 data: [{
                     label: "10대",
-                    value: 12
+                    value: data.teenager
                 }, {
                     label: "20대",
-                    value: 30
+                    value: data.twenties
                 },
             {
                     label: "30대",
-                    value: 30
+                    value: data.thirties
                 },
             {
                     label: "40대",
-                    value: 30
+                    value: data.forties
                 },
             {
                     label: "50대",
-                    value: 30
+                    value: data.fifties
                 },
             {
                     label: "60대",
-                    value: 30
+                    value: data.sixties
                 }, {
-                    label: "70대",
-                    value: 5
+                    label: "그외",
+                    value: data.etc
                 }],
                colors: [
     '#A6A6A6','#414e63',

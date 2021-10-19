@@ -289,7 +289,7 @@
                             <div class="card-action" >
                                 카테고리별
                                 <div>
-                                <select id="catgo" name="catgo">
+                                <select id="catgo" name="catgo" onchange="changeCtego(this)">
                                     <option value="none">=== 선택 ===</option>
                                         <c:forEach items="${list }" var="CategoryVo">
                                             <option value="${CategoryVo.cname}">${CategoryVo.cname }</option>
@@ -353,7 +353,7 @@
                                                     <td class="center">${menuVo.cname}</td>
                                                     <td class="center">${menuVo.mintro}</td>
                                                     <td class="center">check</td>
-                                                    <td class="center"><a href="#"><input type="button" value="삭제"></a></td>
+                                                    <td class="center"><a href="Menu_del?mseq=${menuVo.mseq}"><input type="button" value="삭제"></a></td>
                                                     <td class="center"><input type="button" id="updateM" onclick="updatemenu()" value="수정"></td>
                                                 </tr>
                                             </c:forEach>
@@ -365,6 +365,56 @@
                         <!--End Advanced Tables -->
                     </div>
                 </div>
+                <script>
+                
+                function changeCtego(obj) {
+                    var catgo = obj.value;
+                    var catgoDate = {"catgo":catgo};
+                    console.log("catgo: "+catgo);
+                    $.ajax({
+                        url: "rest",
+                        type: "post",
+                        data: catgoDate,
+                         success: function(data) {
+                           
+                            var html="";
+                            var htmll="";
+                           
+                            html +="<table border='1' width='50%'>";
+                            html +="<tr>";
+                            html +="<thead>";
+                            html +="<th>이미지</th>";
+                            html +="<th>메뉴명</th>";
+                            html +="<th>가격</th>";
+                            html +="<th>메뉴소개</th>";
+                            html +="<th>삭제</th>";            
+                            html +="</tr>";
+                            html +="</thead>" ;
+                            for(let menuVo of Object.keys(data)){
+                                var capital = data[menuVo];
+                                console.log("test menuVo.mimage: "+capital.mimage)
+                                html +="<tbody>";
+                                html +="<tr>";
+                                html +="<td align='center'><img src="+capital.mimage+" id='new_img'></td>";
+                                html +="<td align='center'>"+capital.mname+"</td>";
+                                html +="<td align='center'>"+capital.mprice+"</td>";
+                                html +="<td align='center'>"+capital.mintro+"</td>";
+                                htmll +='<input id="cname_seq" type="hidden" value="#"/>';
+                                html +="<td align='center'> <a href='Menu_del?mseq="+capital.mseq+"'>삭제</td>";
+                                html +="</tr>";
+                                html +="</tbody>";
+                            }
+                            html +="";
+                            html +="</table>";
+                            $("#catgo").val("catego");   
+                            $("#card-content").html(html);
+                            $("#hidden").html(htmll);
+                           
+
+                        }
+                    })
+                }
+                </script>
                 <script>
                     var categohide = document.getElementById("categoryhide");
                     var menu = document.getElementById("menuhide");
@@ -496,13 +546,14 @@
                                 html +='</form>';
                                 $(".bottom-info").html(html);
                             }
-                        });
+                        })
                     }
                     window.onclick =(event)=>{
                         if(event.target == modal){
                             modal.style.display='none';
                         }
                     }
+                    /*
                     $("#catgo").on("change", function () { //clilc = 밸류체인지
                     $.ajax({
                         url: "rest",
@@ -510,13 +561,6 @@
                         data: {catgo: $("#catgo").val()},
                         
                         success: function(data) {
-                            /*
-                            for(let menuVo of Object.keys(data)){
-                                var capital = data[menuVo];
-                                console.log(menuVo, capital);
-                                console.log("mname 나오는지 확인"+capital.mname);
-                                console.log("test1")
-                            }*/
                            
                             var html="";
                             var htmll="";
@@ -532,7 +576,6 @@
                             html +="</tr>";
                             html +="</thead>" ;
                             for(let menuVo of Object.keys(data)){
-                               
                                 var capital = data[menuVo];
                                 console.log("test menuVo.mimage: "+capital.mimage)
                                 html +="<tbody>";
@@ -555,7 +598,7 @@
 
                         }
                     });
-                });
+                });*/
 
 
                     

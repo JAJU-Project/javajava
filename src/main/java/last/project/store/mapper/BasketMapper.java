@@ -26,4 +26,6 @@ public interface BasketMapper {
 
     void updateByMap(HashMap<String, Object> map);
 
+    void deleteBybaseq(HashMap<String, Object> map);
+
 }

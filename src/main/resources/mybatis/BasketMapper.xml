@@ -34,4 +34,8 @@
     <delete id="deleteBykid" parameterType="String">
         delete from basket where kid=#{kid}
     </delete>
+
+    <delete id="deleteBybaseq" parameterType="java.util.HashMap">
+        delete from basket where kid=#{kid} and baseq=#{baseq}
+    </delete>
 </mapper>
