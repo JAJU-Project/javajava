@@ -9,13 +9,13 @@
 <body style="text-align: center">
     <style>
         body{
-            background-color: yellow;
+            background-color: wheat;
         }
     
 
     </style>
 <h1>자리에서 주문해요~</h1>
-<img class="img_ani" src ="img/커피6.png" style="width: 200px; height: 200px;"/>
+<img class="img_ani" src ="img/jaju.png" style="width: 200px; height: 200px;"/>
 
 <form name="loginInfo" method="post" action="login.do">
                

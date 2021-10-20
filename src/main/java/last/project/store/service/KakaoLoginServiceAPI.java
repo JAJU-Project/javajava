@@ -51,7 +51,7 @@ public class KakaoLoginServiceAPI {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=abef0ed1e600be69e1e00be538e3cafb");
-            sb.append("&redirect_uri=http://localhost:8000/rdu.do");
+            sb.append("&redirect_uri=http://69f0-115-91-81-106.ngrok.io/rdu.do");
             sb.append("&code=" + authorize_code);
             bw.write(sb.toString());
             bw.flush();

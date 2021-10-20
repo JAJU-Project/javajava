@@ -369,6 +369,8 @@
                     var categohide = document.getElementById("categoryhide");
                     var menu = document.getElementById("menuhide");
                     var modal = document.getElementById("modal-wrapper")
+                    var html="";
+                    var htmll="";
                     
                     function showcategory(){ 
                         categohide.style.display = 'block';

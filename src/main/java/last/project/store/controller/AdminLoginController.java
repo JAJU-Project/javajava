@@ -24,7 +24,7 @@ public class AdminLoginController {
     @GetMapping("logout.do") // 로그아웃
     public String logout(HttpSession session) {
         session.invalidate(); // 모든 세션 정보 삭제
-        return "redirect:/"; // index 페이지로 이동
+        return "redirect:login.do"; // index 페이지로 이동
     }
 
     @PostMapping("login.do") // 로그인
