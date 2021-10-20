@@ -36,7 +36,7 @@ h2 {
 }
 
 
-
+/*rest*/
 /* STRUCTURE */
 
 .wrapper {
