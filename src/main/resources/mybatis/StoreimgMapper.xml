@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="last.project.store.mapper.StoreimgMapper">
+        
+        <insert id="insertAll" parameterType="StoreimgVo">
+        insert into storeimg values(#{scode}, #{simg})
+        </insert>
+        
+        <select id="selectByScode" resultType="StoreimgVo" parameterType="String">
+                select * from storeimg where scode=#{scode}
+        </select>
+</mapper>

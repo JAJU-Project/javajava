@@ -13,6 +13,7 @@ public class OrderListVo {
 
     private long oseq;
     private String scode;
+    private String mname[];
     private String mname1;
     private String mname2;
     private String mname3;
@@ -23,6 +24,7 @@ public class OrderListVo {
     private String mname8;
     private String mname9;
     private String mname10;
+    private int olcount[];
     private int olcount1;
     private int olcount2;
     private int olcount3;
@@ -36,6 +38,7 @@ public class OrderListVo {
     private Date oldate;
     private String ospot;
     private String sname;
+    private long mprice[];
     private long mprice1;
     private long mprice2;
     private long mprice3;
@@ -48,5 +51,6 @@ public class OrderListVo {
     private long mprice10;
     private int ostate;
     private String kid;
+    private long totalprice;
 
 }

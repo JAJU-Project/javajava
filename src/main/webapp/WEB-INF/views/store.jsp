@@ -32,24 +32,32 @@ swiper-slide img {
 
 	</style>
 	
-	<c:if test="${empty list }">
+	<c:if test="${empty maplist }">
 		매장이 존재하지 않습니다.
 	</c:if>
-	<c:if test="${!empty list }">
+	
+	<c:if test="${!empty maplist }">
+	
 		<h1>자주해요</h1>
 		<div class="swiper-container">
-			<c:forEach items="${list }" var="storeVo">
 			<div class="swiper-wrapper">
+			<c:forEach var="list" items="${maplist }" >
+				
+				JSON
 					<div class="swiper-slide">
-						<a href="management.do?scode=${storeVo.scode}"">
-						<img src="https://www.hollys.co.kr/websrc/images/layout/logo_210302.gif">
-					</a>
+						<a href="management.do?scode=">
+						<img src="..\src\main\resources\allimg\storeimg\mosa7NPaR2_1634756728933.jpg"/>					
+						
+						</a>
+			
 					</div>
+					</c:forEach>
 			</div>
-			</c:forEach>
+			
 			<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
 			<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 		</div>
+		
 	
 
 </c:if>

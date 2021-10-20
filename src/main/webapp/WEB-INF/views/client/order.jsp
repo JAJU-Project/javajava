@@ -206,7 +206,7 @@
                                 <th class="center" >매장명</th>
                                 <th class="center" >주문일시</th>
                                 <th class="center" >주문번호</th>
-                                <th class="center" >이미지</th>
+                                <!--<th class="center" >이미지</th>-->
                                 <th class="center" >메뉴명</th>
                                 <th class="center" >가격</th>
                             </tr>
@@ -214,13 +214,21 @@
                         <tbody>
                             <c:forEach items="${olist}" var="OrderListVo">
                                 <tr class="odd gradeX">
-                                    <td class="center">포장</td><!-- 포장/매장 -->
-                                    <td class="center">할리스커피다</td>
-                                    <td class="center">오늘날짜</td>
-                                    <td class="center">3</td>
-                                    <td class="center"><img src=https://paikdabang.com/wp-content/uploads/2018/05/ICED-원조커피-450x588.png id="new_img"></td><!--메뉴이미지 -->
-                                    <td class="center" onclick="menus()">민트초코프라프치노맛있다 등</td><!-- 메뉴명 -->
-                                    <td class="center">620000000000</td><!-- 가격 -->
+                                <c:choose>
+                                    <c:when test="${OrderListVo.ospot=='S'}">
+                                        <td class="center">매장</td>
+                                    </c:when>
+                                    <c:when test="${OrderListVo.ospot=='P'}">
+                                        <td class="center">포장</td>
+                                    </c:when>
+                                </c:choose>
+                                    <!-- 포장/매장 -->
+                                    <td class="center">${OrderListVo.sname}</td>
+                                    <td class="center">${OrderListVo.oldate}</td>
+                                    <td class="center">${OrderListVo.oseq}</td>
+                                    <!--<td class="center"><img src=https://paikdabang.com/wp-content/uploads/2018/05/ICED-원조커피-450x588.png id="new_img"></td>메뉴이미지 -->
+                                    <td class="center" onclick="menus(`${OrderListVo.oseq}`)">${OrderListVo.mname1} 등</td><!-- 메뉴명 -->
+                                    <td class="center">${OrderListVo.totalprice}</td><!-- 가격 -->
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -235,8 +243,9 @@
 
 const modal = document.getElementById("modal")
 
-        function menus(){
+        function menus(oseq){
             modal.style.display='flex';
+            console.log("oseq: "+oseq);
         }
       window.onclick =(event)=>{
       if(event.target == modal){

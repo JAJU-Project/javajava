@@ -1,5 +1,6 @@
 package last.project.store.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -15,5 +16,7 @@ public interface StoreMapper {
     List<StoreVo> selectByMaid(String maid);
 
     String selectByScode(String scode);
+
+    List<HashMap<String, Object>> selectJoin(String maid);
 
 }

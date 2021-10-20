@@ -109,7 +109,7 @@
     </div>
   <div class="container" id="reviewbox">
     <div class="mySlides">
-      <img src="./img/커피1.png" style="width:50%">
+      <img src="./img/커피1.png" style="width:10%">
     </div>
   
     <div class="mySlides">

@@ -9,11 +9,18 @@
     </insert>
 
     <select id="selectByMaid" resultType="StoreVo" parameterType="String">
-        select scode, sname from store where maid=#{maid}
+        select scode, sname  from store where maid=#{maid}
     </select>
-
 
     <select id="selectByScode" resultType="String" parameterType="String">
         select sname from store where scode=#{scode}
+    </select>  
+
+    <select id="selectJoin" resultType="java.util.Map" parameterType="String">
+        select s.scode,s.sname,si.simg
+        from store s
+        join storeimg si on s.scode = si.scode
+        where s.maid=#{maid}
     </select>
+
 </mapper>

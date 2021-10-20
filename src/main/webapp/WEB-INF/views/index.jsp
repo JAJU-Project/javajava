@@ -14,7 +14,7 @@
 <!--<a href="kakao.do?scode=jDcr5vhg">카카오 로그인</a>-->
 <a href="sign_up.do">관리자 회원가입</a><P>
 <a href="login.do">관리자 로그인</a><p>
-<a href="test.do?scode=jDcr5vhg">매장 입장 QR</a><p>
+<a href="test.do?scode=1XGLUQ4vg">매장 입장 QR</a><p>
 
 
 

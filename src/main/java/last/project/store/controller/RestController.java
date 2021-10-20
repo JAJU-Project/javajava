@@ -1,5 +1,6 @@
 package last.project.store.controller;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,15 +8,19 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import last.project.store.domain.BasketVo;
 import last.project.store.domain.MenuVo;
 import last.project.store.domain.OrderListVo;
 import last.project.store.domain.SalesVo;
+import last.project.store.service.BasketService;
 import last.project.store.service.KakaoService;
 import last.project.store.service.MenuService;
 import last.project.store.service.OrderListService;
@@ -32,6 +37,7 @@ public class RestController {
     private OrderListService orderListService;
     private SalesService salesService;
     private KakaoService kakaoService;
+    private BasketService basketService;
 
     @PostMapping("rest")
     @ResponseBody
@@ -41,6 +47,13 @@ public class RestController {
         List<MenuVo> restMlist = menuService.selectByCname(scode, cname);
         log.info("#rest resMlist:" + restMlist);
         return restMlist;
+    }
+
+    @RequestMapping("paytest")
+    @ResponseBody
+    public void paytest(String ostate) {
+
+        log.info("#paytest ostate: " + ostate);
     }
 
     @PostMapping("order")
@@ -100,27 +113,27 @@ public class RestController {
         }
         for (int i = 0; i < alist.size(); i++) {
             switch (alist.get(i)) {
-                case 10:
-                    sum10 += 1;
-                    break;
-                case 20:
-                    sum20 += 1;
-                    break;
-                case 30:
-                    sum30 += 1;
-                    break;
-                case 40:
-                    sum40 += 1;
-                    break;
-                case 50:
-                    sum50 += 1;
-                    break;
-                case 60:
-                    sum60 += 1;
-                    break;
-                default:
-                    sumetc += 1;
-                    break;
+            case 10:
+                sum10 += 1;
+                break;
+            case 20:
+                sum20 += 1;
+                break;
+            case 30:
+                sum30 += 1;
+                break;
+            case 40:
+                sum40 += 1;
+                break;
+            case 50:
+                sum50 += 1;
+                break;
+            case 60:
+                sum60 += 1;
+                break;
+            default:
+                sumetc += 1;
+                break;
             }
         }
         ageMap.put("teenager", sum10);

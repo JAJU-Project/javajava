@@ -1,5 +1,6 @@
 package last.project.store.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -28,6 +29,12 @@ public class StoreServiceImpl implements StoreService {
     public String selectByScode(String scode) {
         // TODO Auto-generated method stub
         return storeMapper.selectByScode(scode);
+    }
+
+    @Override
+    public List<HashMap<String, Object>> selectJoin(String maid) {
+        // TODO Auto-generated method stub
+        return storeMapper.selectJoin(maid);
     }
 
 }

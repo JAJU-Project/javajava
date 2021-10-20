@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,10 +17,12 @@ import last.project.store.domain.BasketVo;
 import last.project.store.domain.CategoryVo;
 import last.project.store.domain.MenuVo;
 import last.project.store.domain.StoreVo;
+import last.project.store.domain.StoreimgVo;
 import last.project.store.service.BasketService;
 import last.project.store.service.CategoryService;
 import last.project.store.service.MenuService;
 import last.project.store.service.StoreService;
+import last.project.store.service.StoreimgService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 
@@ -32,14 +35,22 @@ public class ListController {
     private MenuService menuService;
     private BasketService basketService;
     private StoreService storeService;
+    private StoreimgService storeimgService;
 
-    @GetMapping("store.do") // 관리자 매장 리스트
+    @RequestMapping("store.do") // 관리자 매장 리스트
     public ModelAndView store(HttpSession session) {
+        String scode = (String) session.getAttribute("scode");
+
         String maid = (String) session.getAttribute("maid"); // 로그인한 관리자 아이디 session값 가져옴
+        List<HashMap<String, Object>> maplist = storeService.selectJoin(maid);
+        log.info("maplist: " + maplist);
+        log.info("maplist.size: " + maplist.size());
         List<StoreVo> list = storeService.selectByMaid(maid); // 관리자의 매장 정보 전부 가져옴.
         log.info("#store.do list:" + list);
         ModelAndView mv = new ModelAndView("store"); // store.jsp로 이동
         mv.addObject("list", list); // 매장 리시트 전송
+        mv.addObject("maplist", maplist);
+
         return mv;
     }
 

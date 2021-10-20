@@ -216,8 +216,8 @@
         <tr>
          <td></td>
           <td>
-         <p><input type = "checkbox" name="pick" value="S" onclick='checkOnlyOne(this)'/> 매장</p>
-         <br><input type = "checkbox" name="pick" value="P" onclick='checkOnlyOne(this)' /> 포장
+         <p><input type = "checkbox" name="pick" id="pick"  value="S" onclick='checkOnlyOne(this)'/> 매장</p>
+         <br><input type = "checkbox" name="pick" id="pick" value="P" onclick='checkOnlyOne(this)' /> 포장
           </td>
           <td></td>
           <td></td>
@@ -227,8 +227,7 @@
 <script>
 function checkOnlyOne(element) {
   
-  const checkboxes 
-      = document.getElementsByName("pick");
+  const checkboxes = document.getElementsByName("pick");
   
   checkboxes.forEach((cb) => {
     cb.checked = false;
@@ -321,7 +320,8 @@ function checkOnlyOne(element) {
  <table>
  <tr>
   <td>총 금액</td> <td id="total_amount">${total_mprice}</td>
-  <td><button type="submit">결제하기 >></button></td>
+  <td><button type="submit" onclick="p('pick.value')">결제하기 >></button></td>
+  <!--<td><button type="submit" onclick="location.href='kakaoPay.do?ospot='">결제하기 >></button></td>-->
  </tr>
  </form>
  </table>
@@ -331,3 +331,75 @@ function checkOnlyOne(element) {
 </body>
 </html>
 </c:if>
+<script>
+function p(){
+  var size = document.getElementsByName("pick").length;
+  console.log("size: "+size);
+  for(var i = 0; i < size; i++){
+        if(document.getElementsByName("pick")[i].checked == true){
+          var ospot = document.getElementsByName("pick")[i].value
+          var ospotDate = {"ospot":ospot}
+            console.log(document.getElementsByName("pick")[i].value+"(체크)");
+         }
+  }
+  location.href="kakaoPay.do?ospot="+ospot;
+  /*
+  var size = document.getElementsByName("pick").length;
+  console.log("size: "+size);
+  console.log("1:"+document.getElementsByName("pick")[0].value);
+  console.log("2:"+document.getElementsByName("pick")[1].value);
+  for(var i = 0; i < size; i++){
+        if(document.getElementsByName("pick")[i].checked == true){
+          var ospot = document.getElementsByName("pick")[i].value
+          var ospotDate = {"ospot":ospot}
+            console.log(document.getElementsByName("pick")[i].value+"(체크)");
+         }
+  }
+  $.ajax({
+    url:"kakaoPay.do",
+    type:"post",
+    data:ospotDate,
+    success:function (data) {
+      console.log(data);
+    }
+  })*/
+  /*
+  console.log(sParm);
+  var str = '${sParm}'.split('[{').join('').split('}]').join(''); //양끝 문자열 제거 
+  var array = sParm.split("[").join('').split("]");
+  console.log(array[0]);
+  var t = array[0].split(",").join('');
+  console.log(t);
+  var tt = t.split(" ");
+  
+  for (let i = 0; i < tt.length; i++) {
+    console.log("t["+i+"]:",tt[i]);
+  }
+  var seqList = new Array();
+  for (let i = 0; i < tt.length; i++) {
+    seqList[i]=tt[i];
+    
+  }*/
+  //var seqData ={"seqList":seqList};
+  //console.log("seqData:",seqData);
+  /*$.ajax({
+    url:"paytest",
+    type:"post",
+    data:{
+      arr:seqList
+    },
+    success:function () {
+      
+    }
+  })*/
+  //console.log(tt);
+  //console.log("ttt:",tt);
+  //str = str.split('}, {'); //str는 배열 
+  //for(var i = 0; str.length > i; i++){ // str 배열만큼 for돌림 
+  //var row = str[i].split(', '); var TABLE_NAME = row[0].split('TABLE_NAME=').join(''); //변수 TABLE_NAME은 TB_NAME1, 다음 반복문에서는 TB_NAME2 
+  //var CHK = row[1].split('CHK=').join(''); // 변수 CHK Y, 다음 반복문에서는 N 
+  //}
+
+}
+
+</script>

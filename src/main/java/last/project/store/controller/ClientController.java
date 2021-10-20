@@ -1,5 +1,7 @@
 package last.project.store.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -66,12 +68,21 @@ public class ClientController {
         log.info("#basket.do blist: " + blist);
         ModelAndView mv = new ModelAndView("basket"); // basket.jsp 이동
         int total_mprice = 0;
+        ArrayList<Long> seqList = new ArrayList<Long>();
         for (int i = 0; i < blist.size(); i++) {
             total_mprice += blist.get(i).getMprice();
+        }
+        for (int i = 0; i < blist.size(); i++) {
+            seqList.add(blist.get(i).getBaseq());
+        }
+        for (int i = 0; i < seqList.size(); i++) {
+            log.info("#basket.do seqList: " + seqList.get(i));
         }
         log.info("basket.do total_mprice: " + total_mprice);
         mv.addObject("blist", blist); // 장바구니 리스트 전송
         mv.addObject("total_mprice", total_mprice);
+        mv.addObject("seqList", seqList);
+
         return mv;
     }
 }

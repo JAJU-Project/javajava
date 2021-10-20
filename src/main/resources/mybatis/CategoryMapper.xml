@@ -22,6 +22,8 @@
     <update id="updateByCname" parameterType="CategoryVo">
         update category set cname=#{cname} where scode=#{scode} and cname=#{cname}
     </update>
+
+    
     
         
 </mapper>

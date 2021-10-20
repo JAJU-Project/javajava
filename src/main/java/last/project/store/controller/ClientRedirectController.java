@@ -16,6 +16,7 @@ import last.project.store.domain.OrderListVo;
 import last.project.store.service.CategoryService;
 import last.project.store.service.MenuService;
 import last.project.store.service.OrderListService;
+import last.project.store.service.StoreService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 
@@ -27,6 +28,7 @@ public class ClientRedirectController {
     private OrderListService orderListService;
     private CategoryService categoryService;
     private MenuService menuService;
+    private StoreService storeService;
 
     @GetMapping("creview.do") // 리뷰보기 클릭
     public String creview() {
@@ -42,11 +44,14 @@ public class ClientRedirectController {
     public ModelAndView order(HttpSession session) {
         String scode = (String) session.getAttribute("scode");
         String kid = (String) session.getAttribute("email");
+        String sname = storeService.selectByScode(scode);
         log.info("#order.do scode: " + scode + ", kid: " + kid);
         List<OrderListVo> olist = orderListService.selectByKid(scode, kid);
+        log.info("order.do");
         ModelAndView mv = new ModelAndView("client/order");
         mv.addObject("olist", olist);
-        log.info("#order.do olist: " + olist);
+        mv.addObject("sname", sname);
+        // log.info("#order.do olist: " + olist);
         return mv;
     }
 

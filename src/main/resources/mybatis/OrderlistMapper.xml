@@ -54,7 +54,7 @@
         oseq, ospot,ostate, scode, sname from orderlist where scode = #{scode}
     </select>
     <insert id="insertBy1" parameterType="OrderListVo">
-        insert into  orderlist (oseq,scode,mname1,olcount1,oldate,ospot,sname,mprice1,ostate,kid)
+        insert into  orderlist (oseq,scode,mname1,olcount1,oldate,ospot,sname,mprice1,ostate,kid,totalprice)
         values (O_SEQ.NEXTVAL,#{scode},
         <foreach collection="mname" item="mname" index="index"  separator=",">
             #{mname,jdbcType=VARCHAR}
@@ -67,12 +67,12 @@
         <foreach collection="mprice" item="mprice" index="index" separator=",">
             #{mprice,jdbcType=VARCHAR}
         </foreach>
-        ,default,#{kid})
+        ,default,#{kid},#{totalprice})
     </insert>
 
     <insert id="insertBy2" parameterType="OrderListVo">
         insert into  orderlist (oseq,scode,mname1,mname2,
-        olcount1,olcount2,oldate,ospot,sname,mprice1,mprice2,ostate,kid)
+        olcount1,olcount2,oldate,ospot,sname,mprice1,mprice2,ostate,kid,totalprice)
         values (O_SEQ.NEXTVAL,#{scode},
         <foreach collection="mname" item="mname" index="index"  separator=",">
             #{mname,jdbcType=VARCHAR}
@@ -85,13 +85,13 @@
         <foreach collection="mprice" item="mprice" index="index" separator=",">
             #{mprice,jdbcType=VARCHAR}
         </foreach>
-        ,default,#{kid})
+        ,default,#{kid},#{totalprice})
     </insert>
 
     <insert id="insertBy3" parameterType="OrderListVo">
         insert into  orderlist (oseq,scode,mname1,mname2,mname3,
         olcount1,olcount2,olcount3,
-        oldate,ospot,sname,mprice1,mprice2,mprice3,ostate,kid)
+        oldate,ospot,sname,mprice1,mprice2,mprice3,ostate,kid,totalprice)
         values (O_SEQ.NEXTVAL,#{scode},
         <foreach collection="mname" item="mname" index="index"  separator=",">
             #{mname,jdbcType=VARCHAR}
@@ -104,7 +104,7 @@
         <foreach collection="mprice" item="mprice" index="index" separator=",">
             #{mprice,jdbcType=VARCHAR}
         </foreach>
-        ,default,#{kid})
+        ,default,#{kid},#{totalprice})
     </insert>
 
     <insert id="insertBy4" parameterType="OrderListVo">
@@ -112,7 +112,7 @@
         olcount1,olcount2,olcount3,olcount4,
         oldate,ospot,sname,
         mprice1,mprice2,mprice3,mprice4,
-        ostate,kid)
+        ostate,kid,totalprice)
         values (O_SEQ.NEXTVAL,#{scode},
         <foreach collection="mname" item="mname" index="index"  separator=",">
             #{mname,jdbcType=VARCHAR}
@@ -125,7 +125,7 @@
         <foreach collection="mprice" item="mprice" index="index" separator=",">
             #{mprice,jdbcType=VARCHAR}
         </foreach>
-        ,default,#{kid})
+        ,default,#{kid},#{totalprice})
     </insert>
 
     <insert id="insertBy5" parameterType="OrderListVo">
@@ -133,7 +133,7 @@
         olcount1,olcount2,olcount3,olcount4,olcount5,
         oldate,ospot,sname,
         mprice1,mprice2,mprice3,mprice4,mprice5,
-        ostate,kid)
+        ostate,kid,totalprice)
         values (O_SEQ.NEXTVAL,#{scode},
         <foreach collection="mname" item="mname" index="index"  separator=",">
             #{mname,jdbcType=VARCHAR}
@@ -146,7 +146,7 @@
         <foreach collection="mprice" item="mprice" index="index" separator=",">
             #{mprice,jdbcType=VARCHAR}
         </foreach>
-        ,default,#{kid})
+        ,default,#{kid},#{totalprice})
     </insert>
 
     <insert id="insertBy6" parameterType="OrderListVo">
@@ -154,7 +154,7 @@
         olcount1,olcount2,olcount3,olcount4,olcount5,olcount6,
         oldate,ospot,sname,
         mprice1,mprice2,mprice3,mprice4,mprice5,mprice6,
-        ostate,kid)
+        ostate,kid,totalprice)
         values (O_SEQ.NEXTVAL,#{scode},
         <foreach collection="mname" item="mname" index="index"  separator=",">
             #{mname,jdbcType=VARCHAR}
@@ -167,7 +167,7 @@
         <foreach collection="mprice" item="mprice" index="index" separator=",">
             #{mprice,jdbcType=VARCHAR}
         </foreach>
-        ,default,#{kid})
+        ,default,#{kid},#{totalprice})
     </insert>
 
     <insert id="insertBy7" parameterType="OrderListVo">
@@ -175,7 +175,7 @@
         olcount1,olcount2,olcount3,olcount4,olcount5,olcount6,olcount7,
         oldate,ospot,sname,
         mprice1,mprice2,mprice3,mprice4,mprice5,mprice6,mprice7,
-        ostate,kid)
+        ostate,kid,totalprice)
         values (O_SEQ.NEXTVAL,#{scode},
         <foreach collection="mname" item="mname" index="index"  separator=",">
             #{mname,jdbcType=VARCHAR}
@@ -188,7 +188,7 @@
         <foreach collection="mprice" item="mprice" index="index" separator=",">
             #{mprice,jdbcType=VARCHAR}
         </foreach>
-        ,default,#{kid})
+        ,default,#{kid},#{totalprice})
     </insert>
     
     <insert id="insertBy8" parameterType="OrderListVo">
@@ -197,7 +197,7 @@
         olcount1,olcount2,olcount3,olcount4,olcount5,olcount6,olcount7,olcount8,
         oldate,ospot,sname,
         mprice1,mprice2,mprice3,mprice4,mprice5,mprice6,mprice7,mprice8,
-        ostate,kid)
+        ostate,kid,totalprice)
         values (O_SEQ.NEXTVAL,#{scode},
         <foreach collection="mname" item="mname" index="index"  separator=",">
             #{mname,jdbcType=VARCHAR}
@@ -210,7 +210,7 @@
         <foreach collection="mprice" item="mprice" index="index" separator=",">
             #{mprice,jdbcType=VARCHAR}
         </foreach>
-        ,default,#{kid})
+        ,default,#{kid},#{totalprice})
     </insert>
     
     <insert id="insertBy9" parameterType="OrderListVo">
@@ -219,7 +219,7 @@
         olcount1,olcount2,olcount3,olcount4,olcount5,olcount6,olcount7,olcount8,olcount9,
         oldate,ospot,sname,
         mprice1,mprice2,mprice3,mprice4,mprice5,mprice6,mprice7,mprice8,mprice9,
-        ostate,kid)
+        ostate,kid,totalprice)
         values (O_SEQ.NEXTVAL,#{scode},
         <foreach collection="mname" item="mname" index="index"  separator=",">
             #{mname,jdbcType=VARCHAR}
@@ -232,7 +232,7 @@
         <foreach collection="mprice" item="mprice" index="index" separator=",">
             #{mprice,jdbcType=VARCHAR}
         </foreach>
-        ,default,#{kid})
+        ,default,#{kid},#{totalprice})
     </insert>
 
     <insert id="insertBy10" parameterType="OrderListVo">
@@ -241,7 +241,7 @@
         olcount1,olcount2,olcount3,olcount4,olcount5,olcount6,olcount7,olcount8,olcount9,olcount10,
         oldate,ospot,sname,
         mprice1,mprice2,mprice3,mprice4,mprice5,mprice6,mprice7,mprice8,mprice9,mprice10,
-        ostate,kid)
+        ostate,kid,totalprice)
         values (O_SEQ.NEXTVAL,#{scode},
         <foreach collection="mname" item="mname" index="index"  separator=",">
             #{mname,jdbcType=VARCHAR}
@@ -254,7 +254,7 @@
         <foreach collection="mprice" item="mprice" index="index" separator=",">
             #{mprice,jdbcType=VARCHAR}
         </foreach>
-        ,default,#{kid})
+        ,default,#{kid},#{totalprice})
     </insert>
     
 </mapper>

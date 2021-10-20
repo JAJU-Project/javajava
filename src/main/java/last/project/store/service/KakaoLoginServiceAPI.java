@@ -169,6 +169,7 @@ public class KakaoLoginServiceAPI {
     public String pay(String mname, int bcount, int mprice) {
         String payURL = "https://kapi.kakao.com/v1/payment/ready";
 
+        log.info("#pay mname:" + mname);
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();

@@ -4,17 +4,21 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import last.project.store.domain.CategoryVo;
 import last.project.store.domain.ManagerVo;
 import last.project.store.domain.MenuVo;
 import last.project.store.domain.RandomCode;
 import last.project.store.domain.StoreVo;
+import last.project.store.domain.StoreimgVo;
 import last.project.store.service.CategoryService;
+import last.project.store.service.FileUploadService;
 import last.project.store.service.ManagerService;
 import last.project.store.service.MenuService;
 import last.project.store.service.SalesService;
 import last.project.store.service.StoreService;
+import last.project.store.service.StoreimgService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 
@@ -28,6 +32,8 @@ public class AdminInsertController {
     private MenuService menuService;
     private SalesService salesService;
     private StoreService storeService;
+    private FileUploadService fileUploadService;
+    private StoreimgService storeimgService;
 
     @PostMapping("sign_up.do") // 관리자 회원 가입을 위한
     public String sign_up(ManagerVo managerVo) { // 아이디 유효성검사 할 예정.
@@ -61,7 +67,19 @@ public class AdminInsertController {
     }
 
     @PostMapping("store_create.do") // 매장생성
-    public String store_create(StoreVo storeVo, HttpSession session) {
+    public String store_create(StoreVo storeVo, HttpSession session, MultipartFile file) {
+        StoreimgVo storeimgVo = new StoreimgVo();
+
+        String ofname = file.getOriginalFilename();
+        String simg = "";
+        // String fname = file.getName();
+        if (ofname != null)
+            ofname = ofname.trim();
+        if (ofname.length() != 0) {
+            simg = fileUploadService.saveStore(file);
+            log.info("#simg: " + simg);
+        }
+
         String maid = (String) session.getAttribute("maid"); // 테스트용으로 일단 관리자가 로그인하면 매장생성 하도록함 추후에는 개발자가 매장 생성.
                                                              // (추후에 session값 대신 직접 값 대입)
         RandomCode random = new RandomCode(); // 매장 코드를 생성하기 위한 객체생성
@@ -74,6 +92,7 @@ public class AdminInsertController {
                 scode += Character.toString(num[i]);
             }
             scode = scode.trim();
+
             String sname = storeVo.getSname(); // 그
             String sintro = storeVo.getSintro();// 냥
             String sphone = storeVo.getSphone();// 찍
@@ -82,6 +101,9 @@ public class AdminInsertController {
             storeVo.setMaid(maid);
             storeVo.setScode(scode); // 랜덤으로 만들어진 매장코드 set
             storeService.insertAll(storeVo); // insert
+            storeimgVo.setScode(scode);
+            storeimgVo.setSimg(simg);
+            storeimgService.insertAll(storeimgVo);
             return "redirect:store.do";
         }
         return null;

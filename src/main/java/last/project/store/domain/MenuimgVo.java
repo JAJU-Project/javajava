@@ -7,12 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuVo {
+public class MenuimgVo {
+    private String mimg;
     private long mseq;
-    private String scode;
-    private String cname;
-    private String mname;
-    private long mprice;
-    private String mintro;
-    private String msoldout;
 }

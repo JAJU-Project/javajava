@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import last.project.store.domain.BasketVo;
 import last.project.store.domain.KakaoVo;
@@ -83,15 +85,18 @@ public class KakaoController {
         session.invalidate();
         return "redirect:/";
     }
+    /*
+     * @GetMapping("kakaoPay.do") public void kakaoPayGet() {
+     * 
+     * }
+     */
 
-    @GetMapping("kakaoPay.do")
-    public void kakaoPayGet() {
-
-    }
-
-    @PostMapping("kakaoPay.do") // 결제하기
-    public String kakaoPay(String kid, HttpSession session, String ospot) { // basket.jsp에서 kid값 가져옴.
+    @RequestMapping("kakaoPay.do") // 결제하기
+    public String kakaoPay(HttpSession session, String ospot) { // basket.jsp에서 kid값 가져옴.
         log.info("kakaoPay post............................................");
+
+        String kid = (String) session.getAttribute("email");
+        log.info("#kakaoPay.do kid: " + kid);
         session.setAttribute("ospot", ospot);
         String scode = (String) session.getAttribute("scode"); // session에서 매장 코드 가져온다.
         log.info("#kakaoPay.do ospot: " + ospot);
@@ -106,6 +111,7 @@ public class KakaoController {
         log.info("#kakaoPay.do blist: " + blist);
         log.info("#kakaoPay.do blist.size: " + blist.size());
         String mname = blist.get(0).getMname(); // 결제 할때는 첫번째 ~~ 외 ~개수로 표시하기 위해 매뉴명의 첫번째 값만 가져옴.
+        log.info("kakaoPay.do mname: " + mname);
         int[] bcount_list = new int[blist.size()]; // 수량 저장 공간
         int[] mprice_list = new int[blist.size()]; // 가격 저장 공간
 
@@ -170,42 +176,249 @@ public class KakaoController {
         orderListVo.setKid(kid);
         orderListVo.setOspot(ospot);
         orderListVo.setSname(sname);
-
+        orderListVo.setMname(mname);
+        orderListVo.setOlcount(bcount);
+        orderListVo.setMprice(mprice);
         // orderListVo.setOstate(1);
-
+        long totalprice = 0l;
         switch (blist_size) {
-            case 1:
-                orderListService.insertBy1(orderListVo);
-                break;
-            case 2:
-                orderListService.insertBy2(orderListVo);
-                break;
-            case 3:
-                orderListService.insertBy3(orderListVo);
-                break;
-            case 4:
-                orderListService.insertBy4(orderListVo);
-                break;
-            case 5:
-                orderListService.insertBy5(orderListVo);
-                break;
-            case 6:
-                orderListService.insertBy6(orderListVo);
-                break;
-            case 7:
-                orderListService.insertBy7(orderListVo);
-                break;
-            case 8:
-                orderListService.insertBy8(orderListVo);
-                break;
-            case 9:
-                orderListService.insertBy9(orderListVo);
-                break;
-            case 10:
-                orderListService.insertBy10(orderListVo);
-                break;
-            default:
-                break;
+        case 1:
+            for (int i = 0; i < mprice.length; i++) {
+                totalprice += mprice[i];
+            }
+            orderListVo.setMname1(mname[0]);
+            orderListVo.setOlcount1(bcount[0]);
+            orderListVo.setMprice1(mprice[0]);
+            orderListVo.setTotalprice(totalprice);
+            orderListService.insertBy1(orderListVo);
+            log.info("???????????");
+            break;
+        case 2:
+            for (int i = 0; i < mprice.length; i++) {
+                totalprice += mprice[i];
+            }
+            orderListVo.setMname1(mname[0]);
+            orderListVo.setOlcount1(bcount[0]);
+            orderListVo.setMprice1(mprice[0]);
+            orderListVo.setMname2(mname[1]);
+            orderListVo.setOlcount2(bcount[1]);
+            orderListVo.setMprice2(mprice[1]);
+            orderListVo.setTotalprice(totalprice);
+            orderListService.insertBy2(orderListVo);
+            break;
+        case 3:
+            for (int i = 0; i < mprice.length; i++) {
+                totalprice += mprice[i];
+            }
+            orderListVo.setMname1(mname[0]);
+            orderListVo.setOlcount1(bcount[0]);
+            orderListVo.setMprice1(mprice[0]);
+            orderListVo.setMname2(mname[1]);
+            orderListVo.setOlcount2(bcount[1]);
+            orderListVo.setMprice2(mprice[1]);
+            orderListVo.setMname3(mname[2]);
+            orderListVo.setOlcount3(bcount[2]);
+            orderListVo.setMprice3(mprice[2]);
+            orderListVo.setTotalprice(totalprice);
+            orderListService.insertBy3(orderListVo);
+            break;
+        case 4:
+            for (int i = 0; i < mprice.length; i++) {
+                totalprice += mprice[i];
+            }
+            orderListVo.setMname1(mname[0]);
+            orderListVo.setOlcount1(bcount[0]);
+            orderListVo.setMprice1(mprice[0]);
+            orderListVo.setMname2(mname[1]);
+            orderListVo.setOlcount2(bcount[1]);
+            orderListVo.setMprice2(mprice[1]);
+            orderListVo.setMname3(mname[2]);
+            orderListVo.setOlcount3(bcount[2]);
+            orderListVo.setMprice3(mprice[2]);
+            orderListVo.setMname4(mname[3]);
+            orderListVo.setOlcount4(bcount[3]);
+            orderListVo.setMprice4(mprice[3]);
+            orderListVo.setTotalprice(totalprice);
+            orderListService.insertBy4(orderListVo);
+            break;
+        case 5:
+            for (int i = 0; i < mprice.length; i++) {
+                totalprice += mprice[i];
+            }
+            orderListVo.setMname1(mname[0]);
+            orderListVo.setOlcount1(bcount[0]);
+            orderListVo.setMprice1(mprice[0]);
+            orderListVo.setMname2(mname[1]);
+            orderListVo.setOlcount2(bcount[1]);
+            orderListVo.setMprice2(mprice[1]);
+            orderListVo.setMname3(mname[2]);
+            orderListVo.setOlcount3(bcount[2]);
+            orderListVo.setMprice3(mprice[2]);
+            orderListVo.setMname4(mname[3]);
+            orderListVo.setOlcount4(bcount[3]);
+            orderListVo.setMprice4(mprice[3]);
+            orderListVo.setMname5(mname[4]);
+            orderListVo.setOlcount5(bcount[4]);
+            orderListVo.setMprice5(mprice[4]);
+            orderListVo.setTotalprice(totalprice);
+            break;
+        case 6:
+            for (int i = 0; i < mprice.length; i++) {
+                totalprice += mprice[i];
+            }
+            orderListVo.setMname1(mname[0]);
+            orderListVo.setOlcount1(bcount[0]);
+            orderListVo.setMprice1(mprice[0]);
+            orderListVo.setMname2(mname[1]);
+            orderListVo.setOlcount2(bcount[1]);
+            orderListVo.setMprice2(mprice[1]);
+            orderListVo.setMname3(mname[2]);
+            orderListVo.setOlcount3(bcount[2]);
+            orderListVo.setMprice3(mprice[2]);
+            orderListVo.setMname4(mname[3]);
+            orderListVo.setOlcount4(bcount[3]);
+            orderListVo.setMprice4(mprice[3]);
+            orderListVo.setMname5(mname[4]);
+            orderListVo.setOlcount5(bcount[4]);
+            orderListVo.setMprice5(mprice[4]);
+            orderListVo.setMname6(mname[5]);
+            orderListVo.setOlcount6(bcount[5]);
+            orderListVo.setMprice6(mprice[5]);
+            orderListVo.setTotalprice(totalprice);
+            orderListService.insertBy6(orderListVo);
+            break;
+        case 7:
+            for (int i = 0; i < mprice.length; i++) {
+                totalprice += mprice[i];
+            }
+            orderListVo.setMname1(mname[0]);
+            orderListVo.setOlcount1(bcount[0]);
+            orderListVo.setMprice1(mprice[0]);
+            orderListVo.setMname2(mname[1]);
+            orderListVo.setOlcount2(bcount[1]);
+            orderListVo.setMprice2(mprice[1]);
+            orderListVo.setMname3(mname[2]);
+            orderListVo.setOlcount3(bcount[2]);
+            orderListVo.setMprice3(mprice[2]);
+            orderListVo.setMname4(mname[3]);
+            orderListVo.setOlcount4(bcount[3]);
+            orderListVo.setMprice4(mprice[3]);
+            orderListVo.setMname5(mname[4]);
+            orderListVo.setOlcount5(bcount[4]);
+            orderListVo.setMprice5(mprice[4]);
+            orderListVo.setMname6(mname[5]);
+            orderListVo.setOlcount6(bcount[5]);
+            orderListVo.setMprice6(mprice[5]);
+            orderListVo.setMname7(mname[6]);
+            orderListVo.setOlcount7(bcount[6]);
+            orderListVo.setMprice7(mprice[6]);
+            orderListVo.setTotalprice(totalprice);
+            orderListService.insertBy7(orderListVo);
+            break;
+        case 8:
+            for (int i = 0; i < mprice.length; i++) {
+                totalprice += mprice[i];
+            }
+            orderListVo.setMname1(mname[0]);
+            orderListVo.setOlcount1(bcount[0]);
+            orderListVo.setMprice1(mprice[0]);
+            orderListVo.setMname2(mname[1]);
+            orderListVo.setOlcount2(bcount[1]);
+            orderListVo.setMprice2(mprice[1]);
+            orderListVo.setMname3(mname[2]);
+            orderListVo.setOlcount3(bcount[2]);
+            orderListVo.setMprice3(mprice[2]);
+            orderListVo.setMname4(mname[3]);
+            orderListVo.setOlcount4(bcount[3]);
+            orderListVo.setMprice4(mprice[3]);
+            orderListVo.setMname5(mname[4]);
+            orderListVo.setOlcount5(bcount[4]);
+            orderListVo.setMprice5(mprice[4]);
+            orderListVo.setMname6(mname[5]);
+            orderListVo.setOlcount6(bcount[5]);
+            orderListVo.setMprice6(mprice[5]);
+            orderListVo.setMname7(mname[6]);
+            orderListVo.setOlcount7(bcount[6]);
+            orderListVo.setMprice7(mprice[6]);
+            orderListVo.setMname8(mname[7]);
+            orderListVo.setOlcount8(bcount[7]);
+            orderListVo.setMprice8(mprice[7]);
+            orderListVo.setTotalprice(totalprice);
+            orderListService.insertBy8(orderListVo);
+            break;
+        case 9:
+            for (int i = 0; i < mprice.length; i++) {
+                totalprice += mprice[i];
+            }
+            orderListVo.setMname1(mname[0]);
+            orderListVo.setOlcount1(bcount[0]);
+            orderListVo.setMprice1(mprice[0]);
+            orderListVo.setMname2(mname[1]);
+            orderListVo.setOlcount2(bcount[1]);
+            orderListVo.setMprice2(mprice[1]);
+            orderListVo.setMname3(mname[2]);
+            orderListVo.setOlcount3(bcount[2]);
+            orderListVo.setMprice3(mprice[2]);
+            orderListVo.setMname4(mname[3]);
+            orderListVo.setOlcount4(bcount[3]);
+            orderListVo.setMprice4(mprice[3]);
+            orderListVo.setMname5(mname[4]);
+            orderListVo.setOlcount5(bcount[4]);
+            orderListVo.setMprice5(mprice[4]);
+            orderListVo.setMname6(mname[5]);
+            orderListVo.setOlcount6(bcount[5]);
+            orderListVo.setMprice6(mprice[5]);
+            orderListVo.setMname7(mname[6]);
+            orderListVo.setOlcount7(bcount[6]);
+            orderListVo.setMprice7(mprice[6]);
+            orderListVo.setMname8(mname[7]);
+            orderListVo.setOlcount8(bcount[7]);
+            orderListVo.setMprice8(mprice[7]);
+            orderListVo.setMname9(mname[8]);
+            orderListVo.setOlcount9(bcount[8]);
+            orderListVo.setMprice9(mprice[8]);
+            orderListVo.setTotalprice(totalprice);
+            orderListService.insertBy9(orderListVo);
+            break;
+        case 10:
+            for (int i = 0; i < mprice.length; i++) {
+                totalprice += mprice[i];
+            }
+            orderListVo.setMname1(mname[0]);
+            orderListVo.setOlcount1(bcount[0]);
+            orderListVo.setMprice1(mprice[0]);
+            orderListVo.setMname2(mname[1]);
+            orderListVo.setOlcount2(bcount[1]);
+            orderListVo.setMprice2(mprice[1]);
+            orderListVo.setMname3(mname[2]);
+            orderListVo.setOlcount3(bcount[2]);
+            orderListVo.setMprice3(mprice[2]);
+            orderListVo.setMname4(mname[3]);
+            orderListVo.setOlcount4(bcount[3]);
+            orderListVo.setMprice4(mprice[3]);
+            orderListVo.setMname5(mname[4]);
+            orderListVo.setOlcount5(bcount[4]);
+            orderListVo.setMprice5(mprice[4]);
+            orderListVo.setMname6(mname[5]);
+            orderListVo.setOlcount6(bcount[5]);
+            orderListVo.setMprice6(mprice[5]);
+            orderListVo.setMname7(mname[6]);
+            orderListVo.setOlcount7(bcount[6]);
+            orderListVo.setMprice7(mprice[6]);
+            orderListVo.setMname8(mname[7]);
+            orderListVo.setOlcount8(bcount[7]);
+            orderListVo.setMprice8(mprice[7]);
+            orderListVo.setMname9(mname[8]);
+            orderListVo.setOlcount9(bcount[8]);
+            orderListVo.setMprice9(mprice[8]);
+            orderListVo.setMname10(mname[9]);
+            orderListVo.setOlcount10(bcount[9]);
+            orderListVo.setMprice10(mprice[9]);
+            orderListVo.setTotalprice(totalprice);
+            orderListService.insertBy10(orderListVo);
+            break;
+        default:
+            break;
         }
 
         long[] sales_sacoin = new long[blist_size];
