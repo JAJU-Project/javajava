@@ -65,7 +65,13 @@ public class ClientController {
         List<BasketVo> blist = basketService.selectByKid(kid); // 아이디를 통해서 장바구니 리스트를 가져온다.
         log.info("#basket.do blist: " + blist);
         ModelAndView mv = new ModelAndView("basket"); // basket.jsp 이동
+        int total_mprice = 0;
+        for (int i = 0; i < blist.size(); i++) {
+            total_mprice += blist.get(i).getMprice();
+        }
+        log.info("basket.do total_mprice: " + total_mprice);
         mv.addObject("blist", blist); // 장바구니 리스트 전송
+        mv.addObject("total_mprice", total_mprice);
         return mv;
     }
 }

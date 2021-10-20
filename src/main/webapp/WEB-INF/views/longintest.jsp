@@ -1,5 +1,3 @@
-<%@ page contentType="text/html;charset=utf-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -10,7 +8,7 @@
 /* BASIC */
 
 html {
-  background-color: #d6bae0;
+  background-color: #56baed;
 }
 
 body {
@@ -52,7 +50,8 @@ h2 {
 #formContent {
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;
-  background: #fff;
+  background: #d6bae0; 
+  color: #d6bae0;
   padding: 30px;
   width: 90%;
   max-width: 450px;
@@ -64,7 +63,7 @@ h2 {
 }
 
 #formFooter {
-  background-color: #f6f6f6;
+  background-color: #d6bae0;
   border-top: 1px solid #dce8f1;
   padding: 25px;
   text-align: center;
@@ -77,7 +76,7 @@ h2 {
 /* TABS */
 
 h2.inactive {
-  color: #cccccc;
+  color: #d6bae0;
 }
 
 h2.active {
@@ -212,6 +211,10 @@ input[type=text]:placeholder {
   -moz-animation-duration:1s;
   animation-duration:1s;
 }
+.formcolor{
+    color:#d6bae0;
+    background-color:#d6bae0;
+}
 
 .fadeIn.first {
   -webkit-animation-delay: 0.4s;
@@ -283,11 +286,13 @@ h1{
     </div>
 
     <!-- Login Form -->
-    <form name="loginInfo" method="post" action="login.do">
+
+    <form class ="formcolor" name="loginInfo" method="post" action="login.do">
       <input type="text" id="login" class="fadeIn second" name="maid" placeholder="username">
       <input type="text" id="password" class="fadeIn third" name="mapwd" placeholder="password">
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
+
 
     <!-- Remind Passowrd 
     <div id="formFooter">

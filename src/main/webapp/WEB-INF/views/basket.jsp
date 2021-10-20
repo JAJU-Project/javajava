@@ -15,7 +15,6 @@
         width: 100%;
         border-top: 1px solid #c1bbbb;
         border-collapse: collapse;
-        
       }
       th, td {
         border-bottom: 1px solid #c1bbbb;
@@ -23,21 +22,13 @@
       }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- 상단바, 사이드바 스타일 시작 -->
+<!-- 상단바, 사이드바 스타일 시작 -->
 <style>
     * {padding:0;margin:0;}
+  
     body {background:#fff;}
     header {width:100%;background:#fbd39738;position:relative;z-index:10;}
-    .header-list {width:1200px;margin:0 auto;font-size:0;padding:15px 0;}
-    .header-list > li {font-size:12px;display:inline-block;vertical-align:middle;}
-    .header-list > li:nth-child(1) {font-size:20px;width:200px;}
-    .header-list > li:nth-child(2) {width:calc(100% - 250px);}
-    .header-list > li:nth-child(3) {width:50px;}
-    .header-list > li > div {width:auto;}
-    
-    .menu-ul {font-size:0;}
-    .menu-ul > li {font-size:12px;display:inline-block;vertical-align:middle;}
-    .menu-ul > li > a {display:block;width:auto;padding:15px;}
+ 
     
     input[id="menuicon"] {display:none;}
     input[id="menuicon"] + label {display:block;position:relative;width:100%;height:40px;cursor:pointer;}
@@ -55,12 +46,12 @@
     .sitemap-ul {font-size:0;width:1200px;margin:15px auto;text-align:center;}
     .sitemap-ul > li {font-size:12px;display:inline-block;vertical-align:top;width:20%;}
     </style>
-     <style>
+     <style>/* 이부분 없어도 될듯*/
         input[id="menuicon"] {display:none;}
         input[id="menuicon"] + label {display:block;margin:30px;width:60px;height:50px;position:relative;cursor:pointer;}
         input[id="menuicon"] + label span {display:block;position:absolute;width:100%;height:5px;border-radius:30px;background:#000;transition:all .35s;}
         input[id="menuicon"] + label span:nth-child(1) {top:0;}
-        input[id="menuicon"] + label span:nth-child(2) {top:50%;transform:translateY(-50%);} /* 비슷하게 사용할 수 있는 style top:calc(50% - 2.5px); margin-top:-2.5px;*/
+        input[id="menuicon"] + label span:nth-child(2) {top:50%;transform:translateY(-50%);} 
         input[id="menuicon"] + label span:nth-child(3) {bottom:0;}
         input[id="menuicon"]:checked + label {z-index:2;}
         input[id="menuicon"]:checked + label span {background:#fff;}
@@ -69,7 +60,7 @@
         input[id="menuicon"]:checked + label span:nth-child(3) {bottom:50%;transform:translateY(50%) rotate(-45deg);}
         div[class="sidebar"] {width:300px;height:100%;background:#222;position:fixed;top:0;left:-300px;z-index:1;transition:all .35s;}
         input[id="menuicon"]:checked + label + div {left:0;}
-        </style>
+        </style><!-- 이부분 없어도 될듯-->
 
         <style>
             * {padding:0;margin:0;}
@@ -92,51 +83,104 @@
             div[class="sidebar"] {width:300px;height:100%;background:#f5f5f5;position:fixed;top:0;right:-300px;z-index:1;transition:all .35s;}
             input[id="menuicon"]:checked + ul + div {right:0;}
             
+            #modal.modal-overlay {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(1.5px);
+      -webkit-backdrop-filter: blur(1.5px);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      z-index: 10000;
+
+  }
+  #modal .modal-window {
+      background: rgb(237 224 159 / 65%);
+      box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+      backdrop-filter: blur( 13.5px );
+      -webkit-backdrop-filter: blur( 13.5px );
+      border-radius: 10px;
+      border: 1px solid rgba( 255, 255, 255, 0.18 );
+      width: 400px;
+      height: 500px;
+      position: relative;
+      top: -100px;
+      padding: 10px;
+  }
+  #modal .title {
+      padding-left: 10px;
+      display: inline;
+      text-shadow: 1px 1px 2px gray;
+      color: white;
+      
+  }
+  #modal .title h2 {
+      display: inline;
+  }
+  #modal .close-area {
+      display: inline;
+      float: right;
+      padding-right: 10px;
+      cursor: pointer;
+      text-shadow: 1px 1px 2px gray;
+      color: white;
+  }
+  
+  #modal .content {
+      margin-top: 30px;
+      
+      text-shadow: 1px 1px 2px gray;
+      color: white;
+  }
     </style>
-     <!-- 상단바, 사이드바 스타일 끝 -->
+    <style type="text/css">
+
+        * {margin:0; padding:0;}
+        
+        li {float:left; list-style:none; margin:1px;}
+        
+        li a {display:block; width:130px; height:40px;   font-size:12px; 
+        
+         text-align:center; padding-top:10px; text-decoration:none;}
+        
+        li a span {display:block;}
+              
+     </style>
+    
+    
+    
+    <!-- 상단바, 사이드바 스타일 끝 -->
 
     <header>
-        <meta name="viewport" content="width=device-width,initial-scale=1"><!--모바일 반응형 전용-->
+
         <ul class="header-list">
             <li id="titledes"><img src="" id="titlelogo"></li>
             <li>
                 <div class="menu-ulul">
-                    <ul class="menu-ul">
+                    <ul class="menu-ul" style="text-align: center">
                         <li id="li2"><a href="client_category.do">Menu</a></li>
                         <li id="li3"><a href="creview.do">Review</a></li>
                         <li id="li4"><a href="basket.do">Basket</a></li>
-                        <li id="li5"><a href="order.do">주문내역</a></li>
+                        <li id="li5"><a href="order">orderList</a></li>
                     </ul>
                 </div>
             </li>
-            <li id="li6">
-                <div id="menubox">
-                    <input type="checkbox" id="menuicon">
-                    <label for="menuicon" >
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </label>
-                    <div class="sidebar">
-                        <ul class="sitemap-ul">
-                                <ul>
-                                    <p id="lili"><a href="client_category.do">Menu</a></p>
-                                    <p id="lili"><a href="creview.do">Review</a></p>
-                                    <p id="lili"><a href="basket.do">Basket</a></p>
-                                    <p id="lili"><a href="order.do">주문내역</a></p>
-                                </ul>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
                 </ul>
             </header>
-   
+     
             <!-- 상단바 끝 -->
           
       
 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+   
        
         <style type="text/css">
 
@@ -170,13 +214,14 @@
       </thead>
       <tbody>
         <tr>
-         <td>
-          <p><input type = "checkbox" name="pick" value="S" onclick='checkOnlyOne(this)'/> 매장</p>
+         <td></td>
+          <td>
+         <p><input type = "checkbox" name="pick" value="S" onclick='checkOnlyOne(this)'/> 매장</p>
          <br><input type = "checkbox" name="pick" value="P" onclick='checkOnlyOne(this)' /> 포장
-        </td>
+          </td>
           <td></td>
           <td></td>
-          <td></td>
+           <td></td>
          <td> <a class="button" href="basket_delete">비우기</a></td>
         </tr>
 <script>
@@ -192,6 +237,7 @@ function checkOnlyOne(element) {
   element.checked = true;
 }
 </script>
+
 
 <!--수량
 
@@ -212,133 +258,56 @@ function checkOnlyOne(element) {
         });
       })
     </script>-->
-    <form method="post" action="kakaoPay.do">
+ 
     <c:forEach items="${blist}" var="BasketVo">
+       <form method="post" action="kakaoPay.do">
         <script>
-                function plusV(){
-                  document.getElementById("menuCount").value++;
-                  var price = document.getElementById("menuPrice").innerHTML;
-                  var a = price * document.getElementById("menuCount").value ;
-                  document.getElementById("wlgns").value = a ;
-                  var total = Number(document.getElementById("total_amount").innerHTML);
-                  total += Number(price);
-                  document.getElementById("total_amount").innerHTML =total;
-                  document.getElementById("menuIn").value =total;
+                function plusV(baseq){
+                  var baseqDate = {"baseq":baseq}
+                  $.ajax({
+                    url:"countUp",
+                    type:"post",
+                    data: baseqDate,
+                    success:function(){
+                      //$("#test2").load(window.location.href+"#test2");
+                      location.reload();
+                    }
+                  })
                 }
                 
-                function minusV(){
-                  document.getElementById("menuCount").value--;
-                  var price = document.getElementById("menuPrice").innerHTML;
-                  var a = price * document.getElementById("menuCount").value ;
-                  document.getElementById("wlgns").value = a ;
-                  var total = Number(document.getElementById("total_amount").innerHTML);
-                  total -= Number(price);
-                  document.getElementById("total_amount").innerHTML =total;
+                function minusV(baseq){
+                  var baseqDate = {"baseq":baseq}
+                  $.ajax({
+                    url:"countDown",
+                    type:"post",
+                    data:baseqDate,
+                    success:function(){
+                      location.reload();
+                    }
+                  })
                 }
           </script>
 
+
  <tr id="wlgns">
+            <td class="check"><input type="checkbox" name="buy" value="260" checked="" onclick="javascript:basket.checkItem();"></td>
             <td>${BasketVo.mname }</td>
            <td>
-            <P id = 'menuPrice'>${BasketVo.mprice}</P>
+            <P id = 'menuPrice'>${BasketVo.basicprice}</P>
             </td>
 
               <td>
                 <form name="form" method="get">
-                  <input type=button value=" - " onClick="minusV()">
+                  <input type=button value=" - " onClick="minusV(`${BasketVo.baseq}`)">
                   <input id= "menuCount" type=text name="bcount" value="${BasketVo.bcount}" readonly="readonly" style="text-align:center;">
-                  <input type="button" value=" + " onClick="plusV()">
+                  <input type="button" value=" + " onClick="plusV(`${BasketVo.baseq}`)">
                   </form>
               </td>
          
-          <td> <input id="menuIn" type="text" name="sum" size="11" value="0" readonly>원</td>
+          <td> <input id="menuIn" type="text" name="sum" size="11" value=${BasketVo.mprice} readonly>원</td>
           <td> <a class="button" href="basket_deleteBybaseq?baseq=${BasketVo.baseq}">삭제</a></td>
         </tr>
         </c:forEach>
-      
-<!--수량-->
-
-<!--
-        <tr >
-          <td><img src=${menuVo.mimage} id="new_img" width=100 height=100></td>
-          <td>
-            <P>${BasketVo.mname }</P>
-            <P>${BasketVo.bcount }</P>
-            </td>
-               
-              <td>
-                <form name="form" method="get">
-                  <input type=hidden name="sell_price" value="5500">
-                  <input type="button" value=" - " onclick="del();">
-                  <input type=text name="amount" value=1 readonly="readonly" onchange="change();" style="text-align:center;">
-                  <input type="button" value=" + " onclick="add();">
-                  </form>
-              </td>
-         
-          <td> <input type="text" name="sum" size="11" readonly>원</td>
-          <td><a class="button" href="#">삭제</a></td>
-
-        </tr>
-
-
-        <tr>
-          <td>이미지</td>
-          <td>
-            <P>레몬에이드</P>
-           <p>2800</p>
-             </td>
- 
-              <td>
-                <form>
-                  <input type=button value=" - " onClick="minusV();">
-                  <input id= "menu3Count" type=text name=amount value=0 readonly="readonly" style="text-align:center;">
-                  <input type="button" value=" + " onClick="plusV();">
-                  </form>
-              </td>
-         
-          <td> <input id="" type="text" name="sum" size="11" value="0" readonly>원</td>
-          <td><a class="button" href="#">삭제</a></td>
-
-        </tr>
-        <tr>
-          <td>이미지</td>
-          <td>
-            <P>녹차프라푸치노</P>
-            <P> 4500원</P>
-            </td>
-               
-              <td>
-                <form>
-                  <input type=button value=" - " onClick="javascript:this.form.amount.value--;">
-                  <input type=text name=amount value=0 readonly="readonly" style="text-align:center;">
-                  <input type=button value=" + " onClick="javascript:this.form.amount.value++;">
-                  </form>
-              </td>
-         
-          <td> <input type="text" name="sum" size="11" readonly>원</td>
-          <td><a class="button" href="#">삭제</a></td>
-
-        </tr>
-        <tr>
-          <td>이미지</td>
-          <td>
-            <P> 아이스바닐라라떼</P>
-            <P> 4700원</P>
-            </td>
-               
-              <td>
-                <form>
-                  <input type=button value=" - " onClick="javascript:this.form.amount.value--;">
-                  <input type=text name=amount value=0 readonly="readonly" style="text-align:center;">
-                  <input type=button value=" + " onClick="javascript:this.form.amount.value++;">
-                  </form>
-              </td>
-         
-          <td> <input type="text" name="sum" size="11" readonly>원</td>
-          <td><a class="button" href="#">삭제</a></td>
-
-        </tr>
--->
          
       </tbody>
     
@@ -347,13 +316,16 @@ function checkOnlyOne(element) {
 
 </div>
 
-<div style="position: absolute; bottom:1px; right:30px;">
+<div style="position: absolute; bottom:1px; right:30px;" id="test2">
+<c:if test="${!empty total_mprice}">
  <table>
  <tr>
-  <td>총 금액</td> <td id="total_amount">0</td>
-  <td><a href="">결제하기 >></a></td>
+  <td>총 금액</td> <td id="total_amount">${total_mprice}</td>
+  <td><button type="submit">결제하기 >></button></td>
  </tr>
+ </form>
  </table>
+</c:if>
 </div>
 
 </body>
