@@ -111,6 +111,7 @@
 
   <div class="container" id="reviewbox">
 
+<!-- 상단 이미지 -->
   <c:forEach var="list" items="${maplist}">
     <div class="mySlides" id="mySlides">
       <img src="${list.RIMG}" style="width:20%">
@@ -122,7 +123,7 @@
     <a class="next" onclick="plusSlides(1)">❯</a>
   </div>
 
-
+<!-- 제목 부분 -->
   <c:forEach items="${maplist}" var="map">
     <div class="caption-container" id="caption">
       <div onclick="menus(`${map.RSEQ}`)" id="modal_menu">${map.RTITLE}</div>
@@ -255,6 +256,7 @@
     <c:forEach var = "list" items="${maplist}" varStatus="number">
       <div class="column">
         <img class="demo cursor" src="${list.RIMG}" style="width:100%" onclick="currentSlide(${number.count})" alt="${list.RTITLE}">
+        <!-- onclick 파라미터에  (`${map.RSEQ}`) 넣으시면 seq값 넘어갈겁니다.-->
       </div>
     </c:forEach>
     <!--
