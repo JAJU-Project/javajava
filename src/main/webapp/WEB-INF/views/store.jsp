@@ -43,10 +43,9 @@ swiper-slide img {
 			<div class="swiper-wrapper">
 			<c:forEach var="list" items="${maplist }" >
 				
-				JSON
 					<div class="swiper-slide">
-						<a href="management.do?scode=">
-						<img src="..\src\main\resources\allimg\storeimg\mosa7NPaR2_1634756728933.jpg"/>					
+						<a href="management.do?scode=${list.SCODE}">
+						<img id="packData_image" src="${list.SIMG}"/>					
 						
 						</a>
 			
@@ -57,8 +56,6 @@ swiper-slide img {
 			<div class="swiper-button-next"></div><!-- 다음 버튼 (오른쪽에 있는 버튼) -->
 			<div class="swiper-button-prev"></div><!-- 이전 버튼 -->
 		</div>
-		
-	
 
 </c:if>
 <a href="store_create.do">매장 생성</a><p></p>
@@ -70,7 +67,8 @@ swiper-slide img {
 		prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
 	},
 });
-
+	
 </script>
+
 </body>
 </html>

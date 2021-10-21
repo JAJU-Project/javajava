@@ -48,7 +48,7 @@ public class ListController {
         List<StoreVo> list = storeService.selectByMaid(maid); // 관리자의 매장 정보 전부 가져옴.
         log.info("#store.do list:" + list);
         ModelAndView mv = new ModelAndView("store"); // store.jsp로 이동
-        mv.addObject("list", list); // 매장 리시트 전송
+        // mv.addObject("list", list); // 매장 리시트 전송
         mv.addObject("maplist", maplist);
 
         return mv;
@@ -69,6 +69,7 @@ public class ListController {
         log.info("#menu_in.do list:" + list);
         ModelAndView mv = new ModelAndView("admin/insert"); // admin/insert로 이동
         mv.addObject("list", list); // 카테고리 리스트 보내줌.
+        log.info("menu_in list: " + list);
         return mv;
     }
 }

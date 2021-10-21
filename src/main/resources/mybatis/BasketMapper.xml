@@ -5,7 +5,7 @@
 <mapper namespace="last.project.store.mapper.BasketMapper">
     <insert id="insertAll" parameterType="BasketVo">
         insert into basket 
-        values(#{mname}, #{bcount}, #{mprice}, #{kid},ba_seq.NEXTVAL, #{basicprice})
+        values(ba_seq.NEXTVAL,#{basicprice},#{mname}, #{bcount}, #{mprice}, #{kid} )
     </insert>
 
     <select id="selectByKid" resultType="BasketVo" parameterType="String">

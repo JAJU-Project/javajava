@@ -12,7 +12,7 @@
     </select>
 
     <insert id="insertAll" parameterType="CategoryVo">
-        insert into category values(#{scode}, #{cname}, sysdate)
+        insert into category values(CA_SEQ.NEXTVAL,#{scode}, #{cname}, sysdate)
     </insert>
 
     <delete id="deleteByCname" parameterType="String">

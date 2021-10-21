@@ -26,6 +26,6 @@
     </update>
 
     <insert id="insertAll" parameterType="String">
-        insert into sales values(#{mname},#{scode},0,0)
+        insert into sales(mname,scode,sacoin,sacount) values(#{mname},#{scode},0,0)
     </insert>
 </mapper>

@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MenuimgVo {
-    private String mimg;
     private long mseq;
+    private String mimg;
 }

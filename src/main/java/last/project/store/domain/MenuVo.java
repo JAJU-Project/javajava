@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class MenuVo {
     private long mseq;
     private String scode;
-    private String cname;
+    private long caseq;
     private String mname;
     private long mprice;
     private String mintro;

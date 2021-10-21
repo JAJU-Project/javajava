@@ -92,11 +92,15 @@ public class AdminRedirectController {
         List<MenuVo> mlist = menuService.selectBySucode(scode); // 매장코드에 해당하는 메뉴 리스트를 가져옴.
         ModelAndView mv = new ModelAndView("admin/menu"); // managementMain.jsp로 이동
         log.info("#menu.do mlist: " + mlist);
+        List<HashMap<String, Object>> maplist = menuService.selectJoin(scode);
 
         log.info("#menu.do list: " + list);
         mv.addObject("mlist", mlist); // 메뉴 리스트 전송
         mv.addObject("list", list); // 카테고리 리스트 전송
+        mv.addObject("maplist", maplist);
+        log.info("maplist: " + maplist);
         return mv;
+        // return null;
     }
 
     @RequestMapping("empty")

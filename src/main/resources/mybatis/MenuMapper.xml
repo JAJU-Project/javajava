@@ -5,26 +5,46 @@
 <mapper namespace="last.project.store.mapper.MenuMapper">
     
     <insert id="insertAll" parameterType="MenuVo">
-        insert into menu values(m_seq.NEXTVAL,#{scode}, #{cname}, #{mname}, #{mprice}, #{mintro}, #{mimage}, default )
+        insert into menu values(m_seq.NEXTVAL,#{scode}, #{caseq}, #{mname}, #{mprice}, #{mintro}, default )
     </insert>
 
     <select id="selectBySucode" resultType="MenuVo" parameterType="String">
         select * from menu where scode=#{scode}
     </select>
 
-    <select id="selectByCname" resultType="MenuVo" parameterType="String">
-        select * from menu where scode=#{scode} and cname=#{cname}
+    <select id="selectByCname" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select me.mseq,scode,caseq,mname,mprice,mintro,msoldout,mimg
+        from menu me
+        join menuimg mi on me.mseq = mi.mseq
+        where me.scode=#{scode} and caseq=#{caseq}
     </select>
 
     <select id="selectByMseq" resultType="MenuVo" parameterType="long">
         select * from menu where mseq=#{mseq}
     </select>
 
+    <select id="selectByCaseq" resultType="long" parameterType="java.util.HashMap">
+        select mseq from menu where scode=#{scode} and caseq=#{caseq} and mname=#{mname}
+    </select>
+
+    <select id="selectJoin" resultType="java.util.Map" parameterType="String">
+        select me.mseq,scode,caseq,mname,mprice,mintro,msoldout,mimg
+        from menu me
+        join menuimg mi on me.mseq = mi.mseq
+        where me.scode=#{scode}
+    </select>
+
+    <select id="selectJoinBymseq" resultType="java.util.Map" parameterType="Long">
+        select me.mseq,scode,caseq,mname,mprice,mintro,msoldout,mimg
+        from menu me
+        join menuimg mi on me.mseq = mi.mseq
+        where me.mseq=#{mseq}
+    </select>
     <delete id="deleteByMseq" parameterType="long">
         delete from menu where mseq=#{mseq}
     </delete>
 
     <update id="updateByMseq" parameterType="MenuVo">
-        update menu set mname=#{mname}, mprice=#{mprice} where mseq=#{mseq}
+        update menu set mname=#{mname}, mprice=#{mprice}, mintro=#{mintro} where mseq=#{mseq}
     </update>
 </mapper>

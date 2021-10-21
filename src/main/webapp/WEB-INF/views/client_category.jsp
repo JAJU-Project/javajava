@@ -65,7 +65,7 @@
         <div id="tab">
           <ul>
            <c:forEach items="${clist }" var="categoryVo">
-            <li><a href="client_category.do?cname=${categoryVo.cname}">${categoryVo.cname}</a></li>
+            <li><a href="client_category.do?caseq=${categoryVo.caseq}">${categoryVo.cname}</a></li>
 
             </c:forEach>
           </ul>
@@ -82,17 +82,17 @@
             <c:forEach items="${mlist}" var="menuVo">
             <tr>
               <td>
-                이미지
+                <img src="${menuVo.MIMG}" width=50px height=50px>
                </td>
 
               <th>
-                <div onclick="menus()" id="modal_menu">${menuVo.mname }</div>
+                <div onclick="menus(`${menuVo.MSEQ}`)" id="modal_menu">${menuVo.MNAME }</div>
                 
               </th>
 
-              <td>${menuVo.mprice}</td>
+              <td>${menuVo.MPRICE}</td>
                 <c:forEach items="${clist}" var="categoryVo" >
-                <c:if test="${categoryVo.cname == menuVo.cname}">
+                <c:if test="${categoryVo.caseq == menuVo.CASEQ}">
                   <form action="basket_in" method="post">
                         <th>
                             <select id="bcount" name="bcount" >
@@ -102,8 +102,8 @@
                             </select>
                         </th>
                         <input type="hidden" name="cname" id="cname" value="${categoryVo.cname}">
-                        <input type="hidden" name="mname" id="mname" value="${menuVo.mname}">
-                        <input type="hidden" name="mprice" id="mprice" value="${menuVo.mprice}">
+                        <input type="hidden" name="mname" id="mname" value="${menuVo.MNAME}">
+                        <input type="hidden" name="mprice" id="mprice" value="${menuVo.MPRICE}">
               <td>
                 <button class="button" type="submit">담기</button>
               </td>
@@ -200,15 +200,23 @@
   const modal = document.getElementById("modal")
   const btnModal = document.getElementById("modal_menu")
   const body = document.getElementById("body")
-    function menus(){
+    function menus(sParms){
+      console.log("sParms"+sParms);
       modal.style.display='flex'
       body.style.overflowY='hidden';
+      mseqData = {"mseq":sParms};
       $.ajax({
+        url:"client_menu_click",
+        type:"post",
+        data:mseqData,
         success:function(data){
           var html = "";
-         html+='<p><img src="https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202104300914127400.png" alt="디카페인 아메리카노"class="fl_l"width="250"height="200"></p>';
-         html+='<h3>디카페인 아메리카노</h3>';
-         html+='<br>부드러운 풍미와 균형잡힌 바디감의 디카페인 아메리카노</br>';
+          for(let list of Object.keys(data)){
+            var capital = data[list];
+            html+='<p><img src="'+capital.MIMG+'" alt="'+capital.MNAME+'"class="fl_l"width="250"height="200"></p>';
+            html+='<h3>'+capital.MNAME+'</h3>';
+            html+='<br>'+capital.MINTRO+'</br>';
+        }
          $(".content").html(html);
         }
       })

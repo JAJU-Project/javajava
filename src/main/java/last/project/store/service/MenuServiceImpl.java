@@ -1,5 +1,6 @@
 package last.project.store.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -26,9 +27,9 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<MenuVo> selectByCname(String scode, String cname) {
+    public List<HashMap<String, Object>> selectByCname(HashMap<String, Object> map) {
         // TODO Auto-generated method stub
-        return menuMapper.selectByCname(scode, cname);
+        return menuMapper.selectByCname(map);
     }
 
     @Override
@@ -47,6 +48,24 @@ public class MenuServiceImpl implements MenuService {
     public List<MenuVo> selectByMseq(long mseq) {
         // TODO Auto-generated method stub
         return menuMapper.selectByMseq(mseq);
+    }
+
+    @Override
+    public long selectByCaseq(HashMap<String, Object> map) {
+        // TODO Auto-generated method stub
+        return menuMapper.selectByCaseq(map);
+    }
+
+    @Override
+    public List<HashMap<String, Object>> selectJoin(String scode) {
+        // TODO Auto-generated method stub
+        return menuMapper.selectJoin(scode);
+    }
+
+    @Override
+    public List<HashMap<String, Object>> selectJoinBymseq(long mseq) {
+        // TODO Auto-generated method stub
+        return menuMapper.selectJoinBymseq(mseq);
     }
 
 }

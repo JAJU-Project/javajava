@@ -292,7 +292,7 @@
                                 <select id="catgo" name="catgo" onchange="changeCtego(this)">
                                     <option value="none">=== 선택 ===</option>
                                         <c:forEach items="${list }" var="CategoryVo">
-                                            <option value="${CategoryVo.cname}">${CategoryVo.cname }</option>
+                                            <option value="${CategoryVo.caseq}">${CategoryVo.cname }</option>
                                         </c:forEach>
                                 </select>
                                  </div>
@@ -345,18 +345,18 @@
                                             
                                         </thead>
                                         <tbody>
-                                            <c:forEach items="${mlist}" var="menuVo">
+                                            <c:forEach items="${maplist}" var="list">
                                                 <tr class="odd gradeX">
-                                                    <td class="center"><img src=${menuVo.mimage} id="new_img"></td>
-                                                    <td class="center">${menuVo.mname}</td>
-                                                    <td class="center">${menuVo.mprice}</td>
-                                                    <td class="center">${menuVo.cname}</td>
-                                                    <td class="center">${menuVo.mintro}</td>
+                                                    <td class="center"><img src=${list.MIMG} id="new_img"></td>
+                                                    <td class="center">${list.MNAME}</td>
+                                                    <td class="center">${list.MPRICE}</td>
+                                                    <td class="center">${list.CASEQ}</td>
+                                                    <td class="center">${list.MINTRO}</td>
                                                     <td class="center">check</td>
 
 
-                                                    <td class="center"><a href="Menu_del?mseq=${menuVo.mseq}"><input  class="buttons" type="button" value="삭제"></a></td>
-                                                    <td class="center"><input type="button" class="buttons" id="updateM" onclick="updatemenu()" value="수정"></td>
+                                                    <td class="center"><a href="Menu_del?mseq=${list.MSEQ}"><input  class="buttons" type="button" value="삭제"></a></td>
+                                                    <td class="center"><input type="button" class="buttons" id="updateM" onclick="updatemenu(`${list.MSEQ}`)" value="수정"></td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
@@ -378,7 +378,6 @@
                         type: "post",
                         data: catgoDate,
                          success: function(data) {
-                           
                             var html="";
                             var htmll="";
                            
@@ -392,17 +391,17 @@
                             html +="<th>삭제</th>";            
                             html +="</tr>";
                             html +="</thead>" ;
-                            for(let menuVo of Object.keys(data)){
-                                var capital = data[menuVo];
-                                console.log("test menuVo.mimage: "+capital.mimage)
+                            for(let list of Object.keys(data)){
+                                var capital = data[list];
+                                console.log("test menuVo.mimage: "+capital.MIMG)
                                 html +="<tbody>";
                                 html +="<tr>";
-                                html +="<td align='center'><img src="+capital.mimage+" id='new_img'></td>";
-                                html +="<td align='center'>"+capital.mname+"</td>";
-                                html +="<td align='center'>"+capital.mprice+"</td>";
-                                html +="<td align='center'>"+capital.mintro+"</td>";
+                                html +="<td align='center'><img src="+capital.MIMG+" id='new_img'></td>";
+                                html +="<td align='center'>"+capital.MNAME+"</td>";
+                                html +="<td align='center'>"+capital.MPRICE+"</td>";
+                                html +="<td align='center'>"+capital.MINTRO+"</td>";
                                 htmll +='<input id="cname_seq" type="hidden" value="#"/>';
-                                html +="<td align='center'> <a href='Menu_del?mseq="+capital.mseq+"'>삭제</td>";
+                                html +="<td align='center'> <a href='Menu_del?mseq="+capital.MSEQ+"'>삭제</td>";
                                 html +="</tr>";
                                 html +="</tbody>";
                             }
@@ -455,13 +454,13 @@
                             success:function(data){
                                 var html="";
                                 html +='<div class="titlee" style="color: aliceblue;">메뉴를 추가 해주세요</div>';
-                                html +='<form action="inset_menu" method="POST" name="insert_menu">';
+                                html +='<form action="inset_menu" method="POST" name="insert_menu" enctype="multipart/form-data">';
                                 html +='<div class="row">';
                                 html +='<div class="input-field col s6">';
-                                html +='<select id="cname" name="cname">';
+                                html +='<select id="caseq" name="caseq">';
                                 html +='<option value="none">=== 카테고리 ===</option>';
                                 html +='<c:forEach items="${list}" var="CategoryVo">';
-                                html +='<option value="${CategoryVo.cname }">${CategoryVo.cname }</option>';
+                                html +='<option value="${CategoryVo.caseq }">${CategoryVo.cname }</option>';
                                 html +='</c:forEach>';
                                 html +='</select>';
                                 html +='</div>';
@@ -477,11 +476,11 @@
                                 html +='<div class="input-field col s12">';
                                 html +='<input placeholder="메뉴 소개" style="color: aliceblue;" id="mintro" name="mintro" type="text" class="validate">';
                                 html +='</div>';
+                                //html +='<div class="input-field col s12">';
+                                //html +='<input placeholder="품절여부" style="color: aliceblue;" id="check" name="mintro" type="text" class="validate">';
+                                //html +='</div>';
                                 html +='<div class="input-field col s12">';
-                                html +='<input placeholder="품절여부" style="color: aliceblue;" id="check" name="mintro" type="text" class="validate">';
-                                html +='</div>';
-                                html +='<div class="input-field col s12">';
-                                html +='<input placeholder="이미지 넣어야돼" style="color: aliceblue;" id="mimage" name="mimage" type="text" class="validate">';
+                                html +='<input placeholder="이미지 넣어야돼" style="color: aliceblue;" id="file" name="file" type="file" class="validate">';
                                 html +='</div>';
                                 html +='<input class="mybutton" type="submit" value="넣기" id="close">';
                                 html +='</form>';
@@ -511,40 +510,46 @@
                             }
                         });
                     }
-                    function updatemenu(){
+                    function updatemenu(mseq){
+                        console.log("mseq: "+mseq);
+                        var mseqDate = {"mseq":mseq};
                         modal.style.display='flex';
                         $.ajax({
                             url:"selectcategory",
                             type:"get",
-                            data:{seq:$('seq').val()},
+                            data:mseqDate,
                             success:function(data){
                                 var html="";
                                 html +='<div class="titlee" style="color: aliceblue;">메뉴를 수정 해주세요</div>';
                                 html +='<form action="update_menu" method="POST" name="insert_menu">';
                                 html +='<div class="input-field col s6">';
-                                html +='<select id="cname" name="cname">';
-                                html +='<option value="none">=== 카테고리 ===</option>';
-                                html +='<c:forEach items="${list}" var="CategoryVo">';
-                                html +='<option value="${CategoryVo.cname }">${CategoryVo.cname }</option>';
-                                html +='</c:forEach>';
-                                html +='</select>';
+                                //html +='<select id="cname" name="cname">';
+                                //html +='<option value="none">=== 카테고리 ===</option>';
+                                //html +='<c:forEach items="${list}" var="CategoryVo">';
+                                //html +='<option value="${CategoryVo.cname }">${CategoryVo.cname }</option>';
+                                //html +='</c:forEach>';
+                                //html +='</select>';
                                 html +='</div>';
-                                html +='<div class="input-field col s12">';
-                                html +='<input placeholder="메뉴명" value="#" style="color: aliceblue;" id="mname" name="mname" type="text" class="validate">';
-                                html +='</div>';
-                                html +='<div class="input-field col s12">';
-                                html +='<input placeholder="가격" value="#" style="color: aliceblue;" id="mprice" name="mprice" type="text" class="validate">';
-                                html +='</div>';
-                                html +='<div class="input-field col s12">';
-                                html +='<input placeholder="메뉴 소개" value="#" style="color: aliceblue;" id="mintro" name="mintro" type="text" class="validate">';
-                                html +='</div>';
-                                html +='<div class="input-field col s12">';
-                                html +='<input placeholder="품절여부" value="#" style="color: aliceblue;" id="check" name="mintro" type="text" class="validate">';
-                                html +='</div>';
-                                html +='<div class="input-field col s12">';
-                                html +='<input placeholder="이미지 넣어야돼" value="#" style="color: aliceblue;" id="mimage" name="mimage" type="text" class="validate">';
-                                html +='</div>';
-                                html +='<input class="mybutton" type="submit" value="넣기" id="close">';
+                                for(let list of Object.keys(data)){
+                                var capital = data[list];
+                                    html +='<div class="input-field col s12">';
+                                    html +='메뉴명 : <input placeholder="메뉴명" value="'+capital.mname+'" style="color: aliceblue;" id="mname" name="mname" type="text" class="validate">';
+                                    html +='</div>';
+                                    html +='<div class="input-field col s12">';
+                                    html +='가격 : <input placeholder="가격" value="'+capital.mprice+'" style="color: aliceblue;" id="mprice" name="mprice" type="text" class="validate">';
+                                    html +='</div>';
+                                    html +='<div class="input-field col s12">';
+                                    html +='메뉴 소개 : <input placeholder="메뉴 소개" value="'+capital.mintro+'" style="color: aliceblue;" id="mintro" name="mintro" type="text" class="validate">';
+                                    html +='</div>';
+                                }
+                                //html +='<div class="input-field col s12">';
+                                //html +='<input placeholder="품절여부" value="#" style="color: aliceblue;" id="check" name="mintro" type="text" class="validate">';
+                                //html +='</div>';
+                                //html +='<div class="input-field col s12">';
+                                //html +='<input placeholder="이미지 넣어야돼" value="#" style="color: aliceblue;" id="mimage" name="mimage" type="text" class="validate">';
+                                //html +='</div>';
+                                html += '<input type="hidden" name="mseq" value="'+capital.mseq+'" >';
+                                html +='<input class="mybutton" type="submit" value="수정" id="close">';
                                 html +='</form>';
                                 $(".bottom-info").html(html);
                             }

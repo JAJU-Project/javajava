@@ -34,7 +34,7 @@ public class FileUploadServiceImpl implements FileUploadService {
         } else {
             log.info("#업로드 실패");
         }
-        return Path.STORE_IMG + saveFileName;
+        return saveFileName;
     }
 
     @Override
@@ -46,6 +46,52 @@ public class FileUploadServiceImpl implements FileUploadService {
         try {
             byte data[] = file.getBytes();
             fos = new FileOutputStream(Path.STORE_IMG + saveFileName);
+            fos.write(data);
+            fos.flush();
+            return true;
+        } catch (Exception e) {
+            return false;
+        } finally {
+            try {
+                if (fos != null)
+                    fos.close();
+            } catch (IOException ie) {
+            }
+        }
+    }
+
+    @Override
+    public String saveMenu(MultipartFile file) {
+        String ofname = file.getOriginalFilename();
+        int idx = ofname.lastIndexOf(".");
+        String ofheader = ofname.substring(0, idx);
+        String ext = ofname.substring(idx);
+
+        long ms = System.currentTimeMillis();
+        StringBuilder sb = new StringBuilder();
+        sb.append(ofheader);
+        sb.append("_");
+        sb.append(ms);
+        sb.append(ext);
+        String saveFileName = sb.toString();
+        boolean flag = menuFile(file, saveFileName);
+        if (flag) {
+            log.info("#업로드 성공");
+        } else {
+            log.info("#업로드 실패");
+        }
+        return saveFileName;
+    }
+
+    @Override
+    public boolean menuFile(MultipartFile file, String saveFileName) {
+        File rDir = new File(Path.MENU_IMG);
+        if (!rDir.exists())
+            rDir.mkdirs();
+        FileOutputStream fos = null;
+        try {
+            byte data[] = file.getBytes();
+            fos = new FileOutputStream(Path.MENU_IMG + saveFileName);
             fos.write(data);
             fos.flush();
             return true;

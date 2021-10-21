@@ -22,6 +22,7 @@ public class AdminUpdateController {
 
     @PostMapping("update_menu") // 메뉴 업데이트
     public String menuUpdate(MenuVo menuVo) {
+
         log.info("menuUpdate: menuVo" + menuVo);
         menuService.updateByMseq(menuVo);
 

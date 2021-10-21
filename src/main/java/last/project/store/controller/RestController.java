@@ -41,10 +41,12 @@ public class RestController {
 
     @PostMapping("rest")
     @ResponseBody
-    public List<MenuVo> request(String catgo, HttpSession session) {
+    public List<HashMap<String, Object>> request(String catgo, HttpSession session) {
         String scode = (String) session.getAttribute("scode");
-        String cname = catgo;
-        List<MenuVo> restMlist = menuService.selectByCname(scode, cname);
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("scode", scode);
+        map.put("caseq", Long.parseLong(catgo));
+        List<HashMap<String, Object>> restMlist = menuService.selectByCname(map);
         log.info("#rest resMlist:" + restMlist);
         return restMlist;
     }
@@ -78,6 +80,14 @@ public class RestController {
         List<SalesVo> slist = salesService.selectAll2(scode);
         log.info("#salesByMenu slist: " + slist);
         return slist;
+    }
+
+    @RequestMapping("selectcategory")
+    @ResponseBody
+    public List<MenuVo> selectcategory(Long mseq) {
+        List<MenuVo> mlist = menuService.selectByMseq(mseq);
+        log.info("mseq: " + mseq);
+        return mlist;
     }
 
     @RequestMapping("test2")

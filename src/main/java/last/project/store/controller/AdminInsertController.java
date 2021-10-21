@@ -1,5 +1,7 @@
 package last.project.store.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import last.project.store.domain.CategoryVo;
 import last.project.store.domain.ManagerVo;
 import last.project.store.domain.MenuVo;
+import last.project.store.domain.MenuimgVo;
 import last.project.store.domain.RandomCode;
 import last.project.store.domain.StoreVo;
 import last.project.store.domain.StoreimgVo;
@@ -16,6 +19,7 @@ import last.project.store.service.CategoryService;
 import last.project.store.service.FileUploadService;
 import last.project.store.service.ManagerService;
 import last.project.store.service.MenuService;
+import last.project.store.service.MenuimgService;
 import last.project.store.service.SalesService;
 import last.project.store.service.StoreService;
 import last.project.store.service.StoreimgService;
@@ -34,6 +38,7 @@ public class AdminInsertController {
     private StoreService storeService;
     private FileUploadService fileUploadService;
     private StoreimgService storeimgService;
+    private MenuimgService menuimgService;
 
     @PostMapping("sign_up.do") // 관리자 회원 가입을 위한
     public String sign_up(ManagerVo managerVo) { // 아이디 유효성검사 할 예정.
@@ -44,7 +49,10 @@ public class AdminInsertController {
     }
 
     @PostMapping("inset_catego") // 카테고리 추가
-    public String category_in(CategoryVo categoryVo, HttpSession session) { // 페이지에서 카테고리명을 받아온다.
+    public String category_in(String catego, HttpSession session) { // 페이지에서 카테고리명을 받아온다.
+        CategoryVo categoryVo = new CategoryVo();
+        String cname = catego;
+        categoryVo.setCname(cname);
         String scode = (String) session.getAttribute("scode"); // session에 유지되고 있는 매장코드(scode) 선언.
         log.info("#category_in.do cname: " + categoryVo.getCname() + ", scode: " + scode);
         categoryVo.setScode(scode); // Vo에 scode를 set해준다.
@@ -54,15 +62,34 @@ public class AdminInsertController {
     }
 
     @PostMapping("inset_menu") // 메뉴 추가
-    public String menu_in(HttpSession session, MenuVo menuVo) { // 페이지에서 메뉴 정보를 받아온다.
+    public String menu_in(HttpSession session, MenuVo menuVo, MultipartFile file, String caseq) { // 페이지에서 메뉴 정보를 받아온다.
+        MenuimgVo menuimgVo = new MenuimgVo();
+        String ofname = file.getOriginalFilename();
+        String mimg = "";
+
+        if (ofname != null)
+            ofname = ofname.trim();
+        if (ofname.length() != 0) {
+            mimg = fileUploadService.saveMenu(file);
+            log.info("#simg: " + mimg);
+        }
         log.info("#inset_menu:" + menuVo);
         String mname = menuVo.getMname();
-        log.info("#inset_menu mname: " + mname);
-        String scode = (String) session.getAttribute("scode"); // session에 유지되고 있는 매장코드(scode) 선언.
-        log.info("#menu_in.do scode: " + scode);
+        String scode = (String) session.getAttribute("scode");
         menuVo.setScode(scode); // Vo에 scode를 set해준다.
+        menuVo.setCaseq(Long.parseLong(caseq));
         menuService.insertAll(menuVo); // 관리자가 입력한 메뉴 insert
         salesService.insertAll(mname, scode);
+
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("scode", scode);
+        map.put("caseq", Long.parseLong(caseq));
+        map.put("mname", mname);
+        long mseq = menuService.selectByCaseq(map);
+        log.info("mseq: " + mseq);
+        menuimgVo.setMseq(mseq);
+        menuimgVo.setMimg("menuimg/" + mimg);
+        menuimgService.insertAll(menuimgVo);
         return "redirect:menu"; // 매장관리 페이지로 다시 이동.
     }
 
@@ -102,7 +129,7 @@ public class AdminInsertController {
             storeVo.setScode(scode); // 랜덤으로 만들어진 매장코드 set
             storeService.insertAll(storeVo); // insert
             storeimgVo.setScode(scode);
-            storeimgVo.setSimg(simg);
+            storeimgVo.setSimg("storeimg/" + simg);
             storeimgService.insertAll(storeimgVo);
             return "redirect:store.do";
         }
