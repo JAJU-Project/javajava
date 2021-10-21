@@ -1,3 +1,5 @@
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html>
@@ -6,12 +8,21 @@
 <head>
 
     <title>자주해요</title>
-<!-- 상단바, 사이드바 스타일 시작 -->
+        <!-- 상단바, 사이드바 스타일 시작 -->
 <style>
     * {padding:0;margin:0;}
     body {background:#fff;}
     header {width:100%;background:#fbd39738;position:relative;z-index:10;}
- 
+    .header-list {width:980px;margin:0 auto;font-size:0;padding:20px 40px 20px 220px;}
+    .header-list > li {font-size:12px;display:inline-block;vertical-align:middle;}
+    .header-list > li:nth-child(1) {font-size:20px;width:200px;}
+    .header-list > li:nth-child(2) {width:calc(100% - 250px);}
+    .header-list > li:nth-child(3) {width:50px;}
+    .header-list > li > div {width:auto;}
+    
+    .menu-ul {font-size:0;}
+    .menu-ul > li {font-size:12px;display:inline-block;vertical-align:middle;}
+    .menu-ul > li > a {display:block;width:auto;padding:15px;}
     
     input[id="menuicon"] {display:none;}
     input[id="menuicon"] + label {display:block;position:relative;width:100%;height:40px;cursor:pointer;}
@@ -29,12 +40,12 @@
     .sitemap-ul {font-size:0;width:1200px;margin:15px auto;text-align:center;}
     .sitemap-ul > li {font-size:12px;display:inline-block;vertical-align:top;width:20%;}
     </style>
-     <style>/* 이부분 없어도 될듯*/
+     <style>
         input[id="menuicon"] {display:none;}
         input[id="menuicon"] + label {display:block;margin:30px;width:60px;height:50px;position:relative;cursor:pointer;}
         input[id="menuicon"] + label span {display:block;position:absolute;width:100%;height:5px;border-radius:30px;background:#000;transition:all .35s;}
         input[id="menuicon"] + label span:nth-child(1) {top:0;}
-        input[id="menuicon"] + label span:nth-child(2) {top:50%;transform:translateY(-50%);} 
+        input[id="menuicon"] + label span:nth-child(2) {top:50%;transform:translateY(-50%);} /* 비슷하게 사용할 수 있는 style top:calc(50% - 2.5px); margin-top:-2.5px;*/
         input[id="menuicon"] + label span:nth-child(3) {bottom:0;}
         input[id="menuicon"]:checked + label {z-index:2;}
         input[id="menuicon"]:checked + label span {background:#fff;}
@@ -43,7 +54,7 @@
         input[id="menuicon"]:checked + label span:nth-child(3) {bottom:50%;transform:translateY(50%) rotate(-45deg);}
         div[class="sidebar"] {width:300px;height:100%;background:#222;position:fixed;top:0;left:-300px;z-index:1;transition:all .35s;}
         input[id="menuicon"]:checked + label + div {left:0;}
-        </style><!-- 이부분 없어도 될듯-->
+        </style>
 
         <style>
             * {padding:0;margin:0;}
@@ -92,8 +103,8 @@
       -webkit-backdrop-filter: blur( 13.5px );
       border-radius: 10px;
       border: 1px solid rgba( 255, 255, 255, 0.18 );
-      width: 400px;
-      height: 500px;
+      width: 650px;
+      height: 650px;
       position: relative;
       top: -100px;
       padding: 10px;
@@ -142,22 +153,23 @@
     
     <!-- 상단바, 사이드바 스타일 끝 -->
 
-    <header>
-
-        <ul class="header-list">
-            <li id="titledes"><img src="" id="titlelogo"></li>
+     <header>
+        
+        <ul class="header-list" >
+            <li id="titledes"><img src="" id="titlelogo"  ></li>
             <li>
                 <div class="menu-ulul">
-                    <ul class="menu-ul" style="text-align: center">
+                    <ul class="menu-ul">
                         <li id="li2"><a href="client_category.do">Menu</a></li>
                         <li id="li3"><a href="creview.do">Review</a></li>
                         <li id="li4"><a href="basket.do">Basket</a></li>
-                        <li id="li5"><a href="order">orderList</a></li>
+                        <li id="li5"><a href="order">Orderlist</a></li>
                     </ul>
                 </div>
             </li>
-                </ul>
-            </header>
+          </ul>
+   </header>
+     
      
             <!-- 상단바 끝 -->
     
@@ -181,16 +193,11 @@
         <div class="title">
             <h2>메뉴 상세정보</h2>
         </div>
-        <div class="content">
-            <img class="card-img-top rounded img-fluid" id="orderstate" src="img/ing.png">
-            <div id="ordst">
-                    <p>주문내역</p>
-                    <p>매장명</p>
-                    <p>메뉴명</p>
-            </div>
+        <div class="content" >
            
-           
-          </div>
+          
+         
+        
         </div>
     </div>
   </div>
@@ -239,26 +246,83 @@
             </div>
         </div>
         <script>
+           
+              
+            function menus(sParms){
+                const modal = document.getElementById("modal");
+                const btnModal = document.getElementById("modal_menu");
+                console.log(sParms);
+                var oseqData = {"oseq":sParms};
+                
+                $.ajax({
+                    url:"client_order_menu_click",
+                    type:"post",
+                    data:oseqData,
+                    success : function(data) {   
 
-
-const modal = document.getElementById("modal")
-
-        function menus(oseq){
-            modal.style.display='flex';
-            console.log("oseq: "+oseq);
-        }
-      window.onclick =(event)=>{
-      if(event.target == modal){
-        modal.style.display='none';
-                      }
+                    //console.log("data:"+data);
+                    var html="";
+                    if(data.ostate==1){
+                        html+='<img class="card-img-top rounded img-fluid" id="orderstate" src="img/wait.png">';
+                    }else if(data.ostate==2){
+                        html+='<img class="card-img-top rounded img-fluid" id="orderstate" src="img/ing.png">';
+                    }else if(data.ostate==3){
+                        html+='<img class="card-img-top rounded img-fluid" id="orderstate" src="img/complet.png">';
+                    }else{
+                        html+='<img class="card-img-top rounded img-fluid" id="orderstate" src="img/cancel.png">';
+                    }
+                    html+='<h4>주문내역</h4>';
+                    html+='<br><br>'
+                    html+='<div>'+data.sname+'</div>';
+                    html+='<br>'
+                    html+='<div class="container">';
+                    html+='<div class="row">';
+                    html+='<div class="span12">';
+                    html+='<table align="center" class="table table-condensed table-hover">';
+                    html+='<thead>';
+                    html+='<tr>';
+                    html+='<th> </th>';
+                    html+='<th>메뉴명</th>';
+                    html+='<th>수량</th>';
+                    html+='<th>가격</th>';
+                    html+='</tr>';
+                    html+='</thead>';
+                    html+='<tbody>';
+                    
+                    for (let i = 0; i < data.mname.length; i++) {
+                        
+                        html+='<tr>';
+                        html+='<td>'+(i+1)+'</td>';
+                        html+='<td>'+data.mname[i]+'</td>';
+                        html+='<td>'+data.olcount[i]+'</td>';
+                        html+='<td>'+data.mprice[i]+'</td>';
+                        html+='</tr>';
+                    }
+                    html+='</tbody>';
+                    html+='</table>';
+                    html+='</div>';
+                    html+='</div>';
+                    html+='</div>';
+                    modal.style.display='flex';
+                   $(".content").html(html);
                   }
-
-        </script>
+                });
+              }
+          
+              window.onclick =(event)=>{
+                if(event.target == modal){
+                  modal.style.display='none';
+                                }
+                            }
+          </script>
+          
     </body>
        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+       
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
     <link href="/assets/css/client.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
 </html>

@@ -33,4 +33,10 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewMapper.selectByScode(scode);
     }
 
+    @Override
+    public List<HashMap<String, Object>> selectByRseq(HashMap<String, Object> map) {
+        // TODO Auto-generated method stub
+        return reviewMapper.selectByRseq(map);
+    }
+
 }

@@ -50,4 +50,6 @@ public interface OrderListMapper {
 
     List<OrderListVo> selectByKid(String scode, String kid);
 
+    List<OrderListVo> selectAllClient(HashMap<String, Object> map);
+
 }

@@ -18,4 +18,6 @@ public interface ReviewMapper {
 
     List<HashMap<String, Object>> selectByScode(String scode);
 
+    List<HashMap<String, Object>> selectByRseq(HashMap<String, Object> map);
+
 }

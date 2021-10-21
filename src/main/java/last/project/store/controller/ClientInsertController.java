@@ -54,7 +54,7 @@ public class ClientInsertController {
 
         long rseq = reviewService.selectRseq(map);
         reviewimgVo.setRseq(rseq);
-        reviewimgVo.setRimg(rimg);
+        reviewimgVo.setRimg("reviewimg/" + rimg);
 
         reviewimgService.insertAll(reviewimgVo);
 

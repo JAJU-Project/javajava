@@ -20,4 +20,11 @@
         join reviewimg rei on re.rseq=rei.rseq
         where scode = #{scode}
     </select>
+
+    <select id="selectByRseq" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select re.rseq, rcontent, kid, scode, rtitle, rimg
+        from review re
+        join reviewimg rei on re.rseq=rei.rseq
+        where scode = #{scode} and re.rseq=#{rseq}
+    </select>
 </mapper>

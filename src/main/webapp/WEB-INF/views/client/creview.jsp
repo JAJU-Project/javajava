@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   
   <!DOCTYPE html>
   <html xmlns="http://www.w3.org/1999/xhtml"> 
@@ -107,37 +108,24 @@
         <a href="client_category.do" style="position: absolute; left:50px; top:10px; color:#f1cf9d; "> << 처음으로</a>
  <a href="reviewrite.do" style="color:#f1cf9d; position: absolute; right:50px; top:10px;  ">리뷰작성</a>
     </div>
+
   <div class="container" id="reviewbox">
-    <div class="mySlides">
-      <img src="./img/커피1.png" style="width:10%">
+
+  <c:forEach var="list" items="${maplist}">
+    <div class="mySlides" id="mySlides">
+      <img src="${list.RIMG}" style="width:20%">
     </div>
+  </c:forEach>
   
-    <div class="mySlides">
-      <img src="##" style="width:50%">
-    </div>
-  
-    <div class="mySlides">
-      <img src="##" style="width:50%">
-    </div>
-      
-    <div class="mySlides">
-      <img src="##" style="width:50%">
-    </div>
-  
-    <div class="mySlides">
-      <img src="##" style="width:50%">
-    </div>
-      
-    <div class="mySlides">
-      <img src="##" style="width:50%">
-    </div>
       <div>
     <a class="prev" onclick="plusSlides(-1)">❮</a>
     <a class="next" onclick="plusSlides(1)">❯</a>
   </div>
+
+
   <c:forEach items="${maplist}" var="map">
-    <div class="caption-container">
-      <div onclick="menus()" id="modal_menu">${map.RTITLE}</div>
+    <div class="caption-container" id="caption">
+      <div onclick="menus(`${map.RSEQ}`)" id="modal_menu">${map.RTITLE}</div>
     </div>
   </c:forEach>
 
@@ -164,15 +152,34 @@
     <script>
       const modal = document.getElementById("modal")
       const btnModal = document.getElementById("modal_menu")
-        function menus(){
-          modal.style.display='flex'
+      
+        function menus(sParms){
+          modal.style.display='flex';
+          console.log("sParms: "+sParms);
+          var rseqData = {"rseq":sParms};
+          
           $.ajax({
+            url:"client_review_click",
+            type:"post",
+            data: rseqData,
             success:function(data){
               var html = "";
-             html+='<p><img src="https://admin.hollys.co.kr/upload/menu/etc/menuEtc_202104300914127400.png" alt="디카페인 아메리카노"class="fl_l"width="250"height="200"></p>';
-             html+='<h3>디카페인 아메리카노</h3>';
-             html+='<br>부드러운 풍미와 균형잡힌 바디감의 디카페인 아메리카노</br>';
-             $(".content").html(html);
+              console.log(JSON.stringify(data));
+              for(let list of Object.keys(data)){
+                var capital = data[list];
+                var id = capital.KID
+                console.log("kid:"+capital.KID);
+                sArray1 = id.split("@");
+                console.log(sArray1[0]);
+                //html+='<h3>'+sArray1[0]+' 님</h3><br>';
+                
+                html+='<p><img src="'+capital.RIMG+'" class="fl_l"width="250"height="200"></p>';
+                html+='<h3>'+capital.RTITLE+'</h3>';
+                html+='<br>'+capital.RCONTENT+'</br>';
+                
+  
+                //$(".content").html(html);
+              }
             }
           }) /* 리뷰데이터 부르는부분 수정 */
         }
@@ -201,7 +208,7 @@
             -webkit-backdrop-filter: blur(1.5px);
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.18);
-      
+            z-index: 10000;
         }
         #modal .modal-window {
             background: rgb(237 224 159 / 65%);
@@ -210,8 +217,8 @@
             -webkit-backdrop-filter: blur( 13.5px );
             border-radius: 10px;
             border: 1px solid rgba( 255, 255, 255, 0.18 );
-            width: 400px;
-            height: 500px;
+            width: 650px;
+            height: 550px;
             position: relative;
             top: -100px;
             padding: 10px;
@@ -244,9 +251,13 @@
 
   
     <div class="row">
+
+    <c:forEach var = "list" items="${maplist}" varStatus="number">
       <div class="column">
-        <img class="demo cursor" src="./img/커피1.png" style="width:100%" onclick="currentSlide(1)" alt="존맛이에여">
+        <img class="demo cursor" src="${list.RIMG}" style="width:100%" onclick="currentSlide(${number.count})" alt="${list.RTITLE}">
       </div>
+    </c:forEach>
+    <!--
       <div class="column">
         <img class="demo cursor" src="./img/커피2.png" style="width:100%" onclick="currentSlide(2)" alt="별점5점">
       </div>
@@ -262,6 +273,7 @@
       <div class="column">
         <img class="demo cursor" src="./img/커피6.png" style="width:100%" onclick="currentSlide(6)" alt="존맛">
       </div>
+    -->
     </div>
   </div>
   <script>
@@ -281,6 +293,15 @@
     var slides = document.getElementsByClassName("mySlides");
     var dots = document.getElementsByClassName("demo");
     var captionText = document.getElementById("caption");
+    console.log("captionText:"+captionText.textContent);
+    for (let i = 0; i < slides.length; i++) {
+      console.log("slides:"+slides[i].innerHTML);
+    }
+    for (let i = 0; i < dots.length; i++) {
+      console.log("dots:"+dots[i].className);
+    }
+    
+    
     if (n > slides.length) {slideIndex = 1}
     if (n < 1) {slideIndex = slides.length}
     for (i = 0; i < slides.length; i++) {
