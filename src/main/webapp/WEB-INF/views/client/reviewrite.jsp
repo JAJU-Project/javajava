@@ -196,8 +196,8 @@
            var newImage = document.createElement("img");
            newImage.setAttribute("class", 'img');
            newImage.src = URL.createObjectURL(file);   
-           newImage.style.width = "70%";
-           newImage.style.height = "70%";
+           newImage.style.width = "10%";
+           newImage.style.height = "10%";
            newImage.style.objectFit = "contain";
            var container = document.getElementById('image-show');
            container.appendChild(newImage);
@@ -211,16 +211,16 @@
             
             <!-- 아이디자동입력되게끔 -->
             
-                <form name = "input" method="POST" action="b1write.do" enctype="multipart/form-data">
-                    <div class="form-group" id="idinput">
+                <form name = "input" method="POST" action="review_in" enctype="multipart/form-data">
+                    <!--<div class="form-group" id="idinput">
                         <label for="id">Id</label>
                         <input class="form-control" type="text" name="id" id="id" value="${loginOkUser.id}" readonly/>
-                    </div>
+                    </div>-->
                     <div class="form-group" id="subjectbar">
                         <label for="subject">제목</label>
-                        <input class="form-control" type="text" name="subject" id="subject" />
+                        <input class="form-control" type="text" name="rtitle" id="rtitle" />
                     </div>
-            <!-- 체크박스 -->
+            <!-- 체크박스 
             <div id="porma">
             <div>
             <input type='checkbox'
@@ -249,22 +249,24 @@
                     
                     element.checked = true;
                 }
-            </script>
+            </script>-->
            
            <!-- 체크박스끝 -->
            
           <div class="form-group">
                 <div id="messageinput1"><label for="message">리뷰를 작성해주세용</label></div>
-                <div id="messageinput2"><textarea class="form-control" name="content" rows="10" cols="60"></textarea></div>
+                <div id="messageinput2"><textarea class="form-control" name="rcontent" rows="10" cols="60"></textarea></div>
           </div>
           <div class = "form-group">
-          <input type="file" id="file" name="file" accept="image/*" onchange="loadFile(this)">
-          <div class="image-show" id="image-show"></div>
+          <!--<input type="file" id="file" name="file" accept="image/*" onchange="loadFile(this)">-->
+          <input type="file" id="file" name="file">
+          <!--<div class="image-show" id="image-show" width="50px" height="50px"></div>-->
           </div>
+          <!--
             <div class="form-group" id="passinput">
               <label for="password">비밀번호</label>
               <input class="form-control" type="password" name="pword" id="pword" />
-          </div>
+          </div>-->
           <div>
               <input type="submit" value="Send" class="btn btn-primary btn-block" id="sendbutton"  style="color:#f1cf9d; " />
             </div>

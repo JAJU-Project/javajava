@@ -17,6 +17,7 @@ import last.project.store.domain.OrderListVo;
 import last.project.store.service.CategoryService;
 import last.project.store.service.MenuService;
 import last.project.store.service.OrderListService;
+import last.project.store.service.ReviewService;
 import last.project.store.service.StoreService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
@@ -30,10 +31,16 @@ public class ClientRedirectController {
     private CategoryService categoryService;
     private MenuService menuService;
     private StoreService storeService;
+    private ReviewService reviewService;
 
     @GetMapping("creview.do") // 리뷰보기 클릭
-    public String creview() {
-        return "client/creview";
+    public ModelAndView creview(HttpSession session) {
+        String scode = (String) session.getAttribute("scode");
+        List<HashMap<String, Object>> maplist = reviewService.selectByScode(scode);
+        ModelAndView mv = new ModelAndView("client/creview");
+        mv.addObject("maplist", maplist);
+        log.info("maplist: " + maplist);
+        return mv;
     }
 
     @GetMapping("reviewrite.do") // 리뷰작성 클릭

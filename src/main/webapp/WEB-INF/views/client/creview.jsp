@@ -135,10 +135,11 @@
     <a class="prev" onclick="plusSlides(-1)">❮</a>
     <a class="next" onclick="plusSlides(1)">❯</a>
   </div>
+  <c:forEach items="${maplist}" var="map">
     <div class="caption-container">
-      <div onclick="menus()" id="modal_menu">##리뷰제목##</div>
+      <div onclick="menus()" id="modal_menu">${map.RTITLE}</div>
     </div>
-
+  </c:forEach>
 
     <div id="modal" class="modal-overlay">
       <div class="modal-window">

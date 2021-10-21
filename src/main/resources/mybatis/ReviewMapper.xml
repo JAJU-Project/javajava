@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="last.project.store.mapper.ReviewMapper">
+
+    <insert id="insertAll" parameterType="ReviewVo">
+        insert into review(rseq,rcontent,kid,scode,rtitle) values(R_SEQ.NEXTVAL,#{rcontent},#{kid},#{scode},#{rtitle})
+    </insert>
+
+    <select id="selectRseq" resultType="long" parameterType="java.util.HashMap">
+        select rseq
+        from review
+        where scode=#{scode} and kid=#{kid} and rtitle=#{rtitle}
+    </select>
+
+    <select id="selectByScode" resultType="java.util.HashMap" parameterType="String">
+        select re.rseq, rcontent, kid, scode, rtitle, rimg
+        from review re
+        join reviewimg rei on re.rseq=rei.rseq
+        where scode = #{scode}
+    </select>
+</mapper>

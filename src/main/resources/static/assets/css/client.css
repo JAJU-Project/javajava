@@ -361,12 +361,13 @@ img {
 */
 #subject {
   width: 250px;
+  align-items: center !important;
 }
 #subjectbar {
   
-  align-items: center;
-  position: relative;
-  top: 60px; bottom: 0px; left: 316px;
+  align-items: center !important;
+  position: relative !important;
+  top: 60px; bottom: 0px; left: 316px !important;
   color: black;
 }
 #porma {

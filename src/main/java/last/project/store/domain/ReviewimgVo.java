@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReviewVo {
+public class ReviewimgVo {
     private long rseq;
-    private String rcontent;
-    private String kid;
-    private String scode;
-    private String rtitle;
+    private String rimg;
 }
