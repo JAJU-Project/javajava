@@ -39,6 +39,13 @@ public class RestController {
     private KakaoService kakaoService;
     private BasketService basketService;
 
+    @RequestMapping("review_seq")
+    @ResponseBody
+    public String review_seq(long rseq) {
+        log.info("#review_seq reseq: " + rseq);
+        return null;
+    }
+
     @PostMapping("rest")
     @ResponseBody
     public List<HashMap<String, Object>> request(String catgo, HttpSession session) {
