@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import last.project.store.domain.CategoryVo;
+import last.project.store.domain.CommentVo;
 import last.project.store.domain.MenuVo;
 import last.project.store.domain.OrderListVo;
 import last.project.store.service.CategoryService;
+import last.project.store.service.CommentService;
 import last.project.store.service.MenuService;
 import last.project.store.service.OrderListService;
+import last.project.store.service.ReviewService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 
@@ -27,6 +30,8 @@ public class AdminRedirectController {
     private MenuService menuService;
     private CategoryService categoryService;
     private OrderListService orderListService;
+    private ReviewService reviewService;
+    private CommentService commentService;
 
     @GetMapping("sign_up.do") // 회원가입
     public String sign_up() {
@@ -56,6 +61,7 @@ public class AdminRedirectController {
         // List<MenuVo> mList = (List<MenuVo>) menuVo;
         log.info("#updateM mseq: " + mseq);
         List<MenuVo> mlist = menuService.selectByMseq(mseq);
+
         ModelAndView mv = new ModelAndView("admin/updateM");
         mv.addObject("mlist", mlist);
         log.info("#updateM mlist: " + mlist);
@@ -68,8 +74,18 @@ public class AdminRedirectController {
     }
 
     @RequestMapping("review")
-    public String review() {
-        return "admin/review";
+    public ModelAndView review(HttpSession session) {
+        String scode = (String) session.getAttribute("scode");
+        List<HashMap<String, Object>> maplist = reviewService.selectByScode(scode);
+        int maplistSize = maplist.size();
+        List<CommentVo> clist = commentService.selectAll(scode);
+        log.info("#review maplist: " + maplist);
+        log.info("#review clist: " + clist);
+        ModelAndView mv = new ModelAndView("admin/review");
+        mv.addObject("maplist", maplist);
+        mv.addObject("commentsNumber", maplistSize);
+        mv.addObject("clist", clist);
+        return mv;
     }
 
     @RequestMapping("insert")

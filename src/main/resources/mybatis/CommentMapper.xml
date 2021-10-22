@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="last.project.store.mapper.CommentMapper">
+        <select id="selectAll" resultType="CommentVo" parameterType="String">
+                select *
+                from acomment
+                where scode=#{scode}
+        </select>
+
+        <insert id="insertAll" parameterType="CommentVo">
+                insert into acomment(coseq,cocontent,rseq,maid,scode)
+                values(CO_SEQ.NEXTVAL,#{cocontent},#{rseq},#{maid},#{scode})
+        </insert>
+</mapper>

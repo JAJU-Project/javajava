@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import last.project.store.domain.BasketVo;
+import last.project.store.domain.CommentVo;
 import last.project.store.domain.MenuVo;
 import last.project.store.domain.OrderListVo;
 import last.project.store.domain.SalesVo;
 import last.project.store.service.BasketService;
+import last.project.store.service.CommentService;
 import last.project.store.service.KakaoService;
 import last.project.store.service.MenuService;
 import last.project.store.service.OrderListService;
@@ -38,6 +40,34 @@ public class RestController {
     private SalesService salesService;
     private KakaoService kakaoService;
     private BasketService basketService;
+    private CommentService commentService;
+
+    @RequestMapping("comment_test")
+    public String comment_test(String cocontent, HttpSession session) {
+        CommentVo commentVo = new CommentVo();
+        long rseq = (Long) session.getAttribute("rseq");
+        String scode = (String) session.getAttribute("scode");
+        String maid = (String) session.getAttribute("maid");
+        commentVo.setCocontent(cocontent);
+        commentVo.setMaid(maid);
+        commentVo.setRseq(rseq);
+        commentVo.setScode(scode);
+        log.info("t:" + rseq);
+        log.info("t:" + cocontent);
+        log.info("scode:" + scode);
+        log.info("maid:" + maid);
+        commentService.insertAll(commentVo);
+
+        session.removeAttribute("rseq");
+
+        return "redirect:review";
+    }
+
+    @RequestMapping("comment")
+    @ResponseBody
+    public void comment(long rseq, HttpSession session) {
+        session.setAttribute("rseq", rseq);
+    }
 
     @RequestMapping("review_seq")
     @ResponseBody

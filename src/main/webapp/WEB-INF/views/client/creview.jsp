@@ -256,7 +256,7 @@
     <c:forEach var = "list" items="${maplist}" varStatus="number">
       <div class="column">
         <img class="demo cursor" src="${list.RIMG}" style="width:100%" onclick="currentSlide(${number.count})" alt="${list.RTITLE}">
-        <!-- onclick 파라미터에  (`${map.RSEQ}`) 넣으시면 seq값 넘어갈겁니다.-->
+        <!-- onclick 파라미터에  (`${map.RSEQ}`) 넣으시면 seq값-->
       </div>
     </c:forEach>
     <!--
