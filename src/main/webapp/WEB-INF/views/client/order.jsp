@@ -153,22 +153,21 @@
     
     <!-- 상단바, 사이드바 스타일 끝 -->
 
-     <header>
-        
-        <ul class="header-list" >
-            <li id="titledes"><img src="" id="titlelogo"  ></li>
-            <li>
-                <div class="menu-ulul">
-                    <ul class="menu-ul">
-                        <li id="li2"><a href="client_category.do">Menu</a></li>
-                        <li id="li3"><a href="creview.do">Review</a></li>
-                        <li id="li4"><a href="basket.do">Basket</a></li>
-                        <li id="li5"><a href="order">Orderlist</a></li>
-                    </ul>
-                </div>
-            </li>
-          </ul>
-   </header>
+     <header>    
+      <ul class="header-list">
+        <li id="titledes"><img src="" id="titlelogo"></li>
+          <li>
+            <div class="menu-ulul">
+              <ul class="menu-ul">
+                <li id="li2"><a href="client_category.do">Menu</a></li>
+                <li id="li3"><a href="creview.do">Review</a></li>
+                <li id="li4"><a href="basket.do">Basket</a></li>
+                <li id="li5"><a href="order.do">Orderlist</a></li>
+              </ul>
+            </div>
+          </li>
+      </ul>
+    </header>
      
      
             <!-- 상단바 끝 -->

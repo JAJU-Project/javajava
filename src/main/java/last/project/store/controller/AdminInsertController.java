@@ -6,9 +6,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import last.project.store.domain.CategoryVo;
+import last.project.store.domain.CommentVo;
 import last.project.store.domain.ManagerVo;
 import last.project.store.domain.MenuVo;
 import last.project.store.domain.MenuimgVo;
@@ -16,6 +18,7 @@ import last.project.store.domain.RandomCode;
 import last.project.store.domain.StoreVo;
 import last.project.store.domain.StoreimgVo;
 import last.project.store.service.CategoryService;
+import last.project.store.service.CommentService;
 import last.project.store.service.FileUploadService;
 import last.project.store.service.ManagerService;
 import last.project.store.service.MenuService;
@@ -39,6 +42,7 @@ public class AdminInsertController {
     private FileUploadService fileUploadService;
     private StoreimgService storeimgService;
     private MenuimgService menuimgService;
+    private CommentService commentService;
 
     @PostMapping("sign_up.do") // 관리자 회원 가입을 위한
     public String sign_up(ManagerVo managerVo) { // 아이디 유효성검사 할 예정.
@@ -134,5 +138,26 @@ public class AdminInsertController {
             return "redirect:store.do";
         }
         return null;
+    }
+
+    @RequestMapping("commentReply") // 관리자 댓글 남기기(10/24)
+    public String commentReply(String cocontent, HttpSession session) {
+        CommentVo commentVo = new CommentVo();
+        long rseq = (Long) session.getAttribute("rseq");
+        String scode = (String) session.getAttribute("scode");
+        String maid = (String) session.getAttribute("maid");
+        commentVo.setCocontent(cocontent);
+        commentVo.setMaid(maid);
+        commentVo.setRseq(rseq);
+        commentVo.setScode(scode);
+        log.info("t:" + rseq);
+        log.info("t:" + cocontent);
+        log.info("scode:" + scode);
+        log.info("maid:" + maid);
+        commentService.insertAll(commentVo);
+
+        session.removeAttribute("rseq");
+
+        return "redirect:review";
     }
 }

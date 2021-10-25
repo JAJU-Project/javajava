@@ -1,5 +1,6 @@
 package last.project.store.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import last.project.store.domain.CategoryVo;
@@ -13,5 +14,7 @@ public interface CategoryService {
 
     void deleteByCname(String scode, String cname);
 
-    void updateByCname(CategoryVo categoryVo);
+    void updateByCname(HashMap<String, Object> map);
+
+    String selectByCaseq(long caseq);
 }

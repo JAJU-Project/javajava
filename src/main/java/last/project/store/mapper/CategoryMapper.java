@@ -1,5 +1,6 @@
 package last.project.store.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -16,6 +17,8 @@ public interface CategoryMapper {
 
     void deleteByCname(String scode, String cname);
 
-    void updateByCname(CategoryVo categoryVo);
+    void updateByCname(HashMap<String, Object> map);
+
+    String selectByCaseq(long caseq);
 
 }

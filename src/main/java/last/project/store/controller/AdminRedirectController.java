@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import last.project.store.domain.CategoryVo;
@@ -73,21 +74,6 @@ public class AdminRedirectController {
         return "admin/index";
     }
 
-    @RequestMapping("review")
-    public ModelAndView review(HttpSession session) {
-        String scode = (String) session.getAttribute("scode");
-        List<HashMap<String, Object>> maplist = reviewService.selectByScode(scode);
-        int maplistSize = maplist.size();
-        List<CommentVo> clist = commentService.selectAll(scode);
-        log.info("#review maplist: " + maplist);
-        log.info("#review clist: " + clist);
-        ModelAndView mv = new ModelAndView("admin/review");
-        mv.addObject("maplist", maplist);
-        mv.addObject("commentsNumber", maplistSize);
-        mv.addObject("clist", clist);
-        return mv;
-    }
-
     @RequestMapping("insert")
     public String insert() {
         return "admin/insert";
@@ -96,27 +82,6 @@ public class AdminRedirectController {
     @RequestMapping("insertC")
     public String insertC() {
         return "admin/insertC";
-    }
-
-    @RequestMapping("menu")
-    public ModelAndView menu(HttpSession session) {
-        String scode = (String) session.getAttribute("scode");
-        session.setAttribute("scode", scode); // session에 매장코드 저장.
-        log.info("#menu.do scode: " + scode);
-        List<CategoryVo> list = categoryService.selectAllByScode(scode); // 매장코드에
-        // 해당하는 카테고리 리스트를 가져옴.
-        List<MenuVo> mlist = menuService.selectBySucode(scode); // 매장코드에 해당하는 메뉴 리스트를 가져옴.
-        ModelAndView mv = new ModelAndView("admin/menu"); // managementMain.jsp로 이동
-        log.info("#menu.do mlist: " + mlist);
-        List<HashMap<String, Object>> maplist = menuService.selectJoin(scode);
-
-        log.info("#menu.do list: " + list);
-        mv.addObject("mlist", mlist); // 메뉴 리스트 전송
-        mv.addObject("list", list); // 카테고리 리스트 전송
-        mv.addObject("maplist", maplist);
-        log.info("maplist: " + maplist);
-        return mv;
-        // return null;
     }
 
     @RequestMapping("empty")
@@ -141,4 +106,5 @@ public class AdminRedirectController {
         log.info("#empty olist4: " + olist4.size());
         return mv;
     }
+
 }

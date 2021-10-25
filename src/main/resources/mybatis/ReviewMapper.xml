@@ -27,4 +27,11 @@
         join reviewimg rei on re.rseq=rei.rseq
         where scode = #{scode} and re.rseq=#{rseq}
     </select>
+
+    <select id="selectByJoin" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+        select re.rseq, rcontent, kid, re.scode, rtitle, coseq, maid,cocontent
+        from review re
+        left join acomment ac on ac.rseq = re.rseq
+        where re.scode = #{scode} and re.rseq=#{rseq}
+    </select>
 </mapper>

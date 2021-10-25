@@ -39,4 +39,10 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewMapper.selectByRseq(map);
     }
 
+    @Override
+    public List<HashMap<String, Object>> selectByJoin(HashMap<String, Object> map) {
+        // TODO Auto-generated method stub
+        return reviewMapper.selectByJoin(map);
+    }
+
 }

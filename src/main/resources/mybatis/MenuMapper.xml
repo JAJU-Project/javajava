@@ -28,9 +28,10 @@
     </select>
 
     <select id="selectJoin" resultType="java.util.Map" parameterType="String">
-        select me.mseq,scode,caseq,mname,mprice,mintro,msoldout,mimg
+        select me.mseq,me.scode,me.caseq,mname,mprice,mintro,msoldout,mimg,cname
         from menu me
         join menuimg mi on me.mseq = mi.mseq
+        join category ca on ca.caseq = me.caseq
         where me.scode=#{scode}
     </select>
 

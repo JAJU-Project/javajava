@@ -20,4 +20,6 @@ public interface ReviewMapper {
 
     List<HashMap<String, Object>> selectByRseq(HashMap<String, Object> map);
 
+    List<HashMap<String, Object>> selectByJoin(HashMap<String, Object> map);
+
 }

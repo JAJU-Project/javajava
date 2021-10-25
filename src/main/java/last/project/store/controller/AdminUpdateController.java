@@ -1,5 +1,7 @@
 package last.project.store.controller;
 
+import java.util.HashMap;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,9 +32,14 @@ public class AdminUpdateController {
     }
 
     @PostMapping("categoUpdate") // 카테고리 업데이트
-    public String categoUpdate(CategoryVo categoryVo) {
-        categoryService.updateByCname(categoryVo);
-        return null;
+    public String categoUpdate(String cname, long caseq) {
+        log.info("cname: " + cname);
+        log.info("caseq: " + caseq);
+        HashMap<String, Object> map = new HashMap<String, Object>();
+        map.put("cname", cname);
+        map.put("caseq", caseq);
+        categoryService.updateByCname(map);
+        return "redirect:menu";
     }
 
     @RequestMapping("receipt") // 주문 접수

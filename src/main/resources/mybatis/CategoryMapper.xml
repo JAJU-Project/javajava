@@ -11,6 +11,10 @@
         select cname from category where scode =#{scode}
     </select>
 
+    <select id="selectByCaseq" resultType="String" parameterType="long">
+        select cname from category where caseq=#{caseq}
+    </select>
+
     <insert id="insertAll" parameterType="CategoryVo">
         insert into category values(CA_SEQ.NEXTVAL,#{scode}, #{cname}, sysdate)
     </insert>
@@ -19,8 +23,8 @@
         delete from category where scode=#{scode} and cname=#{cname}
     </delete>
 
-    <update id="updateByCname" parameterType="CategoryVo">
-        update category set cname=#{cname} where scode=#{scode} and cname=#{cname}
+    <update id="updateByCname" parameterType="java.util.HashMap">
+        update category set cname=#{cname} where caseq=#{caseq}
     </update>
 
     

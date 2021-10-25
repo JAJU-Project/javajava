@@ -1,5 +1,6 @@
 package last.project.store.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -38,9 +39,15 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void updateByCname(CategoryVo categoryVo) {
+    public String selectByCaseq(long caseq) {
         // TODO Auto-generated method stub
-        categoryMapper.updateByCname(categoryVo);
+        return categoryMapper.selectByCaseq(caseq);
+    }
+
+    @Override
+    public void updateByCname(HashMap<String, Object> map) {
+        // TODO Auto-generated method stub
+        categoryMapper.updateByCname(map);
     }
 
 }

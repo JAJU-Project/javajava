@@ -32,34 +32,6 @@ import lombok.extern.java.Log;
 public class ListController {
 
     private CategoryService categoryService;
-    private MenuService menuService;
-    private BasketService basketService;
-    private StoreService storeService;
-    private StoreimgService storeimgService;
-
-    @RequestMapping("store.do") // 관리자 매장 리스트
-    public ModelAndView store(HttpSession session) {
-        String scode = (String) session.getAttribute("scode");
-
-        String maid = (String) session.getAttribute("maid"); // 로그인한 관리자 아이디 session값 가져옴
-        List<HashMap<String, Object>> maplist = storeService.selectJoin(maid);
-        log.info("maplist: " + maplist);
-        log.info("maplist.size: " + maplist.size());
-        List<StoreVo> list = storeService.selectByMaid(maid); // 관리자의 매장 정보 전부 가져옴.
-        log.info("#store.do list:" + list);
-        ModelAndView mv = new ModelAndView("store"); // store.jsp로 이동
-        // mv.addObject("list", list); // 매장 리시트 전송
-        mv.addObject("maplist", maplist);
-
-        return mv;
-    }
-
-    @GetMapping("management.do") // 매장관리 페이지
-    public String storeMain(String scode, HttpSession session) { // 매장 들어갈때 파라미터 매장코드 가져옴
-        session.setAttribute("scode", scode); // session에 매장코드 저장.
-        log.info("#management.do scode: " + scode);
-        return "admin/index"; // admin/index.jsp로 이동
-    }
 
     @GetMapping("menu_in") // 메뉴추가 버튼을 누르면 카테고리를 보내주기 위한 용도
     public ModelAndView menu_in(HttpSession session) {

@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=utf-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -8,11 +10,11 @@
 /* BASIC */
 
 html {
-  background-color: #56baed;
+  background-color: #d6bae0;
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'a옛날목욕탕L', Times, serif; 
   height: 100vh;
 }
 
@@ -34,7 +36,7 @@ h2 {
 }
 
 
-
+/*rest*/
 /* STRUCTURE */
 
 .wrapper {
@@ -50,8 +52,7 @@ h2 {
 #formContent {
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;
-  background: #d6bae0; 
-  color: #d6bae0;
+  background: #fff;
   padding: 30px;
   width: 90%;
   max-width: 450px;
@@ -63,7 +64,7 @@ h2 {
 }
 
 #formFooter {
-  background-color: #d6bae0;
+  background-color: #f6f6f6;
   border-top: 1px solid #dce8f1;
   padding: 25px;
   text-align: center;
@@ -76,7 +77,7 @@ h2 {
 /* TABS */
 
 h2.inactive {
-  color: #d6bae0;
+  color: #cccccc;
 }
 
 h2.active {
@@ -89,7 +90,7 @@ h2.active {
 /* FORM TYPOGRAPHY*/
 
 input[type=button], input[type=submit], input[type=reset]  {
-  background-color: #56baed;
+  background-color:#b088f5;
   border: none;
   color: white;
   padding: 15px 80px;
@@ -99,7 +100,7 @@ input[type=button], input[type=submit], input[type=reset]  {
   text-transform: uppercase;
   font-size: 13px;
   -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  box-shadow: 0 10px 30px 0 rgb(155 110 243 / 40%);
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
   margin: 5px 20px 40px 20px;
@@ -111,7 +112,7 @@ input[type=button], input[type=submit], input[type=reset]  {
 }
 
 input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
-  background-color: #39ace7;
+  background-color: #b989f7;
 }
 
 input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
@@ -211,10 +212,6 @@ input[type=text]:placeholder {
   -moz-animation-duration:1s;
   animation-duration:1s;
 }
-.formcolor{
-    color:#d6bae0;
-    background-color:#d6bae0;
-}
 
 .fadeIn.first {
   -webkit-animation-delay: 0.4s;
@@ -261,7 +258,7 @@ input[type=text]:placeholder {
 }
 
 h1{
-    color:#60a0ff;
+    color:#b989f7;
 }
 
 /* OTHERS */
@@ -281,18 +278,16 @@ h1{
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <img src="https://ifh.cc/g/WvzB9g.png" id="icon" alt="User Icon" />
-      <h1>Aditya News</h1>
+      <img src="img/jaju1.png" id="icon" alt="User Icon" />
+      <h1>관리자 Login</h1>
     </div>
 
     <!-- Login Form -->
-
-    <form class ="formcolor" name="loginInfo" method="post" action="login.do">
+    <form name="loginInfo" method="post" action="login.do">
       <input type="text" id="login" class="fadeIn second" name="maid" placeholder="username">
       <input type="text" id="password" class="fadeIn third" name="mapwd" placeholder="password">
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
-
 
     <!-- Remind Passowrd 
     <div id="formFooter">
